@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
+		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
-		5EAA33F2200E5D2300519B7E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33F1200E5D2300519B7E /* ViewController.swift */; };
+		5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33F1200E5D2300519B7E /* HomeViewController.swift */; };
 		5EAA33F5200E5D2300519B7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA33F3200E5D2300519B7E /* Main.storyboard */; };
 		5EAA33F7200E5D2300519B7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA33F6200E5D2300519B7E /* Assets.xcassets */; };
 		5EAA33FA200E5D2300519B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */; };
@@ -34,9 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabViewController.swift; sourceTree = "<group>"; };
+		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5EAA33EC200E5D2300519B7E /* VoiceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EAA33EF200E5D2300519B7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5EAA33F1200E5D2300519B7E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5EAA33F1200E5D2300519B7E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5EAA33F4200E5D2300519B7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5EAA33F6200E5D2300519B7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EAA33F9200E5D2300519B7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,6 +78,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5EA332E4200FA13300E9C6EB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		5EA332E5200FA14400E9C6EB /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				5EA332E6200FA15600E9C6EB /* Main */,
+				5EA332E9200FA1B100E9C6EB /* Home */,
+				5EA332EB200FA96D00E9C6EB /* Vocab */,
+				5EA332EA200FA96400E9C6EB /* Settings */,
+				5EA332E7200FA17600E9C6EB /* Resources */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		5EA332E6200FA15600E9C6EB /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5EAA33F3200E5D2300519B7E /* Main.storyboard */,
+				5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */,
+				5EAA33FB200E5D2300519B7E /* Info.plist */,
+				5EAA33EF200E5D2300519B7E /* AppDelegate.swift */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		5EA332E7200FA17600E9C6EB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5EAA33F6200E5D2300519B7E /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		5EA332E9200FA1B100E9C6EB /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5EAA33F1200E5D2300519B7E /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		5EA332EA200FA96400E9C6EB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5EA332EB200FA96D00E9C6EB /* Vocab */ = {
+			isa = PBXGroup;
+			children = (
+				5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */,
+			);
+			path = Vocab;
+			sourceTree = "<group>";
+		};
 		5EAA33E3200E5D2300519B7E = {
 			isa = PBXGroup;
 			children = (
@@ -97,12 +163,8 @@
 		5EAA33EE200E5D2300519B7E /* VoiceBox */ = {
 			isa = PBXGroup;
 			children = (
-				5EAA33EF200E5D2300519B7E /* AppDelegate.swift */,
-				5EAA33F1200E5D2300519B7E /* ViewController.swift */,
-				5EAA33F3200E5D2300519B7E /* Main.storyboard */,
-				5EAA33F6200E5D2300519B7E /* Assets.xcassets */,
-				5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */,
-				5EAA33FB200E5D2300519B7E /* Info.plist */,
+				5EA332E4200FA13300E9C6EB /* Shared */,
+				5EA332E5200FA14400E9C6EB /* Application */,
 			);
 			path = VoiceBox;
 			sourceTree = "<group>";
@@ -259,8 +321,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EAA33F2200E5D2300519B7E /* ViewController.swift in Sources */,
+				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
+				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
+				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,13 +491,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F75NAGDE99;
+				DEVELOPMENT_TEAM = G5P88J4SPW;
 				INFOPLIST_FILE = VoiceBox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VoiceBox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -442,13 +506,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F75NAGDE99;
+				DEVELOPMENT_TEAM = G5P88J4SPW;
 				INFOPLIST_FILE = VoiceBox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.VoiceBox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03DE31372011562B00D46B5E /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE31362011562B00D46B5E /* MainTabBar.swift */; };
 		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03DE31362011562B00D46B5E /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
 		5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabViewController.swift; sourceTree = "<group>"; };
 		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5EAA33EC200E5D2300519B7E /* VoiceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,7 @@
 				5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */,
 				5EAA33FB200E5D2300519B7E /* Info.plist */,
 				5EAA33EF200E5D2300519B7E /* AppDelegate.swift */,
+				03DE31362011562B00D46B5E /* MainTabBar.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
 				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
+				03DE31372011562B00D46B5E /* MainTabBar.swift in Sources */,
 				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

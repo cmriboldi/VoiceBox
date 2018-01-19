@@ -12,13 +12,24 @@ class VocabViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func swiped(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.direction == .left {
+            if (self.tabBarController?.selectedIndex)! < 3 { // set your total tabs here
+                self.tabBarController?.selectedIndex += 1
+            }
+        }
     }
     
 

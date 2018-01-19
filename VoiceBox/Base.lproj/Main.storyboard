@@ -24,7 +24,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3au-0l-Giy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-533" y="-493"/>
+            <point key="canvasLocation" x="-533.59375" y="-493.35937499999994"/>
         </scene>
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
@@ -34,6 +34,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="ic_home" id="RjR-OI-v4d"/>
@@ -50,23 +51,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="W5q-a1-w84"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="0BA-AZ-3ZP" appends="YES" id="FgC-h4-1hG"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="ic_settings" id="Wsz-Jz-LId"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gq2-uP-pfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="0BA-AZ-3ZP">
+                    <connections>
+                        <action selector="swipeHandler:" destination="BYZ-38-t0r" id="Dra-cL-jQK"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="969" y="-493"/>
+            <point key="canvasLocation" x="968.75" y="-493.35937499999994"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar-->
         <scene sceneID="qWz-yd-fUQ">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EQg-v3-KCH" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EQg-v3-KCH" customClass="MainTabBar" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0e3-SW-0QK">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="nnt-fn-gtA" kind="relationship" relationship="viewControllers" id="oEd-Rk-D53"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="rJi-kM-bX9"/>

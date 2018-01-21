@@ -39,6 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabBarController = self.window?.rootViewController as! UITabBarController
         tabBarController.selectedIndex = 1
+        
+//        let playButton  = UIButton(type: .custom)
+//        playButton.setImage(UIImage(named: "play.png"), for: .normal)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

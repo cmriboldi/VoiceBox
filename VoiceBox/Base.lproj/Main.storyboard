@@ -33,15 +33,57 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xe8-fZ-LZ7">
+                                <rect key="frame" x="0.0" y="20" width="768" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="WTZ-dL-2kK"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHe-w2-5ix">
+                                <rect key="frame" x="657" y="36" width="91" height="69"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" keyboardKey="YES"/>
+                                </accessibility>
+                                <state key="normal" image="backspace black"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hWg-Ng-VCq">
+                                <rect key="frame" x="283" y="413" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="bIB-tb-77j"/>
+                                    <constraint firstAttribute="width" constant="200" id="pyg-IX-Owf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                <state key="normal">
+                                    <string key="title">Main
+Word</string>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="xe8-fZ-LZ7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="117-1d-67H"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zHe-w2-5ix" secondAttribute="trailing" constant="20" id="68O-Ln-oUt"/>
+                            <constraint firstItem="hWg-Ng-VCq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-0.5" id="ApO-Rn-KJT"/>
+                            <constraint firstItem="hWg-Ng-VCq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="0.5" id="Jhc-vI-vL9"/>
+                            <constraint firstItem="xe8-fZ-LZ7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="L5Z-f1-cnb"/>
+                            <constraint firstItem="xe8-fZ-LZ7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ltG-Ua-1YU"/>
+                            <constraint firstItem="zHe-w2-5ix" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="zik-b2-8SR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="ic_home" id="RjR-OI-v4d"/>
+                    <connections>
+                        <outlet property="mainWord" destination="hWg-Ng-VCq" id="UHB-Am-haV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="198" y="-493"/>
+            <point key="canvasLocation" x="197.65625" y="-493.35937499999994"/>
         </scene>
         <!--Settings-->
         <scene sceneID="w0F-vh-atG">
@@ -68,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="968.75" y="-493.35937499999994"/>
         </scene>
-        <!--Main Tab Bar-->
+        <!--Tab Bar Controller-->
         <scene sceneID="qWz-yd-fUQ">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EQg-v3-KCH" customClass="MainTabBar" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EQg-v3-KCH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0e3-SW-0QK">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -95,6 +137,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="backspace black" width="91" height="69"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_pages" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>

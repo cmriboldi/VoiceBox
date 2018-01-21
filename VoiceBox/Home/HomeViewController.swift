@@ -9,7 +9,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    @IBOutlet weak var mainWord: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,11 +22,22 @@ class HomeViewController: UIViewController {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
+
+        mainWord?.layer.cornerRadius = 0.5 * mainWord.bounds.size.width
+        mainWord?.layer.borderColor = UIColor.black.cgColor
+        mainWord?.layer.borderWidth = 2.0
+//        mainWord?.center = self.view.center
+
+        
+//        mainWord?.layer.shadowColor = UIColor.black.cgColor
+//        mainWord?.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+//        mainWord?.layer.masksToBounds = false
+//        mainWord?.layer.shadowRadius = 2.0
+//        mainWord?.layer.shadowOpacity = 0.5
+//        mainWord?.layer.cornerRadius = mainWord.frame.width / 2
+//        mainWord?.layer.borderColor = UIColor.black.cgColor
+//        mainWord?.layer.borderWidth = 2.0
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        self.tabBarController?.selectedIndex = 0
-//    }
     
     @objc func swiped(_ gesture: UISwipeGestureRecognizer) {
         if gesture.direction == .left {

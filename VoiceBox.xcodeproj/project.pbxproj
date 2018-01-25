@@ -16,6 +16,7 @@
 		5EAA33FA200E5D2300519B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */; };
 		5EAA3405200E5D2300519B7E /* VoiceBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA3404200E5D2300519B7E /* VoiceBoxTests.swift */; };
 		5EAA3410200E5D2300519B7E /* VoiceBoxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */; };
+		5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 5ED17FD5201A5779002E1ADB /* VocabularyDB.db */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		5EAA340B200E5D2300519B7E /* VoiceBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceBoxUITests.swift; sourceTree = "<group>"; };
 		5EAA3411200E5D2300519B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5ED17FD5201A5779002E1ADB /* VocabularyDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = VocabularyDB.db; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,8 @@
 		5EA332E4200FA13300E9C6EB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				5ED17FD4201A574B002E1ADB /* Extensions */,
+				5ED17FD1201A5732002E1ADB /* Database */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -185,6 +189,21 @@
 				5EAA3411200E5D2300519B7E /* Info.plist */,
 			);
 			path = VoiceBoxUITests;
+			sourceTree = "<group>";
+		};
+		5ED17FD1201A5732002E1ADB /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				5ED17FD5201A5779002E1ADB /* VocabularyDB.db */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		5ED17FD4201A574B002E1ADB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EAA33FA200E5D2300519B7E /* LaunchScreen.storyboard in Resources */,
+				5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */,
 				5EAA33F7200E5D2300519B7E /* Assets.xcassets in Resources */,
 				5EAA33F5200E5D2300519B7E /* Main.storyboard in Resources */,
 			);

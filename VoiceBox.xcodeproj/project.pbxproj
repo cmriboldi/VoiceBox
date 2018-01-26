@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E0EB2F8201B8661002EED45 /* VocabDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */; };
+		5E1DDC97201B89B10003627A /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1DDC96201B89B10003627A /* Word.swift */; };
 		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDatabase.swift; sourceTree = "<group>"; };
+		5E1DDC96201B89B10003627A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabViewController.swift; sourceTree = "<group>"; };
 		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5EAA33EC200E5D2300519B7E /* VoiceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,11 +98,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5E1DDC95201B89880003627A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5E1DDC96201B89B10003627A /* Word.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		5EA332E4200FA13300E9C6EB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				5ED17FD4201A574B002E1ADB /* Extensions */,
 				5ED17FD1201A5732002E1ADB /* Database */,
+				5E1DDC95201B89880003627A /* Models */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -211,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				5ED17FD5201A5779002E1ADB /* VocabularyDB.db */,
+				5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -425,7 +439,9 @@
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
 				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
+				5E0EB2F8201B8661002EED45 /* VocabDatabase.swift in Sources */,
 				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
+				5E1DDC97201B89B10003627A /* Word.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

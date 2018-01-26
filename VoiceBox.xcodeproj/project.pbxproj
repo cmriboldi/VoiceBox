@@ -17,6 +17,7 @@
 		5EAA3405200E5D2300519B7E /* VoiceBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA3404200E5D2300519B7E /* VoiceBoxTests.swift */; };
 		5EAA3410200E5D2300519B7E /* VoiceBoxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */; };
 		5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 5ED17FD5201A5779002E1ADB /* VocabularyDB.db */; };
+		8CB5D2BE06CB4E0FAF04920B /* Pods_VoiceBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 768DBE447492CD9C78C8A852 /* Pods_VoiceBox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,9 @@
 		5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceBoxUITests.swift; sourceTree = "<group>"; };
 		5EAA3411200E5D2300519B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5ED17FD5201A5779002E1ADB /* VocabularyDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = VocabularyDB.db; sourceTree = "<group>"; };
+		75074F08D8DEBA02E50E3D27 /* Pods-VoiceBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.debug.xcconfig"; sourceTree = "<group>"; };
+		753E1473BEC6095E4BC624B5 /* Pods-VoiceBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.release.xcconfig"; sourceTree = "<group>"; };
+		768DBE447492CD9C78C8A852 /* Pods_VoiceBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB5D2BE06CB4E0FAF04920B /* Pods_VoiceBox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44C67EB575752FC54AADF804 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				75074F08D8DEBA02E50E3D27 /* Pods-VoiceBox.debug.xcconfig */,
+				753E1473BEC6095E4BC624B5 /* Pods-VoiceBox.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		5EA332E4200FA13300E9C6EB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +165,8 @@
 				5EAA3403200E5D2300519B7E /* VoiceBoxTests */,
 				5EAA340E200E5D2300519B7E /* VoiceBoxUITests */,
 				5EAA33ED200E5D2300519B7E /* Products */,
+				44C67EB575752FC54AADF804 /* Pods */,
+				BB3EF7FCC2B3F52165B5CACF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,6 +222,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		BB3EF7FCC2B3F52165B5CACF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				768DBE447492CD9C78C8A852 /* Pods_VoiceBox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -213,9 +237,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EAA3414200E5D2300519B7E /* Build configuration list for PBXNativeTarget "VoiceBox" */;
 			buildPhases = (
+				F6B7B4571FE42C56B080773B /* [CP] Check Pods Manifest.lock */,
 				5EAA33E8200E5D2300519B7E /* Sources */,
 				5EAA33E9200E5D2300519B7E /* Frameworks */,
 				5EAA33EA200E5D2300519B7E /* Resources */,
+				6064C0CEB1EEB97375B1543A /* [CP] Embed Pods Frameworks */,
+				6BB0F7F69F918D5E661F31A6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -335,6 +362,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6064C0CEB1EEB97375B1543A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GRDB.swift/GRDB.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRDB.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BB0F7F69F918D5E661F31A6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6B7B4571FE42C56B080773B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoiceBox-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5EAA33E8200E5D2300519B7E /* Sources */ = {
@@ -508,6 +589,7 @@
 		};
 		5EAA3415200E5D2300519B7E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75074F08D8DEBA02E50E3D27 /* Pods-VoiceBox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -523,6 +605,7 @@
 		};
 		5EAA3416200E5D2300519B7E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 753E1473BEC6095E4BC624B5 /* Pods-VoiceBox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

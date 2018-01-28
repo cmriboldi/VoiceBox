@@ -62,8 +62,8 @@ class VocabDatabase {
                 var words = [Word]()
                 let rows = try Row.fetchCursor(db,
                                            "select * from \(Word.databaseTableName) " +
-                                           "where \(Word.word) like '?%'",
-                                           arguments: [preffix])
+                                           "where \(Word.word) like ?",
+                                           arguments: ["\(preffix)%"])
                 while let row = try rows.next() {
                     words.append(Word(row: row))
                 }

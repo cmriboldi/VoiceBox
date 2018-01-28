@@ -7,8 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< Updated upstream
 		5E0EB2F8201B8661002EED45 /* VocabDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */; };
 		5E1DDC97201B89B10003627A /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1DDC96201B89B10003627A /* Word.swift */; };
+=======
+		03DE313D20169A1400D46B5E /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE313C20169A1400D46B5E /* WordList.swift */; };
+		03DE31B1201B288D00D46B5E /* LangKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DE31A8201B288D00D46B5E /* LangKit.framework */; };
+		03DE31B6201B288D00D46B5E /* LangKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE31B5201B288D00D46B5E /* LangKitTests.swift */; };
+		03DE31B8201B288D00D46B5E /* LangKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 03DE31AA201B288D00D46B5E /* LangKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		03DE31C1201B2DAB00D46B5E /* NGram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE31C0201B2DAA00D46B5E /* NGram.swift */; };
+		03DE31C7201CE7C100D46B5E /* train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 03DE31C6201CE7C100D46B5E /* train.txt */; };
+		03DE31C9201DB70000D46B5E /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE31C8201DB70000D46B5E /* Trie.swift */; };
+>>>>>>> Stashed changes
 		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
@@ -23,6 +33,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		03DE31B2201B288D00D46B5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5EAA33E4200E5D2300519B7E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03DE31A7201B288D00D46B5E;
+			remoteInfo = LangKit;
+		};
 		5EAA3401200E5D2300519B7E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5EAA33E4200E5D2300519B7E /* Project object */;
@@ -40,8 +57,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+<<<<<<< Updated upstream
 		5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDatabase.swift; sourceTree = "<group>"; };
 		5E1DDC96201B89B10003627A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+=======
+		03DE313C20169A1400D46B5E /* WordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
+		03DE31A8201B288D00D46B5E /* LangKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LangKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		03DE31AA201B288D00D46B5E /* LangKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LangKit.h; sourceTree = "<group>"; };
+		03DE31AB201B288D00D46B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03DE31B0201B288D00D46B5E /* LangKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LangKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03DE31B5201B288D00D46B5E /* LangKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangKitTests.swift; sourceTree = "<group>"; };
+		03DE31B7201B288D00D46B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03DE31C0201B2DAA00D46B5E /* NGram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NGram.swift; sourceTree = "<group>"; };
+		03DE31C6201CE7C100D46B5E /* train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = train.txt; sourceTree = "<group>"; };
+		03DE31C8201DB70000D46B5E /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Trie.swift; path = /Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/NGram/Trie.swift; sourceTree = "<absolute>"; };
+>>>>>>> Stashed changes
 		5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabViewController.swift; sourceTree = "<group>"; };
 		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5EAA33EC200E5D2300519B7E /* VoiceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +94,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03DE31A4201B288D00D46B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03DE31AD201B288D00D46B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03DE31B1201B288D00D46B5E /* LangKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EAA33E9200E5D2300519B7E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,6 +134,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+<<<<<<< Updated upstream
 		44C67EB575752FC54AADF804 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +150,41 @@
 				5E1DDC96201B89B10003627A /* Word.swift */,
 			);
 			path = Models;
+=======
+		03DE3177201AE2D200D46B5E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				03DE31C6201CE7C100D46B5E /* train.txt */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		03DE31A9201B288D00D46B5E /* LangKit */ = {
+			isa = PBXGroup;
+			children = (
+				03DE31AA201B288D00D46B5E /* LangKit.h */,
+				03DE31AB201B288D00D46B5E /* Info.plist */,
+			);
+			path = LangKit;
+			sourceTree = "<group>";
+		};
+		03DE31B4201B288D00D46B5E /* LangKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				03DE31B5201B288D00D46B5E /* LangKitTests.swift */,
+				03DE31B7201B288D00D46B5E /* Info.plist */,
+			);
+			path = LangKitTests;
+			sourceTree = "<group>";
+		};
+		03DE31BF201B2B7300D46B5E /* NGram */ = {
+			isa = PBXGroup;
+			children = (
+				03DE31C0201B2DAA00D46B5E /* NGram.swift */,
+				03DE31C8201DB70000D46B5E /* Trie.swift */,
+			);
+			path = NGram;
+>>>>>>> Stashed changes
 			sourceTree = "<group>";
 		};
 		5EA332E4200FA13300E9C6EB /* Shared */ = {
@@ -119,6 +200,8 @@
 		5EA332E5200FA14400E9C6EB /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				03DE31BF201B2B7300D46B5E /* NGram */,
+				03DE3177201AE2D200D46B5E /* Data */,
 				5EA332E6200FA15600E9C6EB /* Main */,
 				5EA332E9200FA1B100E9C6EB /* Home */,
 				5EA332EB200FA96D00E9C6EB /* Vocab */,
@@ -151,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				5EAA33F1200E5D2300519B7E /* HomeViewController.swift */,
+				03DE313C20169A1400D46B5E /* WordList.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -177,6 +261,8 @@
 				5EAA33EE200E5D2300519B7E /* VoiceBox */,
 				5EAA3403200E5D2300519B7E /* VoiceBoxTests */,
 				5EAA340E200E5D2300519B7E /* VoiceBoxUITests */,
+				03DE31A9201B288D00D46B5E /* LangKit */,
+				03DE31B4201B288D00D46B5E /* LangKitTests */,
 				5EAA33ED200E5D2300519B7E /* Products */,
 				44C67EB575752FC54AADF804 /* Pods */,
 				BB3EF7FCC2B3F52165B5CACF /* Frameworks */,
@@ -189,6 +275,8 @@
 				5EAA33EC200E5D2300519B7E /* VoiceBox.app */,
 				5EAA3400200E5D2300519B7E /* VoiceBoxTests.xctest */,
 				5EAA340B200E5D2300519B7E /* VoiceBoxUITests.xctest */,
+				03DE31A8201B288D00D46B5E /* LangKit.framework */,
+				03DE31B0201B288D00D46B5E /* LangKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -246,7 +334,54 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		03DE31A5201B288D00D46B5E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03DE31B8201B288D00D46B5E /* LangKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		03DE31A7201B288D00D46B5E /* LangKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03DE31B9201B288D00D46B5E /* Build configuration list for PBXNativeTarget "LangKit" */;
+			buildPhases = (
+				03DE31A3201B288D00D46B5E /* Sources */,
+				03DE31A4201B288D00D46B5E /* Frameworks */,
+				03DE31A5201B288D00D46B5E /* Headers */,
+				03DE31A6201B288D00D46B5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LangKit;
+			productName = LangKit;
+			productReference = 03DE31A8201B288D00D46B5E /* LangKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		03DE31AF201B288D00D46B5E /* LangKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03DE31BC201B288D00D46B5E /* Build configuration list for PBXNativeTarget "LangKitTests" */;
+			buildPhases = (
+				03DE31AC201B288D00D46B5E /* Sources */,
+				03DE31AD201B288D00D46B5E /* Frameworks */,
+				03DE31AE201B288D00D46B5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03DE31B3201B288D00D46B5E /* PBXTargetDependency */,
+			);
+			name = LangKitTests;
+			productName = LangKitTests;
+			productReference = 03DE31B0201B288D00D46B5E /* LangKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		5EAA33EB200E5D2300519B7E /* VoiceBox */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EAA3414200E5D2300519B7E /* Build configuration list for PBXNativeTarget "VoiceBox" */;
@@ -313,6 +448,14 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Christian Riboldi";
 				TargetAttributes = {
+					03DE31A7201B288D00D46B5E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					03DE31AF201B288D00D46B5E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					5EAA33EB200E5D2300519B7E = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -345,17 +488,37 @@
 				5EAA33EB200E5D2300519B7E /* VoiceBox */,
 				5EAA33FF200E5D2300519B7E /* VoiceBoxTests */,
 				5EAA340A200E5D2300519B7E /* VoiceBoxUITests */,
+				03DE31A7201B288D00D46B5E /* LangKit */,
+				03DE31AF201B288D00D46B5E /* LangKitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		03DE31A6201B288D00D46B5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03DE31AE201B288D00D46B5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EAA33EA200E5D2300519B7E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5EAA33FA200E5D2300519B7E /* LaunchScreen.storyboard in Resources */,
+<<<<<<< Updated upstream
 				5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */,
+=======
+				03DE31C7201CE7C100D46B5E /* train.txt in Resources */,
+>>>>>>> Stashed changes
 				5EAA33F7200E5D2300519B7E /* Assets.xcassets in Resources */,
 				5EAA33F5200E5D2300519B7E /* Main.storyboard in Resources */,
 			);
@@ -432,6 +595,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03DE31A3201B288D00D46B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03DE31AC201B288D00D46B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03DE31B6201B288D00D46B5E /* LangKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EAA33E8200E5D2300519B7E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,9 +617,16 @@
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
 				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
+<<<<<<< Updated upstream
 				5E0EB2F8201B8661002EED45 /* VocabDatabase.swift in Sources */,
 				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
 				5E1DDC97201B89B10003627A /* Word.swift in Sources */,
+=======
+				03DE31C9201DB70000D46B5E /* Trie.swift in Sources */,
+				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
+				03DE313D20169A1400D46B5E /* WordList.swift in Sources */,
+				03DE31C1201B2DAB00D46B5E /* NGram.swift in Sources */,
+>>>>>>> Stashed changes
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +649,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		03DE31B3201B288D00D46B5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03DE31A7201B288D00D46B5E /* LangKit */;
+			targetProxy = 03DE31B2201B288D00D46B5E /* PBXContainerItemProxy */;
+		};
 		5EAA3402200E5D2300519B7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5EAA33EB200E5D2300519B7E /* VoiceBox */;
@@ -496,6 +686,78 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		03DE31BA201B288D00D46B5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = LangKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LangKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		03DE31BB201B288D00D46B5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = LangKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LangKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		03DE31BD201B288D00D46B5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LangKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LangKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		03DE31BE201B288D00D46B5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LangKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LangKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		5EAA3412200E5D2300519B7E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -704,6 +966,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03DE31B9201B288D00D46B5E /* Build configuration list for PBXNativeTarget "LangKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03DE31BA201B288D00D46B5E /* Debug */,
+				03DE31BB201B288D00D46B5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03DE31BC201B288D00D46B5E /* Build configuration list for PBXNativeTarget "LangKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03DE31BD201B288D00D46B5E /* Debug */,
+				03DE31BE201B288D00D46B5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5EAA33E7200E5D2300519B7E /* Build configuration list for PBXProject "VoiceBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

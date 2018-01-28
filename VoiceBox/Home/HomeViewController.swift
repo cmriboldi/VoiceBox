@@ -8,12 +8,15 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet weak var inputWord: UITextField!
     @IBOutlet weak var mainWord: UIButton!
+    @IBOutlet weak var wordList: WordList!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        inputWord.delegate = self
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -47,6 +50,30 @@ class HomeViewController: UIViewController {
 //        mainWord?.layer.cornerRadius = mainWord.frame.width / 2
 //        mainWord?.layer.borderColor = UIColor.black.cgColor
 //        mainWord?.layer.borderWidth = 2.0
+    }
+    
+    //MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Hide the keyboard.
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func doMachineLearning(word: String, numWords: Int) -> [String] {
+        var probableWords = [String]()
+        
+        let ngram = NGram()
+        ngram.train(textFilePath: "/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/Data/train.txt", n: 3)
+        probableWords = ngram.nextWords(word: word, numWords: numWords)
+        
+        return probableWords
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let probableWords = doMachineLearning(word: textField.text!, numWords: 5)
+        
+        wordList.words = probableWords
+        wordList.setupWords()
     }
     
     @objc func swiped(_ gesture: UISwipeGestureRecognizer) {

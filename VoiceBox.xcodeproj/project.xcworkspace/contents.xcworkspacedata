@@ -2,6 +2,27 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:VoiceBox.xcodeproj">
+      location = "group:/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/NGram/Trie.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../VoiceBox/Data/train.txt">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/NGram/Data.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../VoiceBox/NGram/NGram.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../Package.swift">
+   </FileRef>
+   <FileRef
+      location = "group:../train.txt">
+   </FileRef>
+   <FileRef
+      location = "group:../VoiceBox/CoreLinguistics-master">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

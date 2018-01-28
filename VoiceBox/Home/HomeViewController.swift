@@ -58,7 +58,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let probableWords = doMachineLearning(word: textField.text!, numWords: 5)
+        let probableWords = doMachineLearning(word: textField.text!.lowercased(), numWords: 5)
         
         wordList.words = probableWords
         wordList.setupWords()

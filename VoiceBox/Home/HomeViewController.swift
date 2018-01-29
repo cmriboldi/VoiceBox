@@ -29,15 +29,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         mainWord?.layer.cornerRadius = 0.5 * mainWord.bounds.size.width
         mainWord?.layer.borderColor = UIColor.black.cgColor
         mainWord?.layer.borderWidth = 2.0
-        
-//        let word1 = VocabDatabase.shared.wordForId(1)
-//        let word2 = VocabDatabase.shared.wordForId(2)
-//        print("word1: \(word1) \nword2: \(word2)")
-//        
-//        let aWords = VocabDatabase.shared.wordsWithPreffix("a")
-//        let bWords = VocabDatabase.shared.wordsWithPreffix("b")
-//        
-//        print("aWords: \(aWords) \nbWords:\(bWords)")
     }
     
     //MARK: UITextFieldDelegate

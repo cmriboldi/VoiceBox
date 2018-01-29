@@ -11,6 +11,10 @@ import UIKit
 class HomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var inputWord: UITextField!
     @IBOutlet weak var mainWord: UIButton!
+    @IBAction func train(_ sender: UIButton) {
+        let trainer = Trainer()
+        trainer.train(textFilePath: "/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/Shared/Data/train.txt")
+    }
     @IBOutlet weak var wordList: WordList!
     
     override func viewDidLoad() {

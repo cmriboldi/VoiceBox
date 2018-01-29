@@ -57,10 +57,10 @@
                                     <constraint firstAttribute="width" constant="200" id="pyg-IX-Owf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                <state key="normal">
-                                    <string key="title">Main
-Word</string>
-                                </state>
+                                <state key="normal" title="Train"/>
+                                <connections>
+                                    <action selector="train:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5KH-Fr-t93"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PBV-MN-rIl" customClass="WordList" customModule="VoiceBox" customModuleProvider="target">
                                 <rect key="frame" x="283" y="128" width="200" height="277"/>

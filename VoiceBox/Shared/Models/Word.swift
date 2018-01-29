@@ -9,31 +9,50 @@
 import Foundation
 import GRDB
 
-struct Word : TableMapping, RowConvertible {
-    
+struct Word {//: TableMapping, RowConvertible {
     // MARK: - Properties
-    var vaue: String
-    var numOccur: Int
-    var imageName: String
-    var nextWords: [Word]?
+    public var value: String
+    public var numOccur: Int
+    public var imageName: String
+    public var nextWords: [String:Word]?
     
-    // MARK: - Table mapping
-    
-    static let databaseTableName = "words"
-    
-    // MARK: - Field names
-    
-    static let id = "ID"
-    static let word = "word"
-    static let imageName = "imageName"
-    
-    // MARK: - Initialization
-
-    init() {
-        imageName = ""
+    public init(value: String, imageName: String) {
+        self.value = value
+        self.numOccur = 1
+        self.imageName = imageName
+        nextWords = [:]
     }
-
-    init(row: Row) {
-        imageName = row[Word.imageName]
+    
+    public mutating func incrementNumOccur() {
+        self.numOccur = self.numOccur + 1
     }
+    
+    public mutating func addWord(value: String, imageName: String) {
+        if self.nextWords?[value] == nil {
+            self.nextWords?[value] = Word(value: value, imageName: imageName)
+        }
+        else {
+            self.nextWords?[value]?.incrementNumOccur()
+        }
+    }
+    
+//    // MARK: - Table mapping
+//
+//    static let databaseTableName = "words"
+//
+//    // MARK: - Field names
+//
+//    static let id = "ID"
+//    static let word = "word"
+//    static let imageName = "imageName"
+//
+//    // MARK: - Initialization
+//
+//    init() {
+//        imageName = ""
+//    }
+//
+//    init(row: Row) {
+//        imageName = row[Word.imageName]
+//    }
 }

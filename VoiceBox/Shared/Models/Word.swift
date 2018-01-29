@@ -12,10 +12,10 @@ import GRDB
 struct Word : TableMapping, RowConvertible {
     
     // MARK: - Properties
-    
-    var id: Int
-    var word: String
-    var imageName: String?
+    var vaue: String
+    var numOccur: Int
+    var imageName: String
+    var nextWords: [Word]?
     
     // MARK: - Table mapping
     
@@ -30,14 +30,10 @@ struct Word : TableMapping, RowConvertible {
     // MARK: - Initialization
 
     init() {
-        id = 0
-        word = ""
         imageName = ""
     }
 
     init(row: Row) {
-        id = row[Word.id]
-        word = row[Word.word]
         imageName = row[Word.imageName]
     }
 }

@@ -13,7 +13,7 @@
 		032F8B65201FC3BF0072A680 /* train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 032F8B64201FC3BF0072A680 /* train.txt */; };
 		032F8B69201FC3C80072A680 /* NGram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F8B66201FC3C70072A680 /* NGram.swift */; };
 		032F8B6A201FC3C80072A680 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F8B67201FC3C70072A680 /* Trie.swift */; };
-		032F8B6B201FC3C80072A680 /* HashTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F8B68201FC3C70072A680 /* HashTable.swift */; };
+		032F8B6D201FC4A40072A680 /* WordStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F8B6C201FC4A40072A680 /* WordStructure.swift */; };
 		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
@@ -49,7 +49,7 @@
 		032F8B64201FC3BF0072A680 /* train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = train.txt; sourceTree = "<group>"; };
 		032F8B66201FC3C70072A680 /* NGram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NGram.swift; sourceTree = "<group>"; };
 		032F8B67201FC3C70072A680 /* Trie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
-		032F8B68201FC3C70072A680 /* HashTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashTable.swift; sourceTree = "<group>"; };
+		032F8B6C201FC4A40072A680 /* WordStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordStructure.swift; sourceTree = "<group>"; };
 		5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDatabase.swift; sourceTree = "<group>"; };
 		5E1DDC96201B89B10003627A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabViewController.swift; sourceTree = "<group>"; };
@@ -110,9 +110,9 @@
 		032F8B5B201FC3700072A680 /* NGram */ = {
 			isa = PBXGroup;
 			children = (
-				032F8B68201FC3C70072A680 /* HashTable.swift */,
 				032F8B66201FC3C70072A680 /* NGram.swift */,
 				032F8B67201FC3C70072A680 /* Trie.swift */,
+				032F8B6C201FC4A40072A680 /* WordStructure.swift */,
 			);
 			path = NGram;
 			sourceTree = "<group>";
@@ -462,7 +462,6 @@
 			files = (
 				032F8B47201DE62C0072A680 /* VocabDatabase.swift in Sources */,
 				032F8B48201DE6300072A680 /* Word.swift in Sources */,
-				032F8B6B201FC3C80072A680 /* HashTable.swift in Sources */,
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				032F8B6A201FC3C80072A680 /* Trie.swift in Sources */,
 				032F8B69201FC3C80072A680 /* NGram.swift in Sources */,
@@ -470,6 +469,7 @@
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
 				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
 				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
+				032F8B6D201FC4A40072A680 /* WordStructure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

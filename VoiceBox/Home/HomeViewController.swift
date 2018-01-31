@@ -13,7 +13,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mainWord: UIButton!
     @IBAction func train(_ sender: UIButton) {
         let trainer = Trainer()
-        trainer.train(textFilePath: "/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/Shared/Data/train.txt")
+        trainer.train(name: "train", extension: "txt")
     }
     @IBOutlet weak var wordList: WordList!
     

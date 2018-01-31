@@ -27,10 +27,18 @@ public class Trainer {
         }
     }
     
-    public func train(textFilePath: String) {
+    public func train(name fileName: String, extension fileExtension: String) {
         var textFile: String = ""
-        do {textFile = try NSString.init(contentsOfFile: textFilePath, encoding: String.Encoding.utf8.rawValue) as String}
-        catch {/* error handling here */}
+        
+        if let filepath = Bundle.main.path(forResource: fileName, ofType: fileExtension) {
+            do {
+                textFile = try String(contentsOfFile: filepath)
+            } catch {
+                print("Contents of \(fileName).\(fileExtension) could not be loaded.")
+            }
+        } else {
+            print("\(fileName).\(fileExtension) was not found.")
+        }
         
         textFile.enumerateSubstrings(in: textFile.startIndex..<textFile.endIndex,
                                      options: .byWords) {
@@ -57,5 +65,52 @@ public class Trainer {
             textWord = textNextWord
             textNextWord = textNextNextWord
         }
+        
+        print("Done Training")
+        
+        let fileName = "words"
+        let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let fileURL = documentDirURL.appendingPathComponent(fileName).appendingPathExtension("json")
+
+        print("File Path: \(fileURL.path)")
+        
+        let writeString: String = """
+            [
+                \(format(words:words, isRoot: true))
+            ]
+            """
+        
+        do {
+            try writeString.write(to: fileURL, atomically: true, encoding: .utf8)
+        } catch let error as NSError {
+            print("Failed to write to URL.")
+            print(error)
+        }
+        
+        print("Done Writing to File")
+        
+        
+    }
+    
+    func format(words: [String: Word]?, isRoot: Bool) -> String {
+        var json = "{"
+        if let words = words {
+            var count = 0
+            for (key, word) in words {
+                json += """
+                "\(key)": {
+                    "value":"\(word.value)",
+                    "numOccur":\(word.numOccur),
+                    "nextWords":\(format(words: word.nextWords, isRoot: false))
+                }
+                """
+                count += 1
+                if count != words.count {
+                    json += ","
+                }
+            }
+        }
+        json += "}"
+        return json
     }
 }

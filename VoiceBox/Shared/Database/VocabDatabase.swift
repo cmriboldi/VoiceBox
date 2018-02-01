@@ -30,6 +30,10 @@ class VocabDatabase {
         dbQueue = try? DatabaseQueue(path: Bundle.main.path(forResource: Constant.fileName, ofType: Constant.fileExtension)!)
     }
     
+    public func getWord(word: String) -> Word {
+        return Word(value: "", imageName: "")
+    }
+    
 //    // MARK: - Helpers
 //
 //    //

@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VoiceBox/Shared/Learning/Trainer.swift"
-            timestampString = "538961100.758687"
+            filePath = "VoiceBox/Shared/Learning/NGram.swift"
+            timestampString = "539219414.161644"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "train(textFilePath:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "nextWords(prevWord:word:numWords:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -46,8 +46,12 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         var probableWords = [String]()
         
         let ngram = NGram()
-        ngram.train(textFilePath: "/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/Shared/Data/train.txt", n: 3)
-        probableWords = ngram.nextWords(word: word, numWords: numWords)
+//        ngram.train(textFilePath: "/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/Shared/Data/train.txt", n: 3)
+//        probableWords = ngram.nextWords(textPrevWord: word, textWord: word, numWords: numWords)
+        let temp = Word(value: "", imageName: "")
+        let prevWord = VocabDatabase.shared.getWord(word: word)
+        let word = VocabDatabase.shared.getWord(word: word)
+        probableWords = ngram.nextWords(prevWord: prevWord, word: word, numWords: numWords)
         
         return probableWords
     }

@@ -9,7 +9,7 @@
 import Foundation
 import GRDB
 
-struct Word {//: TableMapping, RowConvertible {
+public struct Word {//: TableMapping, RowConvertible {
     // MARK: - Properties
     public var value: String
     public var numOccur: Int

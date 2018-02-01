@@ -75,9 +75,7 @@ public class Trainer {
         print("File Path: \(fileURL.path)")
         
         let writeString: String = """
-            [
-                \(format(words:words, isRoot: true))
-            ]
+            [\(format(words:words, iteration: 1))]
             """
         
         do {
@@ -92,25 +90,27 @@ public class Trainer {
         
     }
     
-    func format(words: [String: Word]?, isRoot: Bool) -> String {
-        var json = "{"
+    func format(words: [String: Word]?, iteration: Int) -> String {
+        let baseTabs = String(repeating: "\t", count: iteration-1)
+        let repeatTabs = baseTabs + "\t"
+        var json = "{\n"
         if let words = words {
             var count = 0
             for (key, word) in words {
                 json += """
-                "\(key)": {
-                    "value":"\(word.value)",
-                    "numOccur":\(word.numOccur),
-                    "nextWords":\(format(words: word.nextWords, isRoot: false))
-                }
+                \(repeatTabs)"\(key)": {
+                \(repeatTabs)\t"value": "\(word.value)",
+                \(repeatTabs)\t"numOccur": \(word.numOccur),
+                \(repeatTabs)\t"nextWords": \(format(words: word.nextWords, iteration: iteration+2))
+                \(repeatTabs)}
                 """
                 count += 1
                 if count != words.count {
-                    json += ","
+                    json += ",\n"
                 }
             }
         }
-        json += "}"
-        return json
+        json += "\n\(baseTabs)}"
+        return (json == "{\n\n\(baseTabs)}") ? "{}" : json
     }
 }

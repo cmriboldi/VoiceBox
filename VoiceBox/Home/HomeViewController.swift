@@ -9,6 +9,9 @@
 import UIKit
 
 class HomeViewController: UIViewController, UITextFieldDelegate {
+    var textPrevWord: String = ""
+    var prevWord: Word = Word(value: "", imageName: "")
+    
     @IBOutlet weak var inputWord: UITextField!
     @IBOutlet weak var mainWord: UIButton!
     @IBAction func train(_ sender: UIButton) {
@@ -42,22 +45,23 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func doMachineLearning(word: String, numWords: Int) -> [String] {
+    func doMachineLearning(textWord: String, numWords: Int) -> [String] {
         var probableWords = [String]()
         
         let ngram = NGram()
 //        ngram.train(textFilePath: "/Users/andrewhale/Documents/CS498R/VoiceBox/VoiceBox/Shared/Data/train.txt", n: 3)
 //        probableWords = ngram.nextWords(textPrevWord: word, textWord: word, numWords: numWords)
-        let temp = Word(value: "", imageName: "")
-        let prevWord = VocabDatabase.shared.getWord(word: word)
-        let word = VocabDatabase.shared.getWord(word: word)
-        probableWords = ngram.nextWords(prevWord: prevWord, word: word, numWords: numWords)
+        let word = VocabDatabase.shared.getWord(word: textWord)
+        probableWords = ngram.nextWords(prevWord: self.prevWord, word: word, numWords: numWords)
+        self.textPrevWord = textWord
+        self.prevWord = word
         
         return probableWords
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let probableWords = doMachineLearning(word: textField.text!.lowercased(), numWords: 5)
+        let input = textField.text!.lowercased().components(separatedBy: " ").last
+        let probableWords = doMachineLearning(textWord: input!, numWords: 5)
         
         wordList.words = probableWords
         wordList.setupWords()

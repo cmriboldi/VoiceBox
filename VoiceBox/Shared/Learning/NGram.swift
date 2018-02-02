@@ -56,7 +56,7 @@ public class NGram {
         
         var nextWords = [String:Word]()
         
-        if prevWord.nextWords![textWord] != nil {
+        if !(prevWord.value == "" && prevWord.imageName == "") && prevWord.nextWords![textWord] != nil {
             for (key, value) in (prevWord.nextWords![textWord]?.nextWords)! {
                 if nextWords[key] == nil {
                     nextWords[key] = Word(value: key, imageName: value.imageName)

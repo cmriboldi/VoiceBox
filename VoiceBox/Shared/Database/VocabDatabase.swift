@@ -30,33 +30,40 @@ class VocabDatabase {
         dbQueue = try? DatabaseQueue(path: Bundle.main.path(forResource: Constant.fileName, ofType: Constant.fileExtension)!)
     }
     
-    public func getWord(word: String) -> Word {
-        return Word(value: "", imageName: "")
+
+    // MARK: - Helpers
+
+    //
+    // Return a Word object for the given word ID.
+    //
+    func wordForId(_ wordId: Int) -> Word {
+        do {
+            let word = try dbQueue.inDatabase{ (db: Database) -> Word in
+                let row = try Row.fetchOne(db,
+                                           "select * from \(Word.databaseTableName) " +
+                                           "where \(Word.id) = ?",
+                                           arguments: [wordId])
+                if let row = row, let data = row[Word.json] as? String {
+                    if let jsonData = data.data(using: .utf8, allowLossyConversion: false) {
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: jsonData) as? [String:Any] {
+                                return Word(json: json)
+                            }
+                        } catch {
+                            print("Error deserializing the json")
+                            print(error)
+                            return Word()
+                        }
+                    }
+                }
+                return Word()
+            }
+            return word
+        } catch {
+            return Word()
+        }
     }
-    
-//    // MARK: - Helpers
-//
-//    //
-//    // Return a Word object for the given word ID.
-//    //
-//    func wordForId(_ wordId: Int) -> Word {
-//        do {
-//            let word = try dbQueue.inDatabase{ (db: Database) -> Word in
-//                let row = try Row.fetchOne(db,
-//                                           "select * from \(Word.databaseTableName) " +
-//                                           "where \(Word.id) = ?",
-//                                           arguments: [wordId])
-//                if let returnedRow = row {
-//                    return Word(row: returnedRow)
-//                }
-//                return Word()
-//            }
-//            return word
-//        } catch {
-//            return Word()
-//        }
-//    }
-//
+
 //    //
 //    // Return an array of Word objects for the given preffix.
 //    //
@@ -65,9 +72,9 @@ class VocabDatabase {
 //            let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
 //                var words = [Word]()
 //                let rows = try Row.fetchCursor(db,
-//                                           "select * from \(Word.databaseTableName) " +
-//                                           "where \(Word.word) like ?",
-//                                           arguments: ["\(preffix)%"])
+//                                                "select * from \(Word.databaseTableName) " +
+//                                                "where \(Word.word) like ?",
+//                                                arguments: ["\(preffix)%"])
 //                while let row = try rows.next() {
 //                    words.append(Word(row: row))
 //                }

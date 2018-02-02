@@ -9,25 +9,76 @@
 import Foundation
 import GRDB
 
-public struct Word {//: TableMapping, RowConvertible {
+struct Word: TableMapping {
+    
+    // MARK: - Table mapping
+    static let databaseTableName = "words"
+    
+    // MARK: - Field names
+    static let id = "ID"
+    static let value = "value"
+    static let imageName = "imageName"
+    static let json = "json"
+    
     // MARK: - Properties
     public var value: String
     public var numOccur: Int
-    public var imageName: String
+    public var imageName: String?
     public var nextWords: [String:Word]?
     
-    public init(value: String, imageName: String) {
+    // MARK: - Initialization
+    init() {
+        value = ""
+        imageName = ""
+        numOccur = 0
+        commonInit()
+    }
+    
+    init(json: [String:Any]) {
+        guard let key = json.keys.first,
+              let dict = json[key] as? [String:Any],
+              let value = dict["value"] as? String,
+              let numOccur = dict["numOccur"] as? Int,
+              let nextWords = dict["nextWords"] as? [String:Any] else {
+                self.value = ""
+                self.numOccur = 0
+                commonInit()
+                return
+        }
+        
         self.value = value
-        self.numOccur = 1
+        self.numOccur = numOccur
+        self.nextWords = decerializeNextWords(nextWords)
+    }
+    
+    init(value: String, imageName: String) {
+        self.value = value
         self.imageName = imageName
-        nextWords = [:]
+        numOccur = 1
+        commonInit()
     }
     
-    public mutating func incrementNumOccur() {
-        self.numOccur = self.numOccur + 1
+    mutating func commonInit() {
+        self.nextWords = [String:Word]()
     }
     
-    public mutating func addWord(value: String, imageName: String) {
+    // MARK: - Deserialization
+    
+    func decerializeNextWords(_ words: [String:Any]) -> [String:Word]? {
+        var nextWords = [String:Word]()
+        for word in words {
+            nextWords[word.key] = Word(json: [word.key:word.value])
+        }
+        return nextWords.isEmpty ? nil : nextWords
+    }
+    
+    // MARK: - Mutating functions
+    
+    mutating func incrementNumOccur() {
+        self.numOccur += 1
+    }
+    
+    mutating func addWord(value: String, imageName: String) {
         if self.nextWords?[value] == nil {
             self.nextWords?[value] = Word(value: value, imageName: imageName)
         }
@@ -36,23 +87,7 @@ public struct Word {//: TableMapping, RowConvertible {
         }
     }
     
-//    // MARK: - Table mapping
-//
-//    static let databaseTableName = "words"
-//
-//    // MARK: - Field names
-//
-//    static let id = "ID"
-//    static let word = "word"
-//    static let imageName = "imageName"
-//
-//    // MARK: - Initialization
-//
-//    init() {
-//        imageName = ""
-//    }
-//
-//    init(row: Row) {
-//        imageName = row[Word.imageName]
-//    }
+    
+
+    
 }

@@ -36,6 +36,9 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         mainWord?.layer.cornerRadius = 0.5 * mainWord.bounds.size.width
         mainWord?.layer.borderColor = UIColor.black.cgColor
         mainWord?.layer.borderWidth = 2.0
+        
+        let word1 = VocabDatabase.shared.wordForId(1)
+        print("Done getting word:\(word1)")
     }
     
     //MARK: UITextFieldDelegate

@@ -63,6 +63,39 @@ class VocabDatabase {
             return Word()
         }
     }
+    
+    // MARK: - Helpers
+    
+    //
+    // Return a Word object for the given word ID.
+    //
+    func getWord(word textWord: String) -> Word {
+        do {
+            let word = try dbQueue.inDatabase{ (db: Database) -> Word in
+                let row = try Row.fetchOne(db,
+                                           "select * from \(Word.databaseTableName) " +
+                                            "where \(Word.value) = ?",
+                                            arguments: [textWord])
+                if let row = row, let data = row[Word.json] as? String {
+                    if let jsonData = data.data(using: .utf8, allowLossyConversion: false) {
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: jsonData) as? [String:Any] {
+                                return Word(json: json)
+                            }
+                        } catch {
+                            print("Error deserializing the json")
+                            print(error)
+                            return Word()
+                        }
+                    }
+                }
+                return Word()
+            }
+            return word
+        } catch {
+            return Word()
+        }
+    }
 
 //    //
 //    // Return an array of Word objects for the given preffix.

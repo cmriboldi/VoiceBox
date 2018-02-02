@@ -23,7 +23,7 @@ public class NGram {
 //
 //    print("aWords: \(aWords) \nbWords:\(bWords)")
     
-    public func nextWords(prevWord: Word, word: Word, numWords: Int) -> [String] {
+    func nextWords(prevWord: Word, word: Word, numWords: Int) -> [String] {
         let textWord = word.value
 //        prevWord = Word(value: textPrevWord, imageName: imageName)
 //
@@ -58,8 +58,8 @@ public class NGram {
         
         if !(prevWord.value == "" && prevWord.imageName == "") && prevWord.nextWords![textWord] != nil {
             for (key, value) in (prevWord.nextWords![textWord]?.nextWords)! {
-                if nextWords[key] == nil {
-                    nextWords[key] = Word(value: key, imageName: value.imageName)
+                if let imageName = value.imageName, nextWords[key] == nil {
+                    nextWords[key] = Word(value: key, imageName: imageName)
                 }
                 // Words at depth 3 should be weighted more heavily than words at shallower depths.
                 nextWords[key]?.numOccur = value.numOccur * 2
@@ -67,8 +67,8 @@ public class NGram {
         }
         
         for (key, value) in (word.nextWords)! {
-            if nextWords[key] == nil {
-                nextWords[key] = Word(value: key, imageName: value.imageName)
+            if let imageName = value.imageName, nextWords[key] == nil {
+                nextWords[key] = Word(value: key, imageName: imageName)
                 nextWords[key]?.numOccur = 0
             }
             nextWords[key]?.numOccur += value.numOccur

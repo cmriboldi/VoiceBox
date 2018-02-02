@@ -70,7 +70,7 @@ public class Trainer {
         
         let fileName = "words"
         let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        var fileURL = documentDirURL.appendingPathComponent(fileName).appendingPathExtension("json")
+        let fileURL = documentDirURL.appendingPathComponent(fileName).appendingPathExtension("json")
 
         print("File Path: \(fileURL.path)")
         

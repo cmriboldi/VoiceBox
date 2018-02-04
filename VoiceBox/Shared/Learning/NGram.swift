@@ -58,7 +58,11 @@ public class NGram {
         
         if !(prevWord.value == "" && prevWord.imageName == "") && prevWord.nextWords![textWord] != nil {
             for (key, value) in (prevWord.nextWords![textWord]?.nextWords)! {
-                if let imageName = value.imageName, nextWords[key] == nil {
+                if nextWords[key] == nil {
+                    var imageName = ""
+                    if value.imageName != nil {
+                        imageName = value.imageName!
+                    }
                     nextWords[key] = Word(value: key, imageName: imageName)
                 }
                 // Words at depth 3 should be weighted more heavily than words at shallower depths.
@@ -67,7 +71,11 @@ public class NGram {
         }
         
         for (key, value) in (word.nextWords)! {
-            if let imageName = value.imageName, nextWords[key] == nil {
+            if nextWords[key] == nil {
+                var imageName = ""
+                if value.imageName != nil {
+                    imageName = value.imageName!
+                }
                 nextWords[key] = Word(value: key, imageName: imageName)
                 nextWords[key]?.numOccur = 0
             }
@@ -84,7 +92,7 @@ public class NGram {
             probableWords.append(key)
         }
     
-//        return Array(probableWords.values.prefix(numWords))
-        return probableWords
+        return Array(probableWords.prefix(numWords))
+//        return probableWords
     }
 }

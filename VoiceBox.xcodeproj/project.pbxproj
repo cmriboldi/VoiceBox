@@ -15,13 +15,7 @@
 		032F8B6A201FC3C80072A680 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F8B67201FC3C70072A680 /* Trie.swift */; };
 		032F8B6F201FCFEB0072A680 /* Trainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F8B6E201FCFEB0072A680 /* Trainer.swift */; };
 		032F8B712023C64D0072A680 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 032F8B702023C64D0072A680 /* words.txt */; };
-		037F51392028865500209685 /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51332028865500209685 /* SwipeAnimation.swift */; };
-		037F513A2028865500209685 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51342028865500209685 /* UIKit+Extensions.swift */; };
-		037F513B2028865500209685 /* SwipeTransitioningProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51352028865500209685 /* SwipeTransitioningProtocol.swift */; };
-		037F513C2028865500209685 /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51362028865500209685 /* SwipeInteractor.swift */; };
-		037F513D2028865500209685 /* SwipeableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51372028865500209685 /* SwipeableTabBarController.swift */; };
-		037F513E2028865500209685 /* SwipeAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51382028865500209685 /* SwipeAnimationType.swift */; };
-		037F51412028872A00209685 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51402028872A00209685 /* TabBarController.swift */; };
+		037F51432029044D00209685 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51422029044C00209685 /* TabBarController.swift */; };
 		5E24167720226B7E00EF7C79 /* test_train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E24167620226B7E00EF7C79 /* test_train.txt */; };
 		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
@@ -60,13 +54,7 @@
 		032F8B67201FC3C70072A680 /* Trie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
 		032F8B6E201FCFEB0072A680 /* Trainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trainer.swift; sourceTree = "<group>"; };
 		032F8B702023C64D0072A680 /* words.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
-		037F51332028865500209685 /* SwipeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAnimation.swift; sourceTree = "<group>"; };
-		037F51342028865500209685 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
-		037F51352028865500209685 /* SwipeTransitioningProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeTransitioningProtocol.swift; sourceTree = "<group>"; };
-		037F51362028865500209685 /* SwipeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeInteractor.swift; sourceTree = "<group>"; };
-		037F51372028865500209685 /* SwipeableTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableTabBarController.swift; sourceTree = "<group>"; };
-		037F51382028865500209685 /* SwipeAnimationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAnimationType.swift; sourceTree = "<group>"; };
-		037F51402028872A00209685 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		037F51422029044C00209685 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDatabase.swift; sourceTree = "<group>"; };
 		5E1DDC96201B89B10003627A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		5E24167620226B7E00EF7C79 /* test_train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_train.txt; sourceTree = "<group>"; };
@@ -137,19 +125,6 @@
 			path = Learning;
 			sourceTree = "<group>";
 		};
-		037F513F2028867B00209685 /* TabBarController */ = {
-			isa = PBXGroup;
-			children = (
-				037F51372028865500209685 /* SwipeableTabBarController.swift */,
-				037F51332028865500209685 /* SwipeAnimation.swift */,
-				037F51382028865500209685 /* SwipeAnimationType.swift */,
-				037F51362028865500209685 /* SwipeInteractor.swift */,
-				037F51352028865500209685 /* SwipeTransitioningProtocol.swift */,
-				037F51342028865500209685 /* UIKit+Extensions.swift */,
-			);
-			path = TabBarController;
-			sourceTree = "<group>";
-		};
 		44C67EB575752FC54AADF804 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,7 +156,6 @@
 		5EA332E5200FA14400E9C6EB /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				037F513F2028867B00209685 /* TabBarController */,
 				5EA332E6200FA15600E9C6EB /* Main */,
 				5EA332E9200FA1B100E9C6EB /* Home */,
 				5EA332EB200FA96D00E9C6EB /* Vocab */,
@@ -194,7 +168,7 @@
 		5EA332E6200FA15600E9C6EB /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				037F51402028872A00209685 /* TabBarController.swift */,
+				037F51422029044C00209685 /* TabBarController.swift */,
 				5EAA33F3200E5D2300519B7E /* Main.storyboard */,
 				5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */,
 				5EAA33FB200E5D2300519B7E /* Info.plist */,
@@ -447,10 +421,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GRDB.swift/GRDB.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -499,20 +475,14 @@
 			files = (
 				032F8B47201DE62C0072A680 /* VocabDatabase.swift in Sources */,
 				032F8B48201DE6300072A680 /* Word.swift in Sources */,
-				037F513A2028865500209685 /* UIKit+Extensions.swift in Sources */,
+				037F51432029044D00209685 /* TabBarController.swift in Sources */,
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				032F8B6A201FC3C80072A680 /* Trie.swift in Sources */,
-				037F513D2028865500209685 /* SwipeableTabBarController.swift in Sources */,
-				037F51412028872A00209685 /* TabBarController.swift in Sources */,
 				032F8B69201FC3C80072A680 /* NGram.swift in Sources */,
 				032F8B46201DE4570072A680 /* WordList.swift in Sources */,
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
 				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
 				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
-				037F513B2028865500209685 /* SwipeTransitioningProtocol.swift in Sources */,
-				037F513C2028865500209685 /* SwipeInteractor.swift in Sources */,
-				037F513E2028865500209685 /* SwipeAnimationType.swift in Sources */,
-				037F51392028865500209685 /* SwipeAnimation.swift in Sources */,
 				032F8B6F201FCFEB0072A680 /* Trainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

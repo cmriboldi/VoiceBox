@@ -23,6 +23,7 @@ public class NGram {
 //
 //    print("aWords: \(aWords) \nbWords:\(bWords)")
     
+    //FIXME: Make sure you're correctly taking both words into account
     func nextWords(prevWord: Word, word: Word, numWords: Int) -> [String] {
         let textWord = word.value
 //        prevWord = Word(value: textPrevWord, imageName: imageName)

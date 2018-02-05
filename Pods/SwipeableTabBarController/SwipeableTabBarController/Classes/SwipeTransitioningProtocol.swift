@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 /// Added to support custom `UIViewControllerAnimatedTransitioning` in different applications.
 public protocol SwipeTransitioningProtocol: UIViewControllerAnimatedTransitioning {
     

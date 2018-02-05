@@ -137,7 +137,7 @@
 			path = Learning;
 			sourceTree = "<group>";
 		};
-		037F513F2028867B00209685 /* TabBarStuff */ = {
+		037F513F2028867B00209685 /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
 				037F51372028865500209685 /* SwipeableTabBarController.swift */,
@@ -147,7 +147,7 @@
 				037F51352028865500209685 /* SwipeTransitioningProtocol.swift */,
 				037F51342028865500209685 /* UIKit+Extensions.swift */,
 			);
-			path = TabBarStuff;
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		44C67EB575752FC54AADF804 /* Pods */ = {
@@ -181,7 +181,7 @@
 		5EA332E5200FA14400E9C6EB /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				037F513F2028867B00209685 /* TabBarStuff */,
+				037F513F2028867B00209685 /* TabBarController */,
 				5EA332E6200FA15600E9C6EB /* Main */,
 				5EA332E9200FA1B100E9C6EB /* Home */,
 				5EA332EB200FA96D00E9C6EB /* Vocab */,

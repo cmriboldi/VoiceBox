@@ -20,18 +20,32 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     @IBOutlet weak var wordList: WordList!
     
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//
+//        if viewController == self {return false}
+//
+//        let fromView = self.view
+//        let toView = viewController.view
+//
+//        UIView.transition(from: fromView!, to: toView!, duration: 0.3, options: [.transitionCrossDissolve], completion: nil)
+//
+//        return true
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         inputWord.delegate = self
         
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
-        self.view.addGestureRecognizer(swipeRight)
+//        self.tabBarController.setSwipeAnimation(type: SwipeAnimationType.sideBySide)
         
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
-        self.view.addGestureRecognizer(swipeLeft)
+//        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+//        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+//        self.view.addGestureRecognizer(swipeRight)
+//
+//        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+//        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+//        self.view.addGestureRecognizer(swipeLeft)
 
         mainWord?.layer.cornerRadius = 0.5 * mainWord.bounds.size.width
         mainWord?.layer.borderColor = UIColor.black.cgColor
@@ -70,16 +84,21 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         wordList.setupWords()
     }
     
-    @objc func swiped(_ gesture: UISwipeGestureRecognizer) {
-        if gesture.direction == .left {
-            if (self.tabBarController?.selectedIndex)! < 3 { // set your total tabs here
-                self.tabBarController?.selectedIndex += 1
-            }
-        }
-        else if gesture.direction == .right {
-            if (self.tabBarController?.selectedIndex)! > 0 {
-                self.tabBarController?.selectedIndex -= 1
-            }
-        }
-    }
+//    @objc func swiped(_ gesture: UISwipeGestureRecognizer) {
+//        if gesture.direction == .left {
+//            if (self.tabBarController?.selectedIndex)! < 3 { // set your total tabs here
+////                let fromView = self.tabBarController?.selectedViewController!.view
+//                self.tabBarController?.selectedIndex += 1
+//
+////                let toView = self.tabBarController?.selectedViewController!.view
+////
+////                UIView.transition(from: fromView!, to: toView!, duration: 0.3, options: [.transitionCrossDissolve], completion: nil)
+//            }
+//        }
+//        else if gesture.direction == .right {
+//            if (self.tabBarController?.selectedIndex)! > 0 {
+//                self.tabBarController?.selectedIndex -= 1
+//            }
+//        }
+//    }
 }

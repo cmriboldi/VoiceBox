@@ -37,8 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
-        let tabBarController = self.window?.rootViewController as! UITabBarController
-        tabBarController.selectedIndex = 1
+//        let tabBarController = self.window?.rootViewController as! UITabBarController
+//        tabBarController.selectedIndex = 1
         
 //        let playButton  = UIButton(type: .custom)
 //        playButton.setImage(UIImage(named: "play.png"), for: .normal)

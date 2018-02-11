@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBAction func deleteWord(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     @IBAction func train(_ sender: UIButton) {
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             newScreen.likelyNextWords.append(word)
         }
         
-        self.present(newScreen, animated: true, completion: nil)
+        self.present(newScreen, animated: false, completion: nil)
     }
     
     @IBOutlet weak var wordList: WordList!
@@ -56,7 +56,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         for i in 0..<min(5, self.likelyNextWords.count) {
             self.wordButtons[i].setTitle(self.likelyNextWords[i], for: .normal)
         }
-
     }
     
     //MARK: UITextFieldDelegate

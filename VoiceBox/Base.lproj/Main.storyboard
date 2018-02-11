@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EQg-v3-KCH">
-    <device id="ipad9_7" orientation="landscape">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,7 +15,7 @@
             <objects>
                 <viewController id="nnt-fn-gtA" customClass="VocabViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6gW-nc-NOv">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9b1-gl-vvh"/>
@@ -31,11 +31,11 @@
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xe8-fZ-LZ7">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="100"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="WTZ-dL-2kK"/>
                                 </constraints>
@@ -44,7 +44,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHe-w2-5ix">
-                                <rect key="frame" x="913" y="36" width="91" height="69"/>
+                                <rect key="frame" x="657" y="36" width="91" height="69"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" keyboardKey="YES"/>
                                 </accessibility>
@@ -53,8 +53,8 @@
                                     <action selector="deleteWord:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pBD-cb-wrW"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="75" translatesAutoresizingMaskIntoConstraints="NO" id="Vxo-zf-6Wo">
-                                <rect key="frame" x="87" y="114" width="850" height="600"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="75" translatesAutoresizingMaskIntoConstraints="NO" id="Vxo-zf-6Wo">
+                                <rect key="frame" x="-41" y="242" width="850" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-Xh-X2C">
                                         <rect key="frame" x="0.0" y="0.0" width="850" height="150"/>
@@ -105,67 +105,117 @@
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="uWn-O9-MyQ">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="uWn-O9-MyQ">
                                         <rect key="frame" x="0.0" y="225" width="850" height="150"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="B1O-xZ-YwA" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzN-LC-UxM">
+                                                <rect key="frame" x="0.0" y="0.0" width="283.5" height="150"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="B1O-xZ-YwA" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                        <rect key="frame" x="66.5" y="0.0" width="150" height="150"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="MyV-GW-VbI"/>
+                                                            <constraint firstAttribute="height" constant="150" id="z6b-fO-bmF"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                                        <state key="normal" title="Word"/>
+                                                        <connections>
+                                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WsQ-tp-5CE"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="150" id="MyV-GW-VbI"/>
-                                                    <constraint firstAttribute="height" constant="150" id="z6b-fO-bmF"/>
+                                                    <constraint firstItem="B1O-xZ-YwA" firstAttribute="centerY" secondItem="VzN-LC-UxM" secondAttribute="centerY" id="iVT-TT-fLI"/>
+                                                    <constraint firstItem="B1O-xZ-YwA" firstAttribute="centerX" secondItem="VzN-LC-UxM" secondAttribute="centerX" id="qce-LI-rIO"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                                <state key="normal" title="Word"/>
-                                                <connections>
-                                                    <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WsQ-tp-5CE"/>
-                                                </connections>
-                                            </button>
-                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hWg-Ng-VCq" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
-                                                <rect key="frame" x="350" y="0.0" width="150" height="150"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iaz-n8-mb4">
+                                                <rect key="frame" x="283.5" y="0.0" width="283" height="150"/>
+                                                <subviews>
+                                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hWg-Ng-VCq" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                        <rect key="frame" x="66.5" y="0.0" width="150" height="150"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="150" id="UI2-eh-9iD"/>
+                                                            <constraint firstAttribute="width" constant="150" id="a6f-Ew-wnc"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                                        <state key="normal" title="Word"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="UI2-eh-9iD"/>
-                                                    <constraint firstAttribute="width" constant="150" id="a6f-Ew-wnc"/>
+                                                    <constraint firstItem="hWg-Ng-VCq" firstAttribute="centerX" secondItem="Iaz-n8-mb4" secondAttribute="centerX" id="qBu-Q9-QJZ"/>
+                                                    <constraint firstItem="hWg-Ng-VCq" firstAttribute="centerY" secondItem="Iaz-n8-mb4" secondAttribute="centerY" id="w9X-0Z-I86"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                                <state key="normal" title="Word"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jsP-fc-F58" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
-                                                <rect key="frame" x="700" y="0.0" width="150" height="150"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33n-cY-wYK">
+                                                <rect key="frame" x="566.5" y="0.0" width="283.5" height="150"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jsP-fc-F58" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                        <rect key="frame" x="67" y="0.0" width="150" height="150"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="150" id="8U5-s9-mbg"/>
+                                                            <constraint firstAttribute="width" constant="150" id="GlI-8p-BLA"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                                        <state key="normal" title="Word"/>
+                                                        <connections>
+                                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KXd-wv-Le3"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="8U5-s9-mbg"/>
-                                                    <constraint firstAttribute="width" constant="150" id="GlI-8p-BLA"/>
+                                                    <constraint firstItem="jsP-fc-F58" firstAttribute="centerX" secondItem="33n-cY-wYK" secondAttribute="centerX" id="3yV-gE-5Js"/>
+                                                    <constraint firstItem="jsP-fc-F58" firstAttribute="centerY" secondItem="33n-cY-wYK" secondAttribute="centerY" id="N9y-xq-gnx"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                                <state key="normal" title="Word"/>
-                                                <connections>
-                                                    <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KXd-wv-Le3"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="6eh-fN-Afq">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6eh-fN-Afq">
                                         <rect key="frame" x="0.0" y="450" width="850" height="150"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-Lk-ibW" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omP-cw-ior">
+                                                <rect key="frame" x="0.0" y="0.0" width="425" height="150"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-Lk-ibW" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                        <rect key="frame" x="137.5" y="0.0" width="150" height="150"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="Kdu-fj-hCv"/>
+                                                            <constraint firstAttribute="height" constant="150" id="V9u-g4-Oeh"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                                        <state key="normal" title="Word"/>
+                                                        <connections>
+                                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eyF-01-d1H"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="150" id="Kdu-fj-hCv"/>
-                                                    <constraint firstAttribute="height" constant="150" id="V9u-g4-Oeh"/>
+                                                    <constraint firstItem="b1n-Lk-ibW" firstAttribute="centerY" secondItem="omP-cw-ior" secondAttribute="centerY" id="4eJ-7F-tr1"/>
+                                                    <constraint firstItem="b1n-Lk-ibW" firstAttribute="centerX" secondItem="omP-cw-ior" secondAttribute="centerX" id="Lce-jf-w43"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                                <state key="normal" title="Word"/>
-                                                <connections>
-                                                    <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eyF-01-d1H"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-gN-TCc" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
-                                                <rect key="frame" x="700" y="0.0" width="150" height="150"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zI-mi-UFx">
+                                                <rect key="frame" x="425" y="0.0" width="425" height="150"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-gN-TCc" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                        <rect key="frame" x="137.5" y="0.0" width="150" height="150"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="150" id="kSb-TJ-LuW"/>
+                                                            <constraint firstAttribute="width" constant="150" id="mT2-6B-VeZ"/>
+                                                        </constraints>
+                                                        <state key="normal" title="+" image="ic_search"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="kSb-TJ-LuW"/>
-                                                    <constraint firstAttribute="width" constant="150" id="mT2-6B-VeZ"/>
+                                                    <constraint firstItem="oQ5-gN-TCc" firstAttribute="centerX" secondItem="8zI-mi-UFx" secondAttribute="centerX" id="Mij-oa-fOP"/>
+                                                    <constraint firstItem="oQ5-gN-TCc" firstAttribute="centerY" secondItem="8zI-mi-UFx" secondAttribute="centerY" id="zwH-Gq-dHF"/>
                                                 </constraints>
-                                                <state key="normal" title="+" image="ic_search"/>
-                                            </button>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -173,7 +223,10 @@
                                     <constraint firstAttribute="width" constant="850" id="FnS-G5-4He"/>
                                     <constraint firstItem="KL2-Xh-X2C" firstAttribute="leading" secondItem="Vxo-zf-6Wo" secondAttribute="leading" id="Ih8-Co-DgC"/>
                                     <constraint firstAttribute="height" constant="600" id="ZLl-61-BST"/>
+                                    <constraint firstAttribute="trailing" secondItem="6eh-fN-Afq" secondAttribute="trailing" id="aqx-mr-f1s"/>
+                                    <constraint firstAttribute="bottom" secondItem="6eh-fN-Afq" secondAttribute="bottom" id="dmW-va-1Xy"/>
                                     <constraint firstItem="KL2-Xh-X2C" firstAttribute="top" secondItem="Vxo-zf-6Wo" secondAttribute="top" id="hhO-vW-j3B"/>
+                                    <constraint firstItem="6eh-fN-Afq" firstAttribute="leading" secondItem="Vxo-zf-6Wo" secondAttribute="leading" id="jvv-HW-MPk"/>
                                     <constraint firstAttribute="trailing" secondItem="KL2-Xh-X2C" secondAttribute="trailing" id="rVT-Yl-cle"/>
                                 </constraints>
                             </stackView>
@@ -196,11 +249,11 @@
                         <outlet property="deleteButton" destination="zHe-w2-5ix" id="KFO-il-M86"/>
                         <outlet property="inputWord" destination="xe8-fZ-LZ7" id="2iw-OU-G0G"/>
                         <outlet property="mainWord" destination="hWg-Ng-VCq" id="UHB-Am-haV"/>
-                        <outletCollection property="wordButtons" destination="B1O-xZ-YwA" collectionClass="NSMutableArray" id="Qj6-hS-ucG"/>
-                        <outletCollection property="wordButtons" destination="jsP-fc-F58" collectionClass="NSMutableArray" id="AU2-DK-ATD"/>
-                        <outletCollection property="wordButtons" destination="b1n-Lk-ibW" collectionClass="NSMutableArray" id="cYz-HK-PP9"/>
                         <outletCollection property="wordButtons" destination="bAa-IJ-xst" collectionClass="NSMutableArray" id="doF-IB-tPG"/>
                         <outletCollection property="wordButtons" destination="5SE-hC-RYB" collectionClass="NSMutableArray" id="p76-sY-XJc"/>
+                        <outletCollection property="wordButtons" destination="b1n-Lk-ibW" collectionClass="NSMutableArray" id="cYz-HK-PP9"/>
+                        <outletCollection property="wordButtons" destination="B1O-xZ-YwA" collectionClass="NSMutableArray" id="Qj6-hS-ucG"/>
+                        <outletCollection property="wordButtons" destination="jsP-fc-F58" collectionClass="NSMutableArray" id="AU2-DK-ATD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -212,7 +265,7 @@
             <objects>
                 <viewController id="MqU-1e-ZFE" customClass="SettingsViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jhe-CF-T7P">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>

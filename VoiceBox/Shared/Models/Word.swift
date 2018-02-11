@@ -9,6 +9,8 @@
 import Foundation
 import GRDB
 
+typealias Words = [String:Word]
+
 struct Word: TableMapping {
     
     // MARK: - Table mapping
@@ -24,7 +26,7 @@ struct Word: TableMapping {
     public var value: String
     public var numOccur: Int
     public var imageName: String?
-    public var nextWords: [String:Word]?
+    public var nextWords: Words?
     
     // MARK: - Initialization
     init() {
@@ -51,7 +53,7 @@ struct Word: TableMapping {
         self.nextWords = decerializeNextWords(nextWords)
     }
     
-    init(value: String, imageName: String) {
+    init(value: String, imageName: String?) {
         self.value = value
         self.imageName = imageName
         numOccur = 1
@@ -59,13 +61,13 @@ struct Word: TableMapping {
     }
     
     mutating func commonInit() {
-        self.nextWords = [String:Word]()
+        self.nextWords = Words()
     }
     
     // MARK: - Deserialization
     
     func decerializeNextWords(_ words: [String:Any]) -> [String:Word]? {
-        var nextWords = [String:Word]()
+        var nextWords = Words()
         for word in words {
             nextWords[word.key] = Word(json: [word.key:word.value])
         }

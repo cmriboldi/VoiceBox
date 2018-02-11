@@ -24,8 +24,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func train(_ sender: UIButton) {
-        let trainer = Trainer()
-        trainer.train(name: "train", extension: "txt")
+        Trainer.shared.train(name: "train", extension: "txt")
     }
     
     //TODO
@@ -52,14 +51,12 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         
         inputWord.delegate = self
         
-        let word1 = VocabDatabase.shared.wordForId(1)
-        print("Done getting word:\(word1)")
-        
         self.mainWord.setTitle(self.currentWord, for: .normal)
         
         for i in 0..<min(5, self.likelyNextWords.count) {
             self.wordButtons[i].setTitle(self.likelyNextWords[i], for: .normal)
         }
+
     }
     
     //MARK: UITextFieldDelegate
@@ -73,7 +70,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         var probableWords = [String]()
         
         let ngram = NGram()
-        let word = VocabDatabase.shared.getWord(word: textWord)
+        let word = VocabDatabase.shared.getWord(withText: textWord)
+
         probableWords = ngram.nextWords(prevWord: self.prevWord, word: word, numWords: numWords)
         self.textPrevWord = textWord
         self.prevWord = word

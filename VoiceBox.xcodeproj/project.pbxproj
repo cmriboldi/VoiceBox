@@ -27,6 +27,9 @@
 		5EAA33FA200E5D2300519B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */; };
 		5EAA3405200E5D2300519B7E /* VoiceBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA3404200E5D2300519B7E /* VoiceBoxTests.swift */; };
 		5EAA3410200E5D2300519B7E /* VoiceBoxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */; };
+		5EAD0CB2202B676E00036A31 /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAD0CB1202B676E00036A31 /* Serializer.swift */; };
+		5EAD0CB4202B678A00036A31 /* Deserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAD0CB3202B678A00036A31 /* Deserializer.swift */; };
+		5EAE9088202A604E00D8CC14 /* DatabaseUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */; };
 		5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 5ED17FD5201A5779002E1ADB /* VocabularyDB.db */; };
 		8CB5D2BE06CB4E0FAF04920B /* Pods_VoiceBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 768DBE447492CD9C78C8A852 /* Pods_VoiceBox.framework */; };
 /* End PBXBuildFile section */
@@ -75,6 +78,9 @@
 		5EAA340B200E5D2300519B7E /* VoiceBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceBoxUITests.swift; sourceTree = "<group>"; };
 		5EAA3411200E5D2300519B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5EAD0CB1202B676E00036A31 /* Serializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
+		5EAD0CB3202B678A00036A31 /* Deserializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deserializer.swift; sourceTree = "<group>"; };
+		5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUpdater.swift; sourceTree = "<group>"; };
 		5ED17FD5201A5779002E1ADB /* VocabularyDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = VocabularyDB.db; sourceTree = "<group>"; };
 		75074F08D8DEBA02E50E3D27 /* Pods-VoiceBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.debug.xcconfig"; sourceTree = "<group>"; };
 		753E1473BEC6095E4BC624B5 /* Pods-VoiceBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.release.xcconfig"; sourceTree = "<group>"; };
@@ -267,6 +273,9 @@
 			children = (
 				5ED17FD5201A5779002E1ADB /* VocabularyDB.db */,
 				5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */,
+				5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */,
+				5EAD0CB1202B676E00036A31 /* Serializer.swift */,
+				5EAD0CB3202B678A00036A31 /* Deserializer.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -476,9 +485,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EAD0CB4202B678A00036A31 /* Deserializer.swift in Sources */,
 				032F8B47201DE62C0072A680 /* VocabDatabase.swift in Sources */,
 				032F8B48201DE6300072A680 /* Word.swift in Sources */,
 				037F51432029044D00209685 /* TabBarController.swift in Sources */,
+				5EAD0CB2202B676E00036A31 /* Serializer.swift in Sources */,
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				032F8B6A201FC3C80072A680 /* Trie.swift in Sources */,
 				032F8B69201FC3C80072A680 /* NGram.swift in Sources */,
@@ -487,6 +498,7 @@
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
 				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
 				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
+				5EAE9088202A604E00D8CC14 /* DatabaseUpdater.swift in Sources */,
 				032F8B6F201FCFEB0072A680 /* Trainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

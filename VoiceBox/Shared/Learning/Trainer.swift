@@ -9,9 +9,32 @@
 import Foundation
 
 public class Trainer {
-    private var textWords: [String] = []
-    private var words: [String: Word] = [:]
     
+    // MARK: - Constants
+    struct Constant {
+        static let fileName = "words"
+        static let fileExtension = "json"
+    }
+    
+    // MARK: - Properties
+    var fileURL: URL!
+    private var textWords: [String] = []
+    private var words: Words = [:]
+    
+    // MARK: - Singleton
+    static let shared = Trainer()
+    
+    // MARK: - Initialization
+    fileprivate init() {
+        
+        let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        fileURL = documentDirURL.appendingPathComponent(Constant.fileName).appendingPathExtension(Constant.fileExtension)
+        
+        print("File Path: \(fileURL.path)")
+        
+    }
+    
+    // MARK: - Helper Functions
     private func insertWord(textWord: String, textNextWord: String, textNextNextWord: String) {
         if self.words[textWord] == nil {
             words[textWord] = Word(value: textWord, imageName: "")
@@ -68,15 +91,12 @@ public class Trainer {
         
         print("Done Training")
         
-        let fileName = "words"
-        let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let fileURL = documentDirURL.appendingPathComponent(fileName).appendingPathExtension("json")
-
-        print("File Path: \(fileURL.path)")
+        writeJsonFile(words: words)
+    }
+    
+    func writeJsonFile(words: Words) {
         
-        let writeString: String = """
-            [\(format(words:words, iteration: 1))]
-            """
+        let writeString: String = "[\(Serializer.shared.serialize(words:words, iteration: 1))]"
         
         do {
             try writeString.write(to: fileURL, atomically: true, encoding: .utf8)
@@ -84,33 +104,8 @@ public class Trainer {
             print("Failed to write to URL.")
             print(error)
         }
-        
         print("Done Writing to File")
-        
         
     }
     
-    func format(words: [String: Word]?, iteration: Int) -> String {
-        let baseTabs = String(repeating: "\t", count: iteration-1)
-        let repeatTabs = baseTabs + "\t"
-        var json = "{\n"
-        if let words = words {
-            var count = 0
-            for (key, word) in words {
-                json += """
-                \(repeatTabs)"\(key)": {
-                \(repeatTabs)\t"value": "\(word.value)",
-                \(repeatTabs)\t"numOccur": \(word.numOccur),
-                \(repeatTabs)\t"nextWords": \(format(words: word.nextWords, iteration: iteration+2))
-                \(repeatTabs)}
-                """
-                count += 1
-                if count != words.count {
-                    json += ",\n"
-                }
-            }
-        }
-        json += "\n\(baseTabs)}"
-        return (json == "{\n\n\(baseTabs)}") ? "{}" : json
-    }
 }

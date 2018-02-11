@@ -30,13 +30,32 @@ class VocabDatabase {
         dbQueue = try? DatabaseQueue(path: Bundle.main.path(forResource: Constant.fileName, ofType: Constant.fileExtension)!)
     }
     
-
-    // MARK: - Helpers
-
+    // MARK: - Getters
     //
     // Return a Word object for the given word ID.
     //
-    func wordForId(_ wordId: Int) -> Word {
+    func getWord(withText wordText: String) -> Word {
+        do {
+            let word = try dbQueue.inDatabase{ (db: Database) -> Word in
+                let row = try Row.fetchOne(db,
+                                           "select * from \(Word.databaseTableName) " +
+                                           "where \(Word.value) = ?",
+                                           arguments: [wordText])
+                if let row = row, let data = row[Word.json] as? String {
+                    return Deserializer.shared.deserialize(jsonWord: data)
+                }
+                return Word()
+            }
+            return word
+        } catch {
+            return Word()
+        }
+    }
+    
+    //
+    // Return a Word object for the given word ID.
+    //
+    func getWord(withId wordId: Int) -> Word {
         do {
             let word = try dbQueue.inDatabase{ (db: Database) -> Word in
                 let row = try Row.fetchOne(db,
@@ -44,17 +63,7 @@ class VocabDatabase {
                                            "where \(Word.id) = ?",
                                            arguments: [wordId])
                 if let row = row, let data = row[Word.json] as? String {
-                    if let jsonData = data.data(using: .utf8, allowLossyConversion: false) {
-                        do {
-                            if let json = try JSONSerialization.jsonObject(with: jsonData) as? [String:Any] {
-                                return Word(json: json)
-                            }
-                        } catch {
-                            print("Error deserializing the json")
-                            print(error)
-                            return Word()
-                        }
-                    }
+                    return Deserializer.shared.deserialize(jsonWord: data)
                 }
                 return Word()
             }
@@ -64,58 +73,86 @@ class VocabDatabase {
         }
     }
     
-    // MARK: - Helpers
+    //
+    // Return an array of Word objects for the given preffix.
+    //
+    func getWords(withPreffix preffix: String) -> [Word] {
+        do {
+            let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
+                var words = [Word]()
+                let rows = try Row.fetchAll(db,
+                                            "select * from \(Word.databaseTableName) " +
+                                            "where \(Word.value) like \"\(preffix)\"")
+                for row in rows {
+                    if let data = row[Word.json] as? String {
+                        words.append(Deserializer.shared.deserialize(jsonWord: data))
+                    }
+                }
+                return words
+            }
+            return words
+        } catch {
+            return []
+        }
+    }
+    
+    // MARK: - Setters
+    //
+    // Creates a row in the database with the values contained in word.
+    //
+    func create(word: Word) -> Int? {
+        do {
+            let newWordID = try dbQueue.inDatabase{ (db: Database) -> Int in
+                let json = Serializer.shared.serialize(word: word, iteration: 1)
+                try db.execute("""
+                    insert into words (value, imageName, json)
+                    values (?,?,?)
+                    """, arguments: [word.value, word.imageName, json])
+                let wordID = db.lastInsertedRowID
+                return Int(truncatingIfNeeded: wordID)
+            }
+            return newWordID
+        } catch {
+            return nil
+        }
+        // TODO: I need to call the Serializer with the word in order to get the right values and then I need to create the row with the right values in it.
+    }
     
     //
-    // Return a Word object for the given word ID.
+    // Updates the word in the databade with the values contained in word.
     //
-    func getWord(word textWord: String) -> Word {
+    func update(word: Word) {
+        // TODO: I need to call the Serializer with the word in order to get the right JSON and then I need to update the row with those values.
+        return
+    }
+    
+    //
+    // Deletes the word in the databade with the values contained in word.
+    //
+    func delete(word: Word) {
+        return
+    }
+    
+    // MARK: - Queries
+    //
+    // Returns true if the word exists in the database.
+    //
+    func doesWordExist(withText wordText: String) -> Bool {
         do {
-            let word = try dbQueue.inDatabase{ (db: Database) -> Word in
+            let doesWordExist = try dbQueue.inDatabase{ (db: Database) -> Bool in
                 let row = try Row.fetchOne(db,
                                            "select * from \(Word.databaseTableName) " +
-                                            "where \(Word.value) = ?",
-                                            arguments: [textWord])
-                if let row = row, let data = row[Word.json] as? String {
-                    if let jsonData = data.data(using: .utf8, allowLossyConversion: false) {
-                        do {
-                            if let json = try JSONSerialization.jsonObject(with: jsonData) as? [String:Any] {
-                                return Word(json: json)
-                            }
-                        } catch {
-                            print("Error deserializing the json")
-                            print(error)
-                            return Word()
-                        }
-                    }
+                                           "where \(Word.value) = ?",
+                                           arguments: [wordText])
+                if row != nil {
+                    return true
                 }
-                return Word()
+                return false
             }
-            return word
+            return doesWordExist
         } catch {
-            return Word()
+            return false
         }
     }
-
-//    //
-//    // Return an array of Word objects for the given preffix.
-//    //
-//    func wordsWithPreffix(_ preffix: String) -> [Word] {
-//        do {
-//            let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
-//                var words = [Word]()
-//                let rows = try Row.fetchCursor(db,
-//                                                "select * from \(Word.databaseTableName) " +
-//                                                "where \(Word.word) like ?",
-//                                                arguments: ["\(preffix)%"])
-//                while let row = try rows.next() {
-//                    words.append(Word(row: row))
-//                }
-//                return words
-//            }
-//            return words
-//        } catch {
-//            return []
-//        }
-//    }
+    
 }

@@ -17,6 +17,11 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mainWord: UIButton!
     var likelyNextWords: [String] = ["about", "after", "again", "ah", "all"]
     @IBOutlet var wordButtons: [UIButton]!
+    @IBOutlet weak var deleteButton: UIButton!
+    
+    @IBAction func deleteWord(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func train(_ sender: UIButton) {
         let trainer = Trainer()
@@ -26,9 +31,9 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     //TODO
     @IBAction func wordPressed(_ sender: Any) {
 //        print("pressed")
-        var newWord = (sender as! UIButton).currentTitle
-        var newScreen = HomeViewController.makeFromStoryboard()
-        var probableWords = self.doMachineLearning(textWord: newWord!, numWords: 5)
+        let newWord = (sender as! UIButton).currentTitle
+        let newScreen = HomeViewController.makeFromStoryboard()
+        let probableWords = self.doMachineLearning(textWord: newWord!, numWords: 5)
         
         newScreen.currentWord = newWord!
         

@@ -49,15 +49,18 @@
                                     <accessibilityTraits key="traits" button="YES" keyboardKey="YES"/>
                                 </accessibility>
                                 <state key="normal" image="backspace black"/>
+                                <connections>
+                                    <action selector="deleteWord:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pBD-cb-wrW"/>
+                                </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="Vxo-zf-6Wo">
-                                <rect key="frame" x="56.5" y="226.5" width="655" height="571"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="150" translatesAutoresizingMaskIntoConstraints="NO" id="Vxo-zf-6Wo">
+                                <rect key="frame" x="24" y="230" width="720" height="564"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-Xh-X2C">
-                                        <rect key="frame" x="0.0" y="0.0" width="655" height="57"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="720" height="57"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bAa-IJ-xst">
-                                                <rect key="frame" x="0.0" y="0.0" width="227.5" height="57"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="260" height="57"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                                 <state key="normal" title="Word"/>
                                                 <connections>
@@ -65,7 +68,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5SE-hC-RYB">
-                                                <rect key="frame" x="427.5" y="0.0" width="227.5" height="57"/>
+                                                <rect key="frame" x="460" y="0.0" width="260" height="57"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                                 <state key="normal" title="Word"/>
                                                 <connections>
@@ -75,23 +78,27 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="uWn-O9-MyQ">
-                                        <rect key="frame" x="0.0" y="257" width="655" height="57"/>
+                                        <rect key="frame" x="0.0" y="207" width="720" height="150"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="B1O-xZ-YwA">
-                                                <rect key="frame" x="0.0" y="0.0" width="85" height="57"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="85" height="150"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                                 <state key="normal" title="Word"/>
                                                 <connections>
                                                     <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WsQ-tp-5CE"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hWg-Ng-VCq">
-                                                <rect key="frame" x="285" y="0.0" width="85" height="57"/>
+                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hWg-Ng-VCq">
+                                                <rect key="frame" x="285" y="0.0" width="150" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="UI2-eh-9iD"/>
+                                                    <constraint firstAttribute="width" constant="150" id="a6f-Ew-wnc"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                                 <state key="normal" title="Word"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jsP-fc-F58">
-                                                <rect key="frame" x="570" y="0.0" width="85" height="57"/>
+                                                <rect key="frame" x="635" y="0.0" width="85" height="150"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                                 <state key="normal" title="Word"/>
                                                 <connections>
@@ -101,10 +108,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="6eh-fN-Afq">
-                                        <rect key="frame" x="0.0" y="514" width="655" height="57"/>
+                                        <rect key="frame" x="0.0" y="507" width="720" height="57"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-Lk-ibW">
-                                                <rect key="frame" x="0.0" y="0.0" width="227.5" height="57"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="260" height="57"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                                 <state key="normal" title="Word"/>
                                                 <connections>
@@ -112,7 +119,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-gN-TCc">
-                                                <rect key="frame" x="427.5" y="0.0" width="227.5" height="57"/>
+                                                <rect key="frame" x="460" y="0.0" width="260" height="57"/>
                                                 <state key="normal" title="+" image="ic_search"/>
                                             </button>
                                         </subviews>
@@ -135,6 +142,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="ic_home" id="RjR-OI-v4d"/>
                     <connections>
+                        <outlet property="deleteButton" destination="zHe-w2-5ix" id="KFO-il-M86"/>
                         <outlet property="inputWord" destination="xe8-fZ-LZ7" id="2iw-OU-G0G"/>
                         <outlet property="mainWord" destination="hWg-Ng-VCq" id="UHB-Am-haV"/>
                         <outletCollection property="wordButtons" destination="bAa-IJ-xst" collectionClass="NSMutableArray" id="doF-IB-tPG"/>

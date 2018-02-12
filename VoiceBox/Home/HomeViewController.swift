@@ -8,9 +8,10 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITextFieldDelegate {
+class HomeViewController: UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     var textPrevWord: String = ""
     var prevWord: Word = Word(value: "", imageName: "")
+    let customNavigationAnimationController = CustomNavigationAnimationController()
     
     @IBOutlet weak var inputWord: UITextField!
     var currentWord: String = ""
@@ -20,7 +21,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBAction func deleteWord(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func train(_ sender: UIButton) {
@@ -41,13 +42,17 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             newScreen.likelyNextWords.append(word)
         }
         
-        self.present(newScreen, animated: false, completion: nil)
+        self.navigationController?.pushViewController(newScreen, animated: true)
     }
     
     @IBOutlet weak var wordList: WordList!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let navController = self.navigationController {
+            navController.isNavigationBarHidden = true
+        }
         
         inputWord.delegate = self
         
@@ -56,6 +61,11 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         for i in 0..<min(5, self.likelyNextWords.count) {
             self.wordButtons[i].setTitle(self.likelyNextWords[i], for: .normal)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.delegate = self
     }
     
     //MARK: UITextFieldDelegate
@@ -91,5 +101,12 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             return HomeViewController()
         }
         return viewController
+    }
+    
+    //MARK: - UINavigationControllerAnimationDelegate
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        customNavigationAnimationController.reverse = operation == .pop
+        return customNavigationAnimationController
     }
 }

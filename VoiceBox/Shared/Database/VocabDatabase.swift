@@ -21,13 +21,39 @@ class VocabDatabase {
     // MARK: - Properties
     
     var dbQueue: DatabaseQueue!
+    var fileName: String {
+        return "\(Constant.fileName).\(Constant.fileExtension)"
+    }
+    var dbFilePath: String {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        return (documentsDirectory as NSString).appendingPathComponent(fileName)
+    }
     
     // MARK: - Singleton
     
     static let shared = VocabDatabase()
     
     fileprivate init() {
-        dbQueue = try? DatabaseQueue(path: Bundle.main.path(forResource: Constant.fileName, ofType: Constant.fileExtension)!)
+        copyDBToDevice()
+        initDatabase()
+        print("dbFilePath is: \(dbFilePath)")
+    }
+    
+    func copyDBToDevice() {
+        // Check if the database already exists and if not, copy it over
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: dbFilePath), let pathToDefaultDB = Bundle.main.path(forResource: Constant.fileName, ofType: Constant.fileExtension) {
+            do {
+                try fileManager.copyItem(atPath: pathToDefaultDB, toPath: dbFilePath)
+            } catch let error {
+                assertionFailure("Failed to copy data with error message \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func initDatabase() {
+        dbQueue = try? DatabaseQueue(path: dbFilePath)
     }
     
     // MARK: - Getters

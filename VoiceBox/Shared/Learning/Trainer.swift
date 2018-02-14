@@ -92,11 +92,14 @@ public class Trainer {
         print("Done Training")
         
         writeJsonFile(words: words)
+        DatabaseUpdater.shared.update(withWords: words)
+        
+        print("Done Updating Database")
     }
     
     func writeJsonFile(words: Words) {
         
-        let writeString: String = "[\(Serializer.shared.serialize(words:words, iteration: 1))]"
+        let writeString: String = Serializer.shared.serialize(words:words)
         
         do {
             try writeString.write(to: fileURL, atomically: true, encoding: .utf8)

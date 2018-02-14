@@ -129,9 +129,9 @@ class VocabDatabase {
     func create(word: Word) -> Int? {
         do {
             let newWordID = try dbQueue.inDatabase{ (db: Database) -> Int in
-                let json = Serializer.shared.serialize(word: word, iteration: 1)
+                let json = Serializer.shared.serialize(word: word)
                 try db.execute("""
-                    insert into words (value, imageName, json)
+                    insert into \(Word.databaseTableName) (\(Word.value), \(Word.imageName), \(Word.json))
                     values (?,?,?)
                     """, arguments: [word.value, word.imageName, json])
                 let wordID = db.lastInsertedRowID
@@ -141,22 +141,50 @@ class VocabDatabase {
         } catch {
             return nil
         }
-        // TODO: I need to call the Serializer with the word in order to get the right values and then I need to create the row with the right values in it.
+        // TODO: I need to fix the Serializer so that it serializes the word correctly.
     }
     
     //
     // Updates the word in the databade with the values contained in word.
     //
-    func update(word: Word) {
+    func update(word: Word) -> Bool {
         // TODO: I need to call the Serializer with the word in order to get the right JSON and then I need to update the row with those values.
-        return
+        do {
+            let success = try dbQueue.inDatabase{ (db: Database) -> Bool in
+                let json = Serializer.shared.serialize(word: word)
+                try db.execute("""
+                    update \(Word.databaseTableName)
+                    set \(Word.imageName) = ?, \(Word.json) = ?
+                    where \(Word.value) = ?
+                    """, arguments: [word.imageName, json, word.value])
+                return true
+            }
+            return success
+        } catch {
+            return false
+        }
     }
     
     //
     // Deletes the word in the databade with the values contained in word.
     //
-    func delete(word: Word) {
-        return
+    func delete(word: Word) -> Bool {
+        do {
+            let success = try dbQueue.inDatabase{ (db: Database) -> Bool in
+                try db.execute("""
+                    delete from \(Word.databaseTableName)
+                    where \(Word.value) = ?
+                    """, arguments: [word.value])
+                return true
+            }
+            return success
+        } catch {
+            return false
+        }
+    }
+    
+    func delete(wordWithText text: String) -> Bool {
+        return self.delete(word: Word.init(value: text, imageName: nil))
     }
     
     // MARK: - Queries

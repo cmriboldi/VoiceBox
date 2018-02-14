@@ -62,6 +62,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, UIViewControlle
             self.wordButtons[i].setTitle(self.likelyNextWords[i], for: .normal)
         }
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

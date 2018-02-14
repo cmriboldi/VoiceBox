@@ -22,12 +22,10 @@ class Serializer {
     //
     // Serializes a single word into a JSON string.
     //
-    func serialize(word: Word?, iteration: Int) -> String {
-        var json = "{}"
-        if let word = word {
-            json = "{\(word.value)}"
-        }
-        return json
+    public func serialize(word: Word) -> String {
+        var words = Words()
+        words[word.value] = word
+        return serialize(words: words, iteration: 1).minimized()
     }
 
     //
@@ -36,7 +34,11 @@ class Serializer {
     // TODO: Refactor the [] code to this function and move the majority of this code to use the serialize(word) funciton.
     //       Another thing I might want to make is to make a boolean value that can state whether you want it to be human readable or just a regular string.
     //       I'm probably also going to look into the good that other Pods might be able to provide for me here in this function.
-    func serialize(words: Words?, iteration: Int) -> String {
+    public func serialize(words: Words) -> String {
+        return "[\(serialize(words: words, iteration: 1))]"
+    }
+    
+    fileprivate func serialize(words: Words?, iteration: Int) -> String {
         let baseTabs = String(repeating: "\t", count: iteration-1)
         let repeatTabs = baseTabs + "\t"
         var json = "{\n"

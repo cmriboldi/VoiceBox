@@ -18,6 +18,10 @@ class VocabDatabase {
         static let fileExtension = "db"
     }
     
+    struct Temp {
+        static let primerWords = ["about","after","again","ah","all"]
+    }
+    
     // MARK: - Properties
     
     var dbQueue: DatabaseQueue!
@@ -121,6 +125,19 @@ class VocabDatabase {
             return []
         }
     }
+    
+    //
+    // Returns the words that the sentence creator should start with.
+    //
+    func getStartingWords(n _: Int) -> [Word] {
+        var startingWords = [Word]()
+        for wordText in Temp.primerWords {
+            let word = self.getWord(withText: wordText)
+            startingWords.append(word)
+        }
+        return startingWords
+    }
+    
     
     // MARK: - Setters
     //

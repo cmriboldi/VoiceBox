@@ -7,44 +7,32 @@
 //
 
 import UIKit
+import AVFoundation
 
-class HomeViewController: UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+    
+    // MARK: - Constants
+    private struct Storyboard {
+        static let SentenceWordCellID = "sentenceWordCell"
+    }
+    
+    // MARK: - Properties
+    var synth = AVSpeechSynthesizer()
+    var utterance = AVSpeechUtterance(string: "")
+    var sentenceWordIndex = 0
+    var sentence = Sentence()
     var textPrevWord: String = ""
     var prevWord: Word = Word(value: "", imageName: "")
+    var currentWord: Word = Word(value: "", imageName: "")
+    var likelyNextWords = [Word]()
     let customNavigationAnimationController = CustomNavigationAnimationController()
     
-    @IBOutlet weak var inputWord: UITextField!
-    var currentWord: String = ""
-    @IBOutlet weak var mainWord: UIButton!
-    var likelyNextWords: [String] = ["about", "after", "again", "ah", "all"]
-    @IBOutlet var wordButtons: [UIButton]!
+    @IBOutlet weak var sentenceCollectionView: UICollectionView!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var mainWord: UIButton!
+    @IBOutlet var wordButtons: [UIButton]!
     
-    @IBAction func deleteWord(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func train(_ sender: UIButton) {
-        Trainer.shared.train(name: "train", extension: "txt")
-    }
-    
-    //TODO
-    @IBAction func wordPressed(_ sender: Any) {
-//        print("pressed")
-        let newWord = (sender as! UIButton).currentTitle
-        let newScreen = HomeViewController.makeFromStoryboard()
-        let probableWords = self.doMachineLearning(textWord: newWord!, numWords: 5)
-        
-        newScreen.currentWord = newWord!
-        
-        newScreen.likelyNextWords = []
-        for word in probableWords {
-            newScreen.likelyNextWords.append(word)
-        }
-        
-        self.navigationController?.pushViewController(newScreen, animated: true)
-    }
-    
+    // Currently unused
     @IBOutlet weak var wordList: WordList!
     
     override func viewDidLoad() {
@@ -53,13 +41,14 @@ class HomeViewController: UIViewController, UITextFieldDelegate, UIViewControlle
         if let navController = self.navigationController {
             navController.isNavigationBarHidden = true
         }
+        if likelyNextWords.isEmpty {
+            likelyNextWords = VocabDatabase.shared.getStartingWords(n: 5)
+        }
         
-        inputWord.delegate = self
-        
-        self.mainWord.setTitle(self.currentWord, for: .normal)
+        self.mainWord.setTitle(self.currentWord.value, for: .normal)
         
         for i in 0..<min(5, self.likelyNextWords.count) {
-            self.wordButtons[i].setTitle(self.likelyNextWords[i], for: .normal)
+            self.wordButtons[i].setTitle(self.likelyNextWords[i].value, for: .normal)
         }
         
         
@@ -70,32 +59,79 @@ class HomeViewController: UIViewController, UITextFieldDelegate, UIViewControlle
         self.navigationController?.delegate = self
     }
     
-    //MARK: UITextFieldDelegate
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Hide the keyboard.
-        textField.resignFirstResponder()
-        return true
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        sentenceCollectionView.collectionViewLayout = flowLayout
+        
+        
+        let recognizer = UITapGestureRecognizer(target: self,action:#selector(self.handleTap(recognizer:)))
+        recognizer.delegate = self
+        sentenceCollectionView.addGestureRecognizer(recognizer)
+        
+        deleteButton.addTarget(self, action: #selector(clearSentence(_:event:)), for: UIControlEvents.touchDownRepeat)
     }
     
-    func doMachineLearning(textWord: String, numWords: Int) -> [String] {
-        var probableWords = [String]()
+    // MARK: - Actions
+    @IBAction func wordPressed(_ sender: UIButton) {
+        guard sender.tag < likelyNextWords.count else {
+            return
+        }
+        let newWord = self.likelyNextWords[sender.tag]
+        let newScreen = HomeViewController.makeFromStoryboard()
         
-        let ngram = NGram()
-        let word = VocabDatabase.shared.getWord(withText: textWord)
-
-        probableWords = ngram.nextWords(prevWord: self.prevWord, word: word, numWords: numWords)
-        self.textPrevWord = textWord
+        newScreen.currentWord = newWord
+        newScreen.likelyNextWords = predictNextWords(word: newWord, numWords: 5)
+        
+        sentence.append(newWord)
+        newScreen.sentence = self.sentence
+        
+//        let sentenceIndexPath = IndexPath(row:sentenceWordIndex, section: 0)
+//        self.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
+//        self.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
+        speakPhrase(newWord.spokenPhrase.lowercased())
+        sentenceWordIndex += 1
+        
+        self.navigationController?.pushViewController(newScreen, animated: true)
+    }
+    
+    // Currently unused
+    @IBAction func deleteWord(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    // Currently unused
+    @IBAction func train(_ sender: UIButton) {
+        Trainer.shared.train(name: "train", extension: "txt")
+    }
+    
+    
+    @objc func clearSentence(_ sender: UIButton, event: UIEvent) {
+        let touch: UITouch = event.allTouches!.first!
+        if (touch.tapCount == 2) {
+            sentence.removeAll()
+            sentenceWordIndex = 0
+            sentenceCollectionView.reloadData()
+            navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    // MARK: - Helper Functions
+    func speakPhrase(_ phrase: String) {
+        synth = AVSpeechSynthesizer()
+        utterance = AVSpeechUtterance(string: phrase)
+        utterance.rate = 0.4
+        synth.speak(utterance)
+    }
+    
+    func predictNextWords(word: Word, numWords: Int) -> [Word] {
+        self.textPrevWord = word.value
         self.prevWord = word
-        
-        return probableWords
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let input = textField.text!.lowercased().components(separatedBy: " ").last
-        let probableWords = doMachineLearning(textWord: input!, numWords: 5)
-        
-        wordList.words = probableWords
-        wordList.setupWords()
+        let ngram = NGram()
+
+        return ngram.nextWords(prevWord: self.prevWord, word: word, numWords: numWords)
     }
     
     static func makeFromStoryboard() -> HomeViewController {
@@ -111,4 +147,42 @@ class HomeViewController: UIViewController, UITextFieldDelegate, UIViewControlle
         customNavigationAnimationController.reverse = operation == .pop
         return customNavigationAnimationController
     }
+}
+
+extension HomeViewController: UIGestureRecognizerDelegate {
+    @objc func handleTap(recognizer:UITapGestureRecognizer) {
+        speakPhrase(sentence.getSpokenSentence())
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return (section == 0) ? sentence.count : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.SentenceWordCellID, for: indexPath)
+        let word = sentence[indexPath.item]
+        if let sentenceWordCell = cell as? SentenceWordCell {
+            sentenceWordCell.sentenceItemView.word = word
+            sentenceWordCell.sentenceItemView.setNeedsDisplay()
+            return sentenceWordCell
+        }
+        return cell
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected the \(indexPath.item)th item in the sentence collection view.")
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 91, height: 91)
+    }
+    
 }

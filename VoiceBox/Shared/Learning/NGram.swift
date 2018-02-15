@@ -24,7 +24,7 @@ public class NGram {
 //    print("aWords: \(aWords) \nbWords:\(bWords)")
     
     //FIXME: Make sure you're correctly taking both words into account
-    func nextWords(prevWord: Word, word: Word, numWords: Int) -> [String] {
+    func nextWords(prevWord: Word, word: Word, numWords: Int) -> [Word] {
         let textWord = word.value
 //        prevWord = Word(value: textPrevWord, imageName: imageName)
 //
@@ -55,7 +55,7 @@ public class NGram {
 //        word.nextWords!["capable"]?.nextWords!["enough"] = Word(value: "enough", imageName: "")
 //        word.nextWords!["capable"]?.nextWords!["of"] = Word(value: "of", imageName: "")
         
-        var nextWords = [String:Word]()
+        var nextWords = Words()
         
         if !(prevWord.value == "" && prevWord.imageName == "") && prevWord.nextWords![textWord] != nil {
             for (key, value) in (prevWord.nextWords![textWord]?.nextWords)! {
@@ -88,12 +88,11 @@ public class NGram {
             let (_, actualWord1) = word1
             return actualWord0.numOccur > actualWord1.numOccur
         }
-        var probableWords: [String] = []
-        for (key, _) in tempNextWords {
-            probableWords.append(key)
+        var probableWords = [Word]()
+        for (_, word) in tempNextWords {
+            probableWords.append(word)
         }
     
-        return Array(probableWords.prefix(numWords))
-//        return probableWords
+        return probableWords
     }
 }

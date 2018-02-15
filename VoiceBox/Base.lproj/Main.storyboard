@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EQg-v3-KCH">
-    <device id="ipad9_7" orientation="portrait">
+    <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,7 +15,7 @@
             <objects>
                 <viewController id="nnt-fn-gtA" customClass="VocabViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6gW-nc-NOv">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9b1-gl-vvh"/>
@@ -31,30 +31,11 @@
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xe8-fZ-LZ7">
-                                <rect key="frame" x="0.0" y="64" width="768" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="WTZ-dL-2kK"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHe-w2-5ix">
-                                <rect key="frame" x="657" y="80" width="91" height="69"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" keyboardKey="YES"/>
-                                </accessibility>
-                                <state key="normal" image="backspace black"/>
-                                <connections>
-                                    <action selector="deleteWord:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pBD-cb-wrW"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="75" translatesAutoresizingMaskIntoConstraints="NO" id="Vxo-zf-6Wo">
-                                <rect key="frame" x="-41" y="242" width="850" height="600"/>
+                                <rect key="frame" x="87" y="114" width="850" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-Xh-X2C">
                                         <rect key="frame" x="0.0" y="0.0" width="850" height="150"/>
@@ -84,7 +65,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QT9-8b-PAS">
                                                 <rect key="frame" x="425" y="0.0" width="425" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5SE-hC-RYB" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5SE-hC-RYB" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
                                                         <rect key="frame" x="137.5" y="0.0" width="150" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="150" id="TAl-aZ-8y6"/>
@@ -111,7 +92,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzN-LC-UxM">
                                                 <rect key="frame" x="0.0" y="0.0" width="283.5" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="B1O-xZ-YwA" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="B1O-xZ-YwA" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
                                                         <rect key="frame" x="66.5" y="0.0" width="150" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="MyV-GW-VbI"/>
@@ -152,7 +133,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33n-cY-wYK">
                                                 <rect key="frame" x="566.5" y="0.0" width="283.5" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jsP-fc-F58" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jsP-fc-F58" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
                                                         <rect key="frame" x="67" y="0.0" width="150" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="150" id="8U5-s9-mbg"/>
@@ -179,7 +160,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omP-cw-ior">
                                                 <rect key="frame" x="0.0" y="0.0" width="425" height="150"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-Lk-ibW" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-Lk-ibW" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
                                                         <rect key="frame" x="137.5" y="0.0" width="150" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="Kdu-fj-hCv"/>
@@ -230,25 +211,74 @@
                                     <constraint firstAttribute="trailing" secondItem="KL2-Xh-X2C" secondAttribute="trailing" id="rVT-Yl-cle"/>
                                 </constraints>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9dc-VE-Eyp" userLabel="Sentence Stack View">
+                                <rect key="frame" x="0.0" y="64" width="1024" height="95.5"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F1H-GL-vIM" userLabel="Sentence Collection View">
+                                        <rect key="frame" x="0.0" y="0.0" width="921" height="95.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="n0O-2V-t5E">
+                                            <size key="itemSize" width="90" height="90"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sentenceWordCell" id="X0y-K5-rkh" customClass="SentenceWordCell" customModule="VoiceBox" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jr8-IU-emO" customClass="SentenceItemView" customModule="VoiceBox" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </view>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstItem="jr8-IU-emO" firstAttribute="leading" secondItem="X0y-K5-rkh" secondAttribute="leading" id="fA3-ao-IC7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jr8-IU-emO" secondAttribute="trailing" id="ih1-SF-ABi"/>
+                                                    <constraint firstItem="jr8-IU-emO" firstAttribute="top" secondItem="X0y-K5-rkh" secondAttribute="top" id="kWW-oR-TfM"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jr8-IU-emO" secondAttribute="bottom" id="oWX-bj-2Q3"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="sentenceItemView" destination="jr8-IU-emO" id="1bb-6g-JZ2"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXK-j3-AA1">
+                                        <rect key="frame" x="929" y="0.0" width="95" height="95.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="95" id="16j-zu-k1O"/>
+                                            <constraint firstAttribute="height" constant="95" id="k7L-yB-0e9"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="backspace black"/>
+                                        <connections>
+                                            <action selector="deleteWord:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bXC-sG-hRn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="xe8-fZ-LZ7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="117-1d-67H"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zHe-w2-5ix" secondAttribute="trailing" constant="20" id="68O-Ln-oUt"/>
-                            <constraint firstItem="xe8-fZ-LZ7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="L5Z-f1-cnb"/>
                             <constraint firstItem="Vxo-zf-6Wo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="30" id="Try-40-53K"/>
-                            <constraint firstItem="xe8-fZ-LZ7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ltG-Ua-1YU"/>
+                            <constraint firstItem="9dc-VE-Eyp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gnb-Pt-CWS"/>
+                            <constraint firstItem="9dc-VE-Eyp" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lQL-jy-biQ"/>
+                            <constraint firstItem="9dc-VE-Eyp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tuW-MK-bhx"/>
                             <constraint firstItem="Vxo-zf-6Wo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vKj-yD-9E9"/>
-                            <constraint firstItem="zHe-w2-5ix" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="zik-b2-8SR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Myl-qb-S4C"/>
                     <connections>
-                        <outlet property="deleteButton" destination="zHe-w2-5ix" id="KFO-il-M86"/>
-                        <outlet property="inputWord" destination="xe8-fZ-LZ7" id="2iw-OU-G0G"/>
+                        <outlet property="deleteButton" destination="iXK-j3-AA1" id="YJR-rI-3Li"/>
                         <outlet property="mainWord" destination="hWg-Ng-VCq" id="UHB-Am-haV"/>
+                        <outlet property="sentenceCollectionView" destination="F1H-GL-vIM" id="iPa-KB-c8T"/>
                         <outletCollection property="wordButtons" destination="bAa-IJ-xst" collectionClass="NSMutableArray" id="doF-IB-tPG"/>
                         <outletCollection property="wordButtons" destination="5SE-hC-RYB" collectionClass="NSMutableArray" id="p76-sY-XJc"/>
                         <outletCollection property="wordButtons" destination="b1n-Lk-ibW" collectionClass="NSMutableArray" id="cYz-HK-PP9"/>
@@ -265,7 +295,7 @@
             <objects>
                 <viewController id="MqU-1e-ZFE" customClass="SettingsViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jhe-CF-T7P">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -317,7 +347,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="ic_home" id="RjR-OI-v4d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y00-3R-mM0">
-                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

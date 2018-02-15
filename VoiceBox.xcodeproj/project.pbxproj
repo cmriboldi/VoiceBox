@@ -32,6 +32,10 @@
 		5EAD0CB2202B676E00036A31 /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAD0CB1202B676E00036A31 /* Serializer.swift */; };
 		5EAD0CB4202B678A00036A31 /* Deserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAD0CB3202B678A00036A31 /* Deserializer.swift */; };
 		5EAE9088202A604E00D8CC14 /* DatabaseUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */; };
+		5EB1DB8220363E19000F0B1A /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB8120363E19000F0B1A /* Sentence.swift */; };
+		5EB1DB84203640AF000F0B1A /* SentenceWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB83203640AF000F0B1A /* SentenceWordCell.swift */; };
+		5EB1DB86203640C5000F0B1A /* SentenceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB85203640C5000F0B1A /* SentenceItemView.swift */; };
+		5EB1DB8820364121000F0B1A /* VocabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB8720364121000F0B1A /* VocabItemView.swift */; };
 		5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 5ED17FD5201A5779002E1ADB /* VocabularyDB.db */; };
 		8CB5D2BE06CB4E0FAF04920B /* Pods_VoiceBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 768DBE447492CD9C78C8A852 /* Pods_VoiceBox.framework */; };
 /* End PBXBuildFile section */
@@ -85,6 +89,10 @@
 		5EAD0CB1202B676E00036A31 /* Serializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
 		5EAD0CB3202B678A00036A31 /* Deserializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deserializer.swift; sourceTree = "<group>"; };
 		5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUpdater.swift; sourceTree = "<group>"; };
+		5EB1DB8120363E19000F0B1A /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
+		5EB1DB83203640AF000F0B1A /* SentenceWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceWordCell.swift; sourceTree = "<group>"; };
+		5EB1DB85203640C5000F0B1A /* SentenceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceItemView.swift; sourceTree = "<group>"; };
+		5EB1DB8720364121000F0B1A /* VocabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabItemView.swift; sourceTree = "<group>"; };
 		5ED17FD5201A5779002E1ADB /* VocabularyDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = VocabularyDB.db; sourceTree = "<group>"; };
 		75074F08D8DEBA02E50E3D27 /* Pods-VoiceBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.debug.xcconfig"; sourceTree = "<group>"; };
 		753E1473BEC6095E4BC624B5 /* Pods-VoiceBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.release.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				5E1DDC96201B89B10003627A /* Word.swift */,
+				5EB1DB8120363E19000F0B1A /* Sentence.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -221,6 +230,9 @@
 				032F8B44201DE4570072A680 /* WordList.swift */,
 				5EAA33F1200E5D2300519B7E /* HomeViewController.swift */,
 				032581A0202FAC09000BB130 /* RoundedButton.swift */,
+				5EB1DB83203640AF000F0B1A /* SentenceWordCell.swift */,
+				5EB1DB85203640C5000F0B1A /* SentenceItemView.swift */,
+				5EB1DB8720364121000F0B1A /* VocabItemView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -517,10 +529,14 @@
 				032F8B6A201FC3C80072A680 /* Trie.swift in Sources */,
 				032F8B69201FC3C80072A680 /* NGram.swift in Sources */,
 				032F8B46201DE4570072A680 /* WordList.swift in Sources */,
+				5EB1DB8220363E19000F0B1A /* Sentence.swift in Sources */,
 				032581A1202FAC09000BB130 /* RoundedButton.swift in Sources */,
+				5EB1DB8820364121000F0B1A /* VocabItemView.swift in Sources */,
 				5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */,
 				5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */,
+				5EB1DB84203640AF000F0B1A /* SentenceWordCell.swift in Sources */,
 				5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */,
+				5EB1DB86203640C5000F0B1A /* SentenceItemView.swift in Sources */,
 				5E6DA9502034FFF20000E6EC /* String+helpers.swift in Sources */,
 				5EAE9088202A604E00D8CC14 /* DatabaseUpdater.swift in Sources */,
 				032F8B6F201FCFEB0072A680 /* Trainer.swift in Sources */,

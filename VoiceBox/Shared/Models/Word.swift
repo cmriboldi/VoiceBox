@@ -6,8 +6,19 @@
 //  Copyright © 2018 Christian Riboldi. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import GRDB
+
+enum WordType: String{
+    case word, folder
+    var description: String {
+        return self.rawValue.uppercased()
+    }
+}
+
+enum WordColor: String {
+    case orange, pink, blue, green, yellow, indigo, white, gray
+}
 
 typealias Words = [String:Word]
 
@@ -23,10 +34,21 @@ struct Word: TableMapping {
     static let json = "json"
     
     // MARK: - Properties
-    public var value: String
-    public var numOccur: Int
-    public var imageName: String?
-    public var nextWords: Words?
+    var value: String
+    var numOccur: Int
+    var imageName: String?
+    var nextWords: Words?
+    var image: UIImage?
+    var type = WordType.word
+    var buttonColor: WordColor = .orange
+    var spokenPhrase: String {
+        get {
+            return value
+        }
+        set {
+            value = newValue
+        }
+    }
     
     // MARK: - Initialization
     init() {
@@ -53,7 +75,7 @@ struct Word: TableMapping {
         self.nextWords = decerializeNextWords(nextWords)
     }
     
-    init(value: String, imageName: String?) {
+    init(value: String, imageName: String? = nil) {
         self.value = value
         self.imageName = imageName
         numOccur = 1

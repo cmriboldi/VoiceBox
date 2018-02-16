@@ -41,6 +41,9 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
         if let navController = self.navigationController {
             navController.isNavigationBarHidden = true
         }
+        sentenceCollectionView.delegate = self
+        sentenceCollectionView.dataSource = self
+        
         if likelyNextWords.isEmpty {
             likelyNextWords = VocabDatabase.shared.getStartingWords(n: 5)
         }
@@ -84,17 +87,21 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
         
         newScreen.currentWord = newWord
         newScreen.likelyNextWords = predictNextWords(word: newWord, numWords: 5)
+        newScreen.sentence = self.sentence.copy()
+        newScreen.sentenceWordIndex = self.sentenceWordIndex
         
-        sentence.append(newWord)
-        newScreen.sentence = self.sentence
-        
-//        let sentenceIndexPath = IndexPath(row:sentenceWordIndex, section: 0)
-//        self.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
-//        self.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
         speakPhrase(newWord.spokenPhrase.lowercased())
-        sentenceWordIndex += 1
         
-        self.navigationController?.pushViewController(newScreen, animated: true)
+        self.navigationController?.pushViewController(newScreen, animated: true) {
+            newScreen.sentence.append(newWord)
+            newScreen.sentenceCollectionView.setNeedsLayout()
+            
+            let sentenceIndexPath = IndexPath(row:self.sentenceWordIndex, section: 0)
+            newScreen.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
+            newScreen.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
+            newScreen.sentenceWordIndex += 1
+        }
+        
     }
     
     // Currently unused

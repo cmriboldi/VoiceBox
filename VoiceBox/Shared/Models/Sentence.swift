@@ -35,6 +35,14 @@ class Sentence {
         sentenceWords.append(word)
     }
     
+    func copy() -> Sentence {
+        let sentenceCopy = Sentence()
+        for word in sentenceWords {
+            sentenceCopy.append(word)
+        }
+        return sentenceCopy
+    }
+    
     func getSpokenSentence() -> String {
         var fullSentence = ""
         for word in sentenceWords {

@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol CircleTransitionable {
+    var triggerButton: UIButton { get }
+    var contentTextView: UITextView { get }
+    var mainView: UIView { get }
+}
+
 class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
-    
+    weak var context: UIViewControllerContextTransitioning?
     var reverse: Bool = false
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -17,45 +23,81 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView
-        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-        let toView = toViewController.view
-        let fromView = fromViewController.view
-        let direction: CGFloat = reverse ? -1 : 1
-        let const: CGFloat = -0.005
+        guard let fromVC = transitionContext.viewController(forKey: .from) as? CircleTransitionable,
+            let toVC = transitionContext.viewController(forKey: .to) as? CircleTransitionable,
+            let snapshot = fromVC.mainView.snapshotView(afterScreenUpdates: false) else {
+                transitionContext.completeTransition(false)
+                return
+        }
         
-        toView?.layer.anchorPoint = CGPoint(x: direction == 1 ? 0 : 1, y: 0.5)
-        fromView?.layer.anchorPoint = CGPoint(x: direction == 1 ? 1 : 0, y: 0.5)
-        
-        var viewFromTransform: CATransform3D = CATransform3DMakeRotation(direction * CGFloat(Double.pi / 2), 0.0, 1.0, 0.0)
-        var viewToTransform: CATransform3D = CATransform3DMakeRotation(-direction * CGFloat(Double.pi / 2), 0.0, 1.0, 0.0)
-        viewFromTransform.m34 = const
-        viewToTransform.m34 = const
-        
-        containerView.transform = CGAffineTransform(translationX: direction * containerView.frame.size.width / 2.0, y: 0)
-        toView?.layer.transform = viewToTransform
-        containerView.addSubview(toView!)
-        
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-            containerView.transform = CGAffineTransform(translationX: -direction * containerView.frame.size.width / 2.0, y: 0)
-            fromView?.layer.transform = viewFromTransform
-            toView?.layer.transform = CATransform3DIdentity
-        }, completion: {
-            finished in
-            containerView.transform = .identity
-            fromView?.layer.transform = CATransform3DIdentity
-            toView?.layer.transform = CATransform3DIdentity
-            fromView?.layer.anchorPoint = CGPoint(x: 0.5,y: 0.5)
-            toView?.layer.anchorPoint = CGPoint(x: 0.5,y: 0.5)
-            
-            if (transitionContext.transitionWasCancelled) {
-                toView?.removeFromSuperview()
-            } else {
-                fromView?.removeFromSuperview()
-            }
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        })
-    }
+        context = transitionContext
 
+        let containerView = transitionContext.containerView
+        containerView.addSubview(snapshot)
+        fromVC.mainView.removeFromSuperview()
+        
+        animateOldTextOffscreen(fromView: snapshot)
+        
+//        containerView.addSubview(toVC.mainView)
+        animate(toView: toVC.mainView, fromTriggerButton: fromVC.triggerButton)
+        animateToTextView(toTextView: toVC.contentTextView, fromTriggerButton: fromVC.triggerButton)
+    }
+    
+    func animateOldTextOffscreen(fromView: UIView) {
+        UIView.animate(withDuration: 0.25,
+                       delay: 0.0,
+                       options: [.curveEaseIn],
+                       animations: {
+                        fromView.center = CGPoint(x: fromView.center.x - 2000,
+                                                  y: fromView.center.y + 2000)
+                        fromView.transform = CGAffineTransform(scaleX: 5.0, y: 5.0)
+        }, completion: nil)
+    }
+    
+    func animate(toView: UIView, fromTriggerButton triggerButton: UIButton) {
+        let rect = CGRect(x: triggerButton.frame.origin.x,
+                          y: triggerButton.frame.origin.y,
+                          width: triggerButton.frame.width,
+                          height: triggerButton.frame.width)
+
+        let circleMaskPathInitial = UIBezierPath(ovalIn: rect)
+        let fullHeight = toView.bounds.height
+        let extremePoint = CGPoint(x: triggerButton.center.x,
+                                   y: triggerButton.center.y - fullHeight)
+
+        let radius = sqrt((extremePoint.x*extremePoint.x) +
+            (extremePoint.y*extremePoint.y))
+
+        let circleMaskPathFinal = UIBezierPath(ovalIn: triggerButton.frame.insetBy(dx: -radius, dy: -radius))
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = circleMaskPathFinal.cgPath
+        toView.layer.mask = maskLayer
+        
+        let maskLayerAnimation = CABasicAnimation(keyPath: "path")
+        maskLayerAnimation.fromValue = circleMaskPathInitial.cgPath
+        maskLayerAnimation.toValue = circleMaskPathFinal.cgPath
+        maskLayerAnimation.duration = 0.15
+        maskLayerAnimation.delegate = self
+        maskLayer.add(maskLayerAnimation, forKey: "path")
+    }
+    
+    func animateToTextView(toTextView: UIView, fromTriggerButton: UIButton) {
+        let originalCenter = toTextView.center
+        toTextView.alpha = 0.0
+        toTextView.center = fromTriggerButton.center
+        toTextView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: 0.25, delay: 0.1, options: [.curveEaseOut], animations: {
+            toTextView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            toTextView.center = originalCenter
+            toTextView.alpha = 1.0
+        }, completion: nil)
+    }
+}
+
+extension CustomNavigationAnimationController: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        context?.completeTransition(true)
+    }
 }

@@ -9,7 +9,14 @@
 import UIKit
 import AVFoundation
 
-class HomeViewController: UIViewController, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, CircleTransitionable {
+    var triggerButton = UIButton()
+    
+    var contentTextView = UITextView()
+    
+    var mainView: UIView {
+        return view
+    }
     
     // MARK: - Constants
     private struct Storyboard {
@@ -40,6 +47,7 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
         
         if let navController = self.navigationController {
             navController.isNavigationBarHidden = true
+//            navController.delegate = transitionCoordinator
         }
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
@@ -53,8 +61,6 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
         for i in 0..<min(5, self.likelyNextWords.count) {
             self.wordButtons[i].setTitle(self.likelyNextWords[i].value, for: .normal)
         }
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +88,9 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
         guard sender.tag < likelyNextWords.count else {
             return
         }
+        
+        triggerButton = sender
+        
         let newWord = self.likelyNextWords[sender.tag]
         let newScreen = HomeViewController.makeFromStoryboard()
         
@@ -102,6 +111,7 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
             newScreen.sentenceWordIndex += 1
         }
         
+        triggerButton = UIButton()
     }
     
     // Currently unused

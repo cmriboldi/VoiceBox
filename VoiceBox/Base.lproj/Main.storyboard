@@ -277,6 +277,7 @@
                     <navigationItem key="navigationItem" id="Myl-qb-S4C"/>
                     <connections>
                         <outlet property="deleteButton" destination="iXK-j3-AA1" id="YJR-rI-3Li"/>
+                        <outlet property="mainStackView" destination="Vxo-zf-6Wo" id="LX7-k1-aUa"/>
                         <outlet property="mainWord" destination="hWg-Ng-VCq" id="UHB-Am-haV"/>
                         <outlet property="sentenceCollectionView" destination="F1H-GL-vIM" id="iPa-KB-c8T"/>
                         <outletCollection property="wordButtons" destination="bAa-IJ-xst" collectionClass="NSMutableArray" id="doF-IB-tPG"/>

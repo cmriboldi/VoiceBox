@@ -19,7 +19,7 @@ class VocabDatabase {
     }
     
     struct Temp {
-        static let primerWords = ["about","after","again","ah","all"]
+        static let primerWords = ["am","are","will","i","do"]
     }
     
     // MARK: - Properties

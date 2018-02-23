@@ -7,14 +7,10 @@
 //
 
 import UIKit
+import IBAnimatable
 import AVFoundation
 
-class HomeViewController: UIViewController, UINavigationControllerDelegate, GrowTransitionable {
-    var triggerButtonIndex = 0
-    var contentTextView = UITextView()
-    @IBOutlet weak var mainStackView: UIStackView!
-    var mainView: UIView {return view}
-//    var mainView: UIView {return mainStackView}
+class HomeViewController: UIViewController {
     
     // MARK: - Constants
     private struct Storyboard {
@@ -22,15 +18,14 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, Grow
     }
     
     // MARK: - Properties
+    var triggerButtonIndex = 0
     var synth = AVSpeechSynthesizer()
     var utterance = AVSpeechUtterance(string: "")
     var sentenceWordIndex = 0
     var sentence = Sentence()
-    var textPrevWord: String = ""
     var prevWord: Word = Word(value: "", imageName: "")
     var currentWord: Word = Word(value: "", imageName: "")
     var likelyNextWords = [Word]()
-    var customNavigationAnimationController = CustomNavigationAnimationController()
     var transitionThumbnail: UIImageView?
 
     @IBOutlet weak var sentenceCollectionView: UICollectionView!
@@ -38,21 +33,12 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, Grow
     @IBOutlet weak var mainWord: UIButton!
     @IBOutlet var wordButtons: [UIButton]!
     
-    // Currently unused
-    @IBOutlet weak var wordList: WordList!
-    
-    func getWordText(word: Word) -> String {
-        if word.value == "i" {return "I"}
-        return word.value
-    }
-    
+    // MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let navController = self.navigationController {
             navController.isNavigationBarHidden = true
-//            navController.delegate = transitionCoordinator
-            navController.transitioningDelegate = self
         }
         
         sentenceCollectionView.delegate = self
@@ -62,16 +48,8 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, Grow
             likelyNextWords = VocabDatabase.shared.getStartingWords(n: 5)
         }
         
-        self.mainWord.setTitle(self.getWordText(word: self.currentWord), for: .normal)
+        populateWordButtons()
         
-        for i in 0..<min(5, self.likelyNextWords.count) {
-            self.wordButtons[i].setTitle(self.getWordText(word: self.likelyNextWords[i]), for: .normal)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.delegate = self
     }
     
     override func viewWillLayoutSubviews() {
@@ -90,48 +68,52 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, Grow
     }
     
     // MARK: - Actions
-    @IBAction func wordPressed(_ sender: UIButton) {
-        guard sender.tag < likelyNextWords.count else {
+    @IBAction func wordPressed(_ button: RoundButton) {
+        guard button.tag < likelyNextWords.count else {
             return
         }
 
-        triggerButtonIndex = wordButtons.index(of: sender)!
+        triggerButtonIndex = wordButtons.index(of: button)!
 
-        var newWord = self.likelyNextWords[sender.tag]
-//        newWord.value = newWord.value.lowercased()
-        let newScreen = HomeViewController.makeFromStoryboard()
+        var newWord = self.likelyNextWords[button.tag]
 
-        newScreen.currentWord = newWord
-        newScreen.likelyNextWords = predictNextWords(word: newWord, numWords: 5)
-        newScreen.sentence = self.sentence.copy()
-        newScreen.sentenceWordIndex = self.sentenceWordIndex
+        self.likelyNextWords = predictNextWords(newWord: newWord, numWords: 5)
+        print("\n\nselected word is: \(newWord.value)")
 
         speakPhrase(newWord.spokenPhrase.lowercased())
+        
+        self.sentence.append(newWord)
+        self.sentenceCollectionView.setNeedsLayout()
+        
+        let sentenceIndexPath = IndexPath(row:self.sentenceWordIndex, section: 0)
+        self.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
+        self.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
+        self.sentenceWordIndex += 1
+        
+        let centerCornerX = Double(mainWord.center.x) - Double(mainWord.bounds.width / 2)
+        let centerCornerY = Double(mainWord.center.y) - Double(mainWord.bounds.height / 2)
+        
+        button.animate(.moveTo(x: centerCornerX, y: centerCornerY))
+        
+        populateWordButtons()
 
-        self.navigationController?.pushViewController(newScreen, animated: true) {
-            newScreen.sentence.append(newWord)
-            newScreen.sentenceCollectionView.setNeedsLayout()
-
-            let sentenceIndexPath = IndexPath(row:self.sentenceWordIndex, section: 0)
-            newScreen.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
-            newScreen.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
-            newScreen.sentenceWordIndex += 1
-        }
-
-//        triggerButtonIndex = 0
-        transitionThumbnail = UIImageView(image: UIImage(view: self.mainView.snapshotView(afterScreenUpdates: false)!))
     }
     
     @IBAction func deleteWord(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if !sentence.isEmpty {
+            sentenceWordIndex -= 1
+            sentence.removeLast()
+            let indexPath = IndexPath(row:sentenceWordIndex, section: 0)
+            self.sentenceCollectionView.deleteItems(at: [indexPath])
+        }
     }
     
-//    // Currently unused
-//    @IBAction func train(_ sender: UIButton) {
-//        Trainer.shared.train(name: "train", extension: "txt")
-//    }
+    // Currently unused
+    @IBAction func train(_ sender: UIButton) {
+        Trainer.shared.train(name: "train", extension: "txt")
+    }
     
-    
+    // MARK: - Helper Functions
     @objc func clearSentence(_ sender: UIButton, event: UIEvent) {
         let touch: UITouch = event.allTouches!.first!
         if (touch.tapCount == 2) {
@@ -142,7 +124,19 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, Grow
         }
     }
     
-    // MARK: - Helper Functions
+    func populateWordButtons() {
+        self.mainWord.setTitle(self.getWordText(word: self.currentWord), for: .normal)
+        
+        for (i,likelyWord) in self.likelyNextWords.enumerated() {
+            self.wordButtons[i].setTitle(self.getWordText(word: likelyWord), for: .normal)
+        }
+    }
+    
+    func getWordText(word: Word) -> String {
+        if word.value == "i" {return "I"}
+        return word.value
+    }
+    
     func speakPhrase(_ phrase: String) {
         synth = AVSpeechSynthesizer()
         utterance = AVSpeechUtterance(string: phrase)
@@ -150,12 +144,12 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, Grow
         synth.speak(utterance)
     }
     
-    func predictNextWords(word: Word, numWords: Int) -> [Word] {
-        self.textPrevWord = word.value
-        self.prevWord = word
+    func predictNextWords(newWord: Word, numWords: Int) -> [Word] {
+        self.prevWord = self.currentWord
+        self.currentWord = newWord
         let ngram = NGram()
 
-        return ngram.nextWords(prevWord: self.prevWord, word: word, numWords: numWords)
+        return ngram.nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)
     }
     
     static func makeFromStoryboard() -> HomeViewController {
@@ -165,20 +159,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, Grow
         return viewController
     }
     
-    //MARK: - UINavigationControllerAnimationDelegate
-    
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if operation == .push {
-//            // Pass the thumbnail frame to the transition animator.
-//            guard let transitionThumbnail = transitionThumbnail else {return nil}//, let transitionThumbnailSuperview = transitionThumbnail.superview else { return nil }
-//            customNavigationAnimationController = CustomNavigationAnimationController()
-//            customNavigationAnimationController.thumbnailFrame = transitionThumbnailSuperview.convert(transitionThumbnail.frame, to: nil)
-//        }
-        customNavigationAnimationController = CustomNavigationAnimationController()
-        customNavigationAnimationController.operation = operation
-        
-        return customNavigationAnimationController
-    }
 }
 
 extension HomeViewController: UIGestureRecognizerDelegate {
@@ -213,21 +193,5 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 91, height: 91)
-    }
-}
-
-extension HomeViewController: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return customNavigationAnimationController
-    }
-}
-
-extension UIImage {
-    convenience init(view: UIView) {
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.layer.render(in:UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.init(cgImage: image!.cgImage!)
     }
 }

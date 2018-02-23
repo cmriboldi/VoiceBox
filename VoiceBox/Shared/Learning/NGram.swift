@@ -26,34 +26,6 @@ public class NGram {
     //FIXME: Make sure you're correctly taking both words into account
     func nextWords(prevWord: Word, word: Word, numWords: Int) -> [Word] {
         let textWord = word.value
-//        prevWord = Word(value: textPrevWord, imageName: imageName)
-//
-//        prevWord.nextWords!["am"] = Word(value: "am", imageName: "")
-//        prevWord.nextWords!["am"]?.nextWords!["going"] = Word(value: "going", imageName: "")
-//        prevWord.nextWords!["am"]?.nextWords!["hungry"] = Word(value: "hungry", imageName: "")
-//        prevWord.nextWords!["am"]?.nextWords!["always"] = Word(value: "always", imageName: "")
-//
-//        prevWord.nextWords!["will"] = Word(value: "will", imageName: "")
-//        prevWord.nextWords!["will"]?.nextWords!["go"] = Word(value: "go", imageName: "")
-//        prevWord.nextWords!["will"]?.nextWords!["be"] = Word(value: "be", imageName: "")
-//
-//        prevWord.nextWords!["understand"] = Word(value: "understand", imageName: "")
-//        prevWord.nextWords!["understand"]?.nextWords!["that"] = Word(value: "that", imageName: "")
-//        prevWord.nextWords!["understand"]?.nextWords!["somewhat"] = Word(value: "somewhat", imageName: "")
-//
-//        word = Word(value: textWord, imageName: imageName)
-//
-//        word.nextWords!["going"] = Word(value: "going", imageName: "")
-//        word.nextWords!["going"]?.nextWords!["to"] = Word(value: "to", imageName: "")
-//        word.nextWords!["going"]?.nextWords!["there"] = Word(value: "there", imageName: "")
-//
-//        word.nextWords!["hungry"] = Word(value: "hungry", imageName: "")
-//        word.nextWords!["hungry"]?.nextWords!["now"] = Word(value: "now", imageName: "")
-//        word.nextWords!["hungry"]?.nextWords!["always"] = Word(value: "always", imageName: "")
-//
-//        word.nextWords!["capable"] = Word(value: "capable", imageName: "")
-//        word.nextWords!["capable"]?.nextWords!["enough"] = Word(value: "enough", imageName: "")
-//        word.nextWords!["capable"]?.nextWords!["of"] = Word(value: "of", imageName: "")
         
         var nextWords = Words()
         
@@ -89,8 +61,9 @@ public class NGram {
             return actualWord0.numOccur > actualWord1.numOccur
         }
         var probableWords = [Word]()
-        for (_, word) in tempNextWords {
-            probableWords.append(word)
+        let maxIndex = min(numWords, tempNextWords.count)
+        for i in 0..<maxIndex {
+            probableWords.append(VocabDatabase.shared.getWord(withText: tempNextWords[i].value.value))
         }
     
         return probableWords

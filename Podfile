@@ -4,6 +4,7 @@ platform :ios, '11.0'
 target 'VoiceBox' do
 	use_frameworks!
     pod 'GRDB.swift'
+    pod 'IBAnimatable'
     pod 'SwipeableTabBarController'
 end
 

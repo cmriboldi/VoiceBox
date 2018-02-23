@@ -18,7 +18,6 @@
 		032F8B712023C64D0072A680 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 032F8B702023C64D0072A680 /* words.txt */; };
 		037F51432029044D00209685 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51422029044C00209685 /* TabBarController.swift */; };
 		5E24167720226B7E00EF7C79 /* test_train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E24167620226B7E00EF7C79 /* test_train.txt */; };
-		5E5B1459203240250067C825 /* CustomNavigationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5B1458203240250067C825 /* CustomNavigationAnimationController.swift */; };
 		5E6DA9502034FFF20000E6EC /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DA94F2034FFF20000E6EC /* String+helpers.swift */; };
 		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
@@ -70,7 +69,6 @@
 		5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDatabase.swift; sourceTree = "<group>"; };
 		5E1DDC96201B89B10003627A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		5E24167620226B7E00EF7C79 /* test_train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_train.txt; sourceTree = "<group>"; };
-		5E5B1458203240250067C825 /* CustomNavigationAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationAnimationController.swift; sourceTree = "<group>"; };
 		5E6DA94F2034FFF20000E6EC /* String+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+helpers.swift"; sourceTree = "<group>"; };
 		5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabViewController.swift; sourceTree = "<group>"; };
 		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 		5E5B1457203240000067C825 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				5E5B1458203240250067C825 /* CustomNavigationAnimationController.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -470,11 +467,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GRDB.swift/GRDB.framework",
+				"${BUILT_PRODUCTS_DIR}/IBAnimatable/IBAnimatable.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IBAnimatable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,7 +524,6 @@
 				5EAD0CB4202B678A00036A31 /* Deserializer.swift in Sources */,
 				032F8B47201DE62C0072A680 /* VocabDatabase.swift in Sources */,
 				032F8B48201DE6300072A680 /* Word.swift in Sources */,
-				5E5B1459203240250067C825 /* CustomNavigationAnimationController.swift in Sources */,
 				037F51432029044D00209685 /* TabBarController.swift in Sources */,
 				5EAD0CB2202B676E00036A31 /* Serializer.swift in Sources */,
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,

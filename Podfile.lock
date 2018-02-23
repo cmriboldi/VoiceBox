@@ -1,15 +1,18 @@
 PODS:
   - GRDB.swift (2.4.1)
+  - IBAnimatable (5.0.0)
   - SwipeableTabBarController (1.0.11)
 
 DEPENDENCIES:
   - GRDB.swift
+  - IBAnimatable
   - SwipeableTabBarController
 
 SPEC CHECKSUMS:
   GRDB.swift: 2c984d506b75b48c9d2dad43c77605fa9e9593b8
+  IBAnimatable: aa2286a9cf8fb4ae2e1be85c5287ae56143b024f
   SwipeableTabBarController: ffdb77cfe9997c92078b5022b4e770bdf88d76bd
 
-PODFILE CHECKSUM: eb4d4c909fe3eab741c10ab572d944b66c71eb18
+PODFILE CHECKSUM: e02679845fedc46c1fb48b19e6474823e2c3d62e
 
 COCOAPODS: 1.4.0

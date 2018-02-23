@@ -7,13 +7,9 @@
 //
 
 import UIKit
+import IBAnimatable
 
-@IBDesignable class RoundButton: UIButton {
-    @IBInspectable var cornerRadius: CGFloat = 15 {
-        didSet {
-            refreshCorners(value: cornerRadius)
-        }
-    }
+@IBDesignable class RoundButton: AnimatableButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,15 +26,10 @@ import UIKit
     }
     
     func sharedInit() {
-        // Common logic goes here
-        refreshCorners(value: cornerRadius)
-    }
-    
-    func refreshCorners(value: CGFloat) {
-        layer.cornerRadius = 0.5 * bounds.size.width
-        backgroundColor = .clear
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.black.cgColor
-        clipsToBounds = true
+        self.cornerRadius = 0.5 * bounds.size.width
+        self.backgroundColor = UIColor.white
+        self.borderColor = UIColor.black
+        self.borderWidth = 2
+        self.clipsToBounds = true
     }
 }

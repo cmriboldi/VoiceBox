@@ -203,11 +203,11 @@
                         <outlet property="deleteButton" destination="iXK-j3-AA1" id="YJR-rI-3Li"/>
                         <outlet property="mainWord" destination="hWg-Ng-VCq" id="UHB-Am-haV"/>
                         <outlet property="sentenceCollectionView" destination="F1H-GL-vIM" id="iPa-KB-c8T"/>
-                        <outletCollection property="wordButtons" destination="bAa-IJ-xst" collectionClass="NSMutableArray" id="doF-IB-tPG"/>
-                        <outletCollection property="wordButtons" destination="5SE-hC-RYB" collectionClass="NSMutableArray" id="p76-sY-XJc"/>
-                        <outletCollection property="wordButtons" destination="B1O-xZ-YwA" collectionClass="NSMutableArray" id="Qj6-hS-ucG"/>
-                        <outletCollection property="wordButtons" destination="b1n-Lk-ibW" collectionClass="NSMutableArray" id="cYz-HK-PP9"/>
-                        <outletCollection property="wordButtons" destination="jsP-fc-F58" collectionClass="NSMutableArray" id="AU2-DK-ATD"/>
+                        <outletCollection property="wordButtons" destination="B1O-xZ-YwA" collectionClass="NSMutableArray" id="7TG-JB-yAb"/>
+                        <outletCollection property="wordButtons" destination="b1n-Lk-ibW" collectionClass="NSMutableArray" id="x2M-ju-r0E"/>
+                        <outletCollection property="wordButtons" destination="bAa-IJ-xst" collectionClass="NSMutableArray" id="xAQ-dw-7pg"/>
+                        <outletCollection property="wordButtons" destination="5SE-hC-RYB" collectionClass="NSMutableArray" id="uDb-yh-cuV"/>
+                        <outletCollection property="wordButtons" destination="jsP-fc-F58" collectionClass="NSMutableArray" id="t9c-wy-gfu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

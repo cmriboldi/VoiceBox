@@ -21,6 +21,7 @@
 		5E6DA9502034FFF20000E6EC /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DA94F2034FFF20000E6EC /* String+helpers.swift */; };
 		5EA332ED200FA99A00E9C6EB /* VocabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
+		5EA38FD620476648007F60E2 /* Array+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA38FD520476648007F60E2 /* Array+helpers.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
 		5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33F1200E5D2300519B7E /* HomeViewController.swift */; };
 		5EAA33F5200E5D2300519B7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA33F3200E5D2300519B7E /* Main.storyboard */; };
@@ -72,6 +73,7 @@
 		5E6DA94F2034FFF20000E6EC /* String+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+helpers.swift"; sourceTree = "<group>"; };
 		5EA332EC200FA99A00E9C6EB /* VocabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabViewController.swift; sourceTree = "<group>"; };
 		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5EA38FD520476648007F60E2 /* Array+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+helpers.swift"; sourceTree = "<group>"; };
 		5EAA33EC200E5D2300519B7E /* VoiceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EAA33EF200E5D2300519B7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EAA33F1200E5D2300519B7E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			children = (
 				5E6DA94F2034FFF20000E6EC /* String+helpers.swift */,
 				5ECECB1C2037320500AB53B4 /* UINavigationController+completion.swift */,
+				5EA38FD520476648007F60E2 /* Array+helpers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				5ECECB1D2037320500AB53B4 /* UINavigationController+completion.swift in Sources */,
 				5EB1DB86203640C5000F0B1A /* SentenceItemView.swift in Sources */,
 				5E6DA9502034FFF20000E6EC /* String+helpers.swift in Sources */,
+				5EA38FD620476648007F60E2 /* Array+helpers.swift in Sources */,
 				5EAE9088202A604E00D8CC14 /* DatabaseUpdater.swift in Sources */,
 				032F8B6F201FCFEB0072A680 /* Trainer.swift in Sources */,
 			);

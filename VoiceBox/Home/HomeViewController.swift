@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var sentenceCollectionView: UICollectionView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var mainWord: UIButton!
-    @IBOutlet var wordButtons: [UIButton]!
+    @IBOutlet var wordButtons: [RoundButton]!
     
     // MARK: - ViewController Functions
     override func viewDidLoad() {
@@ -90,12 +90,37 @@ class HomeViewController: UIViewController {
         self.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
         self.sentenceWordIndex += 1
         
+        let pressedCenterCornerX = Double(button.center.x) - Double(button.bounds.width / 2)
+        let pressedCenterCornerY = Double(button.center.y) - Double(button.bounds.height / 2)
         let centerCornerX = Double(mainWord.center.x) - Double(mainWord.bounds.width / 2)
         let centerCornerY = Double(mainWord.center.y) - Double(mainWord.bounds.height / 2)
         
         button.animate(.moveTo(x: centerCornerX, y: centerCornerY))
         
-        populateWordButtons()
+        for otherButton in self.wordButtons {
+            if otherButton != button {
+                let buttonCenterCornerX = Double(otherButton.center.x) - Double(otherButton.bounds.width / 2)
+                let buttonCenterCornerY = Double(otherButton.center.y) - Double(otherButton.bounds.height / 2)
+                otherButton.animate(.moveTo(x: centerCornerX, y: centerCornerY))
+                otherButton.animate(.fade(way: .out)).then(.moveTo(x: buttonCenterCornerX, y: buttonCenterCornerY)).completion({
+                    if otherButton == self.wordButtons.last || otherButton == self.wordButtons.secondToLast {
+                        self.populateWordButtons(closure: {
+                            let wordChangeDelay = 0.1
+                            let showWordsDelay = 0.2
+                            button.delay(wordChangeDelay).completion({button.alpha = 0})
+                            button.delay(wordChangeDelay).then(.moveTo(x: pressedCenterCornerX, y: pressedCenterCornerY), duration: 0.0)
+                                .delay(showWordsDelay)
+                                .then(.fade(way: .in))
+                            for otherButton in self.wordButtons {
+                                if otherButton != button {
+                                    otherButton.delay(wordChangeDelay + showWordsDelay).then(.fade(way: .in))
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        }
 
     }
     
@@ -124,12 +149,13 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func populateWordButtons() {
+    func populateWordButtons(closure: (() -> Void)? = nil) {
         self.mainWord.setTitle(self.getWordText(word: self.currentWord), for: .normal)
         
         for (i,likelyWord) in self.likelyNextWords.enumerated() {
             self.wordButtons[i].setTitle(self.getWordText(word: likelyWord), for: .normal)
         }
+        closure?()
     }
     
     func getWordText(word: Word) -> String {

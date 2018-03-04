@@ -11,6 +11,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>IBAnimatable.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>Pods-VoiceBox.xcscheme</key>
 		<dict>
 			<key>isShown</key>

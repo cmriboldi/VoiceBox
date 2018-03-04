@@ -10,21 +10,84 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Vocab-->
-        <scene sceneID="xfy-iF-l6f">
+        <!--Vocab View Controller-->
+        <scene sceneID="VEK-Lv-k1e">
             <objects>
-                <viewController id="nnt-fn-gtA" customClass="VocabViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="6gW-nc-NOv">
+                <collectionViewController id="C4i-V9-cXY" customClass="VocabViewController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="k8K-RI-aDe">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="9b1-gl-vvh"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Vocab" image="ic_pages" id="juw-xO-Aq2"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3au-0l-Giy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TFs-KA-1i0">
+                            <size key="itemSize" width="200" height="200"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WordCell" id="vFD-qt-KzR" customClass="WordCell" customModule="VoiceBox" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xAm-NO-oqJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        </imageView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="de9-zp-i5J">
+                                            <rect key="frame" x="81" y="81" width="37" height="37"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="centerX" secondItem="vFD-qt-KzR" secondAttribute="centerX" id="JSC-Ho-iJl"/>
+                                    <constraint firstItem="de9-zp-i5J" firstAttribute="centerX" secondItem="vFD-qt-KzR" secondAttribute="centerX" id="JXV-QO-Yx0"/>
+                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="centerY" secondItem="vFD-qt-KzR" secondAttribute="centerY" id="Teb-DZ-HMd"/>
+                                    <constraint firstItem="de9-zp-i5J" firstAttribute="centerY" secondItem="vFD-qt-KzR" secondAttribute="centerY" id="qJV-DA-4uk"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="activityIndicator" destination="de9-zp-i5J" id="UyQ-Ui-WTD"/>
+                                    <outlet property="imageView" destination="xAm-NO-oqJ" id="Goi-CH-JL6"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="C4i-V9-cXY" id="mqe-mF-cVc"/>
+                            <outlet property="delegate" destination="C4i-V9-cXY" id="zq0-Ev-SSg"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="avT-Sm-RTD">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="w1y-R6-TaV">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MCB-Td-tWc">
+                                <rect key="frame" x="20" y="0.0" width="78" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ic_back"/>
+                                <connections>
+                                    <action selector="goBack:" destination="C4i-V9-cXY" eventType="touchUpInside" id="xv8-Lu-GIv"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" id="VtD-XW-UEd">
+                            <rect key="frame" x="132.5" y="7" width="759" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            <connections>
+                                <outlet property="delegate" destination="C4i-V9-cXY" id="Ff1-RQ-PE9"/>
+                            </connections>
+                        </textField>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="MCB-Td-tWc" id="SHR-kZ-yLx"/>
+                        <outlet property="searchTextField" destination="VtD-XW-UEd" id="WvG-zI-Lxa"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BX9-f5-tBs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-533.59375" y="-493.35937499999994"/>
+            <point key="canvasLocation" x="-475.19531249999994" y="244.53125"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -212,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="197.4609375" y="245.3125"/>
+            <point key="canvasLocation" x="321.6796875" y="245.3125"/>
         </scene>
         <!--Settings-->
         <scene sceneID="w0F-vh-atG">
@@ -237,7 +300,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1134.375" y="-493.35937499999994"/>
+            <point key="canvasLocation" x="1258.59375" y="-493.75"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="qWz-yd-fUQ">
@@ -255,7 +318,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="nnt-fn-gtA" kind="relationship" relationship="viewControllers" id="oEd-Rk-D53"/>
+                        <segue destination="9L6-AC-Be1" kind="relationship" relationship="viewControllers" id="biD-Ma-cqD"/>
                         <segue destination="SjT-Ho-XKo" kind="relationship" relationship="viewControllers" id="rJi-kM-bX9"/>
                         <segue destination="MqU-1e-ZFE" kind="relationship" relationship="viewControllers" id="Zuf-fS-gJh"/>
                     </connections>
@@ -281,11 +344,32 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ON9-ez-GeH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="197.65625" y="-493.35937499999994"/>
+            <point key="canvasLocation" x="321.6796875" y="-493.75"/>
+        </scene>
+        <!--Vocab-->
+        <scene sceneID="634-Sz-XSj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9L6-AC-Be1" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Vocab" image="ic_pages" id="jZ6-jh-6DL"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7dq-s0-qet">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="C4i-V9-cXY" kind="relationship" relationship="rootViewController" id="sOE-qO-Dos"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9f5-rT-3pO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-475" y="-494"/>
         </scene>
     </scenes>
     <resources>
         <image name="backspace black" width="91" height="69"/>
+        <image name="ic_back" width="50" height="50"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_pages" width="24" height="24"/>
         <image name="ic_search" width="37" height="37"/>

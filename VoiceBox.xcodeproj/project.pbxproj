@@ -542,6 +542,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				032CC17C2044C3820007BCA4 /* Vocabulary.swift in Sources */,	
+				032CC17E2044C3820007BCA4 /* Node.swift in Sources */,
 				032F8B47201DE62C0072A680 /* VocabDatabase.swift in Sources */,
 				032CC17D2044C3820007BCA4 /* VocabularyWord.swift in Sources */,
 				032F8B48201DE6300072A680 /* Word.swift in Sources */,

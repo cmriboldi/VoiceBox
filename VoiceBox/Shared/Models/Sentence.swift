@@ -46,9 +46,10 @@ class Sentence {
     func getSpokenSentence() -> String {
         var fullSentence = ""
         for word in sentenceWords {
-            fullSentence += "\(word.spokenPhrase) "
+            if let phrase = word.spokenPhrase {
+                fullSentence += phrase
+            }
         }
-        print("fullSentence: \(fullSentence)")
         return fullSentence
     }
     

@@ -10,13 +10,6 @@ import Foundation
 
 class DatabaseUpdater {
     
-    // MARK: - Constants
-    
-//    struct Constant {
-//        static let fileName = "words"
-//        static let fileExtension = "json"
-//    }
-    
     // MARK: - Properties
     
     var fileURL: URL!
@@ -30,13 +23,23 @@ class DatabaseUpdater {
     }
     
     func update(withWords words:Words) {
+        var successfulUpdates = 0
+        var totalUpdates = 0
+        var successfulCreates = 0
+        var totalCreates = 0
         for (key,word) in words {
             if VocabDatabase.shared.doesWordExist(withText: key) {
-                VocabDatabase.shared.update(word: word)
+                let updateSuccess = VocabDatabase.shared.update(word: word)
+                successfulUpdates += (updateSuccess) ? 1 : 0
+                totalUpdates += 1
             } else {
-                VocabDatabase.shared.create(word: word)
+                let creationSuccess = VocabDatabase.shared.create(word: word)
+                successfulCreates += (creationSuccess != nil) ? 1 : 0
+                totalCreates += 1
             }
         }
+        print("Successfully updated \(successfulUpdates)/\(totalUpdates)")
+        print("Successfully created \(successfulCreates)/\(totalCreates)")
     }
     
     

@@ -64,42 +64,45 @@ class VocabDatabase {
     //
     // Return a Word object for the given word ID.
     //
-    func getWord(withText wordText: String) -> Word {
+    func getWord(withText wordText: String) -> Word? {
         do {
-            let word = try dbQueue.inDatabase{ (db: Database) -> Word in
+            let word = try dbQueue.inDatabase{ (db: Database) -> Word? in
+                
                 let row = try Row.fetchOne(db,
                                            "select * from \(Word.databaseTableName) " +
-                                           "where \(Word.value) = ?",
-                                           arguments: [wordText])
-                if let row = row, let data = row[Word.json] as? String {
-                    return Deserializer.shared.deserialize(jsonWord: data)
+                    "where \(Word.Database.value) = ?",
+                    arguments: [wordText])
+                if let row = row, let data = row[Word.Database.json] as? Data {
+                    let word = try JSONDecoder().decode(Word.self, from: data)
+                    return word
                 }
-                return Word()
+                return nil
             }
             return word
         } catch {
-            return Word()
+            return nil
         }
     }
     
     //
     // Return a Word object for the given word ID.
     //
-    func getWord(withId wordId: Int) -> Word {
+    func getWord(withId wordId: Int) -> Word? {
         do {
-            let word = try dbQueue.inDatabase{ (db: Database) -> Word in
+            let word = try dbQueue.inDatabase{ (db: Database) -> Word? in
                 let row = try Row.fetchOne(db,
                                            "select * from \(Word.databaseTableName) " +
-                                           "where \(Word.id) = ?",
-                                           arguments: [wordId])
-                if let row = row, let data = row[Word.json] as? String {
-                    return Deserializer.shared.deserialize(jsonWord: data)
+                    "where \(Word.Database.id) = ?",
+                    arguments: [wordId])
+                if let row = row, let data = row[Word.Database.json] as? Data {
+                    let word = try JSONDecoder().decode(Word.self, from: data)
+                    return word
                 }
-                return Word()
+                return nil
             }
             return word
         } catch {
-            return Word()
+            return nil
         }
     }
     
@@ -112,10 +115,11 @@ class VocabDatabase {
                 var words = [Word]()
                 let rows = try Row.fetchAll(db,
                                             "select * from \(Word.databaseTableName) " +
-                                            "where \(Word.value) like \"\(preffix)\"")
+                    "where \(Word.Database.value) like \"\(preffix)\"")
                 for row in rows {
-                    if let data = row[Word.json] as? String {
-                        words.append(Deserializer.shared.deserialize(jsonWord: data))
+                    if let data = row[Word.Database.json] as? Data {
+                        let word = try JSONDecoder().decode(Word.self, from: data)
+                        words.append(word)
                     }
                 }
                 return words
@@ -132,8 +136,9 @@ class VocabDatabase {
     func getStartingWords(n _: Int) -> [Word] {
         var startingWords = [Word]()
         for wordText in Temp.primerWords {
-            let word = self.getWord(withText: wordText)
-            startingWords.append(word)
+            if let word = self.getWord(withText: wordText) {
+                startingWords.append(word)
+            }
         }
         return startingWords
     }
@@ -146,11 +151,11 @@ class VocabDatabase {
     func create(word: Word) -> Int? {
         do {
             let newWordID = try dbQueue.inDatabase{ (db: Database) -> Int in
-                let json = Serializer.shared.serialize(word: word)
+                let json = try JSONEncoder().encode(word)
                 try db.execute("""
-                    insert into \(Word.databaseTableName) (\(Word.value), \(Word.imageName), \(Word.json))
+                    insert into \(Word.databaseTableName) (\(Word.Database.value), \(Word.Database.json))
                     values (?,?,?)
-                    """, arguments: [word.value, word.imageName, json])
+                    """, arguments: [word.value, json])
                 let wordID = db.lastInsertedRowID
                 return Int(truncatingIfNeeded: wordID)
             }
@@ -158,22 +163,21 @@ class VocabDatabase {
         } catch {
             return nil
         }
-        // TODO: I need to fix the Serializer so that it serializes the word correctly.
     }
     
     //
     // Updates the word in the databade with the values contained in word.
     //
     func update(word: Word) -> Bool {
-        // TODO: I need to call the Serializer with the word in order to get the right JSON and then I need to update the row with those values.
         do {
             let success = try dbQueue.inDatabase{ (db: Database) -> Bool in
-                let json = Serializer.shared.serialize(word: word)
+                let json = try JSONEncoder().encode(word)
+                //                let json = Serializer.shared.serialize(word: word)
                 try db.execute("""
                     update \(Word.databaseTableName)
-                    set \(Word.imageName) = ?, \(Word.json) = ?
-                    where \(Word.value) = ?
-                    """, arguments: [word.imageName, json, word.value])
+                    set \(Word.Database.json) = ?
+                    where \(Word.Database.value) = ?
+                    """, arguments: [json, word.value])
                 return true
             }
             return success
@@ -190,7 +194,7 @@ class VocabDatabase {
             let success = try dbQueue.inDatabase{ (db: Database) -> Bool in
                 try db.execute("""
                     delete from \(Word.databaseTableName)
-                    where \(Word.value) = ?
+                    where \(Word.Database.value) = ?
                     """, arguments: [word.value])
                 return true
             }
@@ -201,7 +205,7 @@ class VocabDatabase {
     }
     
     func delete(wordWithText text: String) -> Bool {
-        return self.delete(word: Word.init(value: text, imageName: nil))
+        return self.delete(word: Word.init(value: text))
     }
     
     // MARK: - Queries
@@ -213,8 +217,8 @@ class VocabDatabase {
             let doesWordExist = try dbQueue.inDatabase{ (db: Database) -> Bool in
                 let row = try Row.fetchOne(db,
                                            "select * from \(Word.databaseTableName) " +
-                                           "where \(Word.value) = ?",
-                                           arguments: [wordText])
+                    "where \(Word.Database.value) = ?",
+                    arguments: [wordText])
                 if row != nil {
                     return true
                 }
@@ -225,5 +229,4 @@ class VocabDatabase {
             return false
         }
     }
-    
 }

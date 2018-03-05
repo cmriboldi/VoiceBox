@@ -37,17 +37,11 @@ class VocabItemView: UIView {
         get {
             return word.image
         }
-        set {
-            word.image = newValue
-        }
     }
     
-    @IBInspectable var spokenPhrase: String {
+    @IBInspectable var spokenPhrase: String? {
         get {
             return word.spokenPhrase
-        }
-        set {
-            word.spokenPhrase = newValue
         }
     }
     

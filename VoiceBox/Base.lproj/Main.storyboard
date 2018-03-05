@@ -227,6 +227,9 @@
                                             <constraint firstAttribute="width" constant="150" id="mT2-6B-VeZ"/>
                                         </constraints>
                                         <state key="normal" title="+" image="ic_search"/>
+                                        <connections>
+                                            <action selector="train:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JoS-Jp-SEl"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

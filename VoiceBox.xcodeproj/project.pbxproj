@@ -34,8 +34,6 @@
 		5EAA33FA200E5D2300519B7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA33F8200E5D2300519B7E /* LaunchScreen.storyboard */; };
 		5EAA3405200E5D2300519B7E /* VoiceBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA3404200E5D2300519B7E /* VoiceBoxTests.swift */; };
 		5EAA3410200E5D2300519B7E /* VoiceBoxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */; };
-		5EAD0CB2202B676E00036A31 /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAD0CB1202B676E00036A31 /* Serializer.swift */; };
-		5EAD0CB4202B678A00036A31 /* Deserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAD0CB3202B678A00036A31 /* Deserializer.swift */; };
 		5EAE9088202A604E00D8CC14 /* DatabaseUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */; };
 		5EB1DB8220363E19000F0B1A /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB8120363E19000F0B1A /* Sentence.swift */; };
 		5EB1DB84203640AF000F0B1A /* SentenceWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB83203640AF000F0B1A /* SentenceWordCell.swift */; };
@@ -97,8 +95,6 @@
 		5EAA340B200E5D2300519B7E /* VoiceBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EAA340F200E5D2300519B7E /* VoiceBoxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceBoxUITests.swift; sourceTree = "<group>"; };
 		5EAA3411200E5D2300519B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5EAD0CB1202B676E00036A31 /* Serializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
-		5EAD0CB3202B678A00036A31 /* Deserializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deserializer.swift; sourceTree = "<group>"; };
 		5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUpdater.swift; sourceTree = "<group>"; };
 		5EB1DB8120363E19000F0B1A /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		5EB1DB83203640AF000F0B1A /* SentenceWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceWordCell.swift; sourceTree = "<group>"; };
@@ -176,6 +172,15 @@
 				753E1473BEC6095E4BC624B5 /* Pods-VoiceBox.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5E02CFC72049B123007725E7 /* VocabDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */,
+				5ED17FD5201A5779002E1ADB /* VocabularyDB.db */,
+			);
+			path = VocabDatabase;
 			sourceTree = "<group>";
 		};
 		5E1DDC95201B89880003627A /* Models */ = {
@@ -324,11 +329,8 @@
 		5ED17FD1201A5732002E1ADB /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				5ED17FD5201A5779002E1ADB /* VocabularyDB.db */,
-				5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */,
+				5E02CFC72049B123007725E7 /* VocabDatabase */,
 				5EAE9087202A604D00D8CC14 /* DatabaseUpdater.swift */,
-				5EAD0CB1202B676E00036A31 /* Serializer.swift */,
-				5EAD0CB3202B678A00036A31 /* Deserializer.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -540,15 +542,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				032CC17C2044C3820007BCA4 /* Vocabulary.swift in Sources */,
-				032CC17E2044C3820007BCA4 /* Node.swift in Sources */,
-				5EAD0CB4202B678A00036A31 /* Deserializer.swift in Sources */,
 				032F8B47201DE62C0072A680 /* VocabDatabase.swift in Sources */,
 				032CC17D2044C3820007BCA4 /* VocabularyWord.swift in Sources */,
 				032F8B48201DE6300072A680 /* Word.swift in Sources */,
 				032CC1822044C3FF0007BCA4 /* VocabViewController.swift in Sources */,
 				037F51432029044D00209685 /* TabBarController.swift in Sources */,
-				5EAD0CB2202B676E00036A31 /* Serializer.swift in Sources */,
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				032F8B6A201FC3C80072A680 /* Trie.swift in Sources */,
 				032F8B69201FC3C80072A680 /* NGram.swift in Sources */,

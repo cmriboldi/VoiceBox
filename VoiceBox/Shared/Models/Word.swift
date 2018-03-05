@@ -9,109 +9,80 @@
 import UIKit
 import GRDB
 
-enum WordType: String{
+enum WordType: String, Encodable, Decodable{
     case word, folder
     var description: String {
         return self.rawValue.uppercased()
     }
 }
 
-enum WordColor: String {
+enum WordColor: String, Encodable, Decodable {
     case orange, pink, blue, green, yellow, indigo, white, gray
 }
 
 typealias Words = [String:Word]
 
-struct Word: TableMapping {
-    
+struct Word: TableMapping, Encodable, Decodable {
     // MARK: - Table mapping
     static let databaseTableName = "words"
-    
+
     // MARK: - Field names
-    static let id = "ID"
-    static let value = "value"
-    static let imageName = "imageName"
-    static let json = "json"
-    
+    struct Database {
+        static let id = "ID"
+        static let value = "value"
+        static let imageName = "imageName"
+        static let json = "json"
+    }
+
     // MARK: - Properties
     var value: String
     var numOccur: Int
-    var imageName: String?
     var nextWords: Words?
-    var image: UIImage?
     var type = WordType.word
-    var buttonColor: WordColor = .orange
-    var spokenPhrase: String {
+    var buttonColor: WordColor? = .orange
+    var imageName: String? {
+        return "\(value)_img"
+    }
+    var image: UIImage? {
+        let imgName = self.imageName ?? ""
+        return UIImage.init(named: imgName)
+    }
+    var spokenPhrase: String? {
         get {
             return value
-        }
-        set {
-            value = newValue
         }
     }
     
     // MARK: - Initialization
     init() {
-        value = ""
-        imageName = ""
+        self.value = ""
         numOccur = 0
         commonInit()
     }
     
-    init(json: [String:Any]) {
-        guard let key = json.keys.first,
-              let dict = json[key] as? [String:Any],
-              let value = dict["value"] as? String,
-              let numOccur = dict["numOccur"] as? Int,
-              let nextWords = dict["nextWords"] as? [String:Any] else {
-                self.value = ""
-                self.numOccur = 0
-                commonInit()
-                return
-        }
-        
+    init(value: String) {
         self.value = value
-        self.numOccur = numOccur
-        self.nextWords = decerializeNextWords(nextWords)
-    }
-    
-    init(value: String, imageName: String? = nil) {
-        self.value = value
-        self.imageName = imageName
         numOccur = 1
         commonInit()
     }
-    
+
     mutating func commonInit() {
         self.nextWords = Words()
     }
     
-    // MARK: - Deserialization
-    
-    func decerializeNextWords(_ words: [String:Any]) -> [String:Word]? {
-        var nextWords = Words()
-        for word in words {
-            nextWords[word.key] = Word(json: [word.key:word.value])
-        }
-        return nextWords.isEmpty ? nil : nextWords
-    }
-    
     // MARK: - Mutating functions
-    
+
     mutating func incrementNumOccur() {
         self.numOccur += 1
     }
-    
-    mutating func addWord(value: String, imageName: String) {
+
+    mutating func addWord(value: String) {
         if self.nextWords?[value] == nil {
-            self.nextWords?[value] = Word(value: value, imageName: imageName)
+            self.nextWords?[value] = Word(value: value)
         }
         else {
             self.nextWords?[value]?.incrementNumOccur()
         }
     }
-    
-    
-
     
 }

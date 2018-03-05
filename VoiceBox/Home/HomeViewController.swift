@@ -23,8 +23,8 @@ class HomeViewController: UIViewController {
     var utterance = AVSpeechUtterance(string: "")
     var sentenceWordIndex = 0
     var sentence = Sentence()
-    var prevWord: Word = Word(value: "", imageName: "")
-    var currentWord: Word = Word(value: "", imageName: "")
+    var prevWord: Word = Word(value: "")
+    var currentWord: Word = Word(value: "")
     var likelyNextWords = [Word]()
     var transitionThumbnail: UIImageView?
 
@@ -75,12 +75,11 @@ class HomeViewController: UIViewController {
 
         triggerButtonIndex = wordButtons.index(of: button)!
 
-        var newWord = self.likelyNextWords[button.tag]
+        let newWord = self.likelyNextWords[button.tag]
 
         self.likelyNextWords = predictNextWords(newWord: newWord, numWords: 5)
-        print("\n\nselected word is: \(newWord.value)")
 
-        speakPhrase(newWord.spokenPhrase.lowercased())
+        speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
         
         self.sentence.append(newWord)
         self.sentenceCollectionView.setNeedsLayout()
@@ -121,7 +120,6 @@ class HomeViewController: UIViewController {
                 })
             }
         }
-
     }
     
     @IBAction func deleteWord(_ sender: Any) {

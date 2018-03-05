@@ -37,15 +37,15 @@ public class Trainer {
     // MARK: - Helper Functions
     private func insertWord(textWord: String, textNextWord: String, textNextNextWord: String) {
         if self.words[textWord] == nil {
-            words[textWord] = Word(value: textWord, imageName: "")
+            words[textWord] = Word(value: textWord)
         }
         else {
             words[textWord]?.incrementNumOccur()
         }
         if textNextWord != "" {
-            words[textWord]?.addWord(value: textNextWord, imageName: "")
+            words[textWord]?.addWord(value: textNextWord)
             if textNextNextWord != "" {
-                words[textWord]?.nextWords?[textNextWord]?.addWord(value: textNextNextWord, imageName: "")
+                words[textWord]?.nextWords?[textNextWord]?.addWord(value: textNextNextWord)
             }
         }
     }
@@ -99,10 +99,9 @@ public class Trainer {
     
     func writeJsonFile(words: Words) {
         
-        let writeString: String = Serializer.shared.serialize(words:words)
-        
         do {
-            try writeString.write(to: fileURL, atomically: true, encoding: .utf8)
+            let writeJson = try JSONEncoder().encode(words)
+            try writeJson.write(to: fileURL)
         } catch let error as NSError {
             print("Failed to write to URL.")
             print(error)

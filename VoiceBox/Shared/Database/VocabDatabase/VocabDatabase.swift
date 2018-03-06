@@ -115,7 +115,55 @@ class VocabDatabase {
                 var words = [Word]()
                 let rows = try Row.fetchAll(db,
                                             "select * from \(Word.databaseTableName) " +
-                    "where \(Word.Database.value) like \"\(preffix)\"")
+                    "where \(Word.Database.value) like \"\(preffix)%\"")
+                for row in rows {
+                    if let data = row[Word.Database.json] as? Data {
+                        let word = try JSONDecoder().decode(Word.self, from: data)
+                        words.append(word)
+                    }
+                }
+                return words
+            }
+            return words
+        } catch {
+            return []
+        }
+    }
+    
+    //
+    // Return an array of Word objects which contain the given substring.
+    //
+    func getWords(withSubstring substring: String) -> [Word] {
+        do {
+            let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
+                var words = [Word]()
+                let rows = try Row.fetchAll(db,
+                                            "select * from \(Word.databaseTableName) " +
+                    "where \(Word.Database.value) like \"%\(substring)%\"")
+                for row in rows {
+                    if let data = row[Word.Database.json] as? Data {
+                        let word = try JSONDecoder().decode(Word.self, from: data)
+                        words.append(word)
+                    }
+                }
+                return words
+            }
+            return words
+        } catch {
+            return []
+        }
+    }
+    
+    //
+    // Return an array of Word objects which end with the ending value.
+    //
+    func getWords(withEnding ending: String) -> [Word] {
+        do {
+            let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
+                var words = [Word]()
+                let rows = try Row.fetchAll(db,
+                                            "select * from \(Word.databaseTableName) " +
+                    "where \(Word.Database.value) like \"%\(ending)\"")
                 for row in rows {
                     if let data = row[Word.Database.json] as? Data {
                         let word = try JSONDecoder().decode(Word.self, from: data)

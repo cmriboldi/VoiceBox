@@ -69,8 +69,10 @@ class VocabDatabase {
             let word = try dbQueue.inDatabase{ (db: Database) -> Word? in
                 
                 let row = try Row.fetchOne(db,
-                                           "select * from \(Word.databaseTableName) " +
-                    "where \(Word.Database.value) = ?",
+                                           """
+                                           select * from \(Word.databaseTableName)
+                                           where \(Word.Database.value) = ?
+                                           """,
                     arguments: [wordText])
                 if let row = row, let data = row[Word.Database.json] as? Data {
                     let word = try JSONDecoder().decode(Word.self, from: data)
@@ -91,8 +93,10 @@ class VocabDatabase {
         do {
             let word = try dbQueue.inDatabase{ (db: Database) -> Word? in
                 let row = try Row.fetchOne(db,
-                                           "select * from \(Word.databaseTableName) " +
-                    "where \(Word.Database.id) = ?",
+                                           """
+                                           select * from \(Word.databaseTableName)
+                                           where \(Word.Database.id) = ?
+                                           """,
                     arguments: [wordId])
                 if let row = row, let data = row[Word.Database.json] as? Data {
                     let word = try JSONDecoder().decode(Word.self, from: data)
@@ -114,8 +118,10 @@ class VocabDatabase {
             let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
                 var words = [Word]()
                 let rows = try Row.fetchAll(db,
-                                            "select * from \(Word.databaseTableName) " +
-                    "where \(Word.Database.value) like \"\(preffix)%\"")
+                                            """
+                                            select * from \(Word.databaseTableName)
+                                            where \(Word.Database.value) like "\(preffix)%"
+                                            """)
                 for row in rows {
                     if let data = row[Word.Database.json] as? Data {
                         let word = try JSONDecoder().decode(Word.self, from: data)
@@ -138,8 +144,10 @@ class VocabDatabase {
             let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
                 var words = [Word]()
                 let rows = try Row.fetchAll(db,
-                                            "select * from \(Word.databaseTableName) " +
-                    "where \(Word.Database.value) like \"%\(substring)%\"")
+                                            """
+                                            select * from \(Word.databaseTableName)
+                                            where \(Word.Database.value) like "%\(substring)%"
+                                            """)
                 for row in rows {
                     if let data = row[Word.Database.json] as? Data {
                         let word = try JSONDecoder().decode(Word.self, from: data)
@@ -162,8 +170,10 @@ class VocabDatabase {
             let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
                 var words = [Word]()
                 let rows = try Row.fetchAll(db,
-                                            "select * from \(Word.databaseTableName) " +
-                    "where \(Word.Database.value) like \"%\(ending)\"")
+                                            """
+                                            select * from \(Word.databaseTableName)
+                                            where \(Word.Database.value) like "%\(ending)"
+                                            """)
                 for row in rows {
                     if let data = row[Word.Database.json] as? Data {
                         let word = try JSONDecoder().decode(Word.self, from: data)
@@ -201,9 +211,10 @@ class VocabDatabase {
             let newWordID = try dbQueue.inDatabase{ (db: Database) -> Int in
                 let json = try JSONEncoder().encode(word)
                 try db.execute("""
-                    insert into \(Word.databaseTableName) (\(Word.Database.value), \(Word.Database.json))
-                    values (?,?,?)
-                    """, arguments: [word.value, json])
+                               insert into \(Word.databaseTableName) (\(Word.Database.value), \(Word.Database.json))
+                               values (?,?,?)
+                               """,
+                               arguments: [word.value, json])
                 let wordID = db.lastInsertedRowID
                 return Int(truncatingIfNeeded: wordID)
             }
@@ -222,10 +233,11 @@ class VocabDatabase {
                 let json = try JSONEncoder().encode(word)
                 //                let json = Serializer.shared.serialize(word: word)
                 try db.execute("""
-                    update \(Word.databaseTableName)
-                    set \(Word.Database.json) = ?
-                    where \(Word.Database.value) = ?
-                    """, arguments: [json, word.value])
+                               update \(Word.databaseTableName)
+                               set \(Word.Database.json) = ?
+                               where \(Word.Database.value) = ?
+                               """,
+                               arguments: [json, word.value])
                 return true
             }
             return success
@@ -241,9 +253,10 @@ class VocabDatabase {
         do {
             let success = try dbQueue.inDatabase{ (db: Database) -> Bool in
                 try db.execute("""
-                    delete from \(Word.databaseTableName)
-                    where \(Word.Database.value) = ?
-                    """, arguments: [word.value])
+                               delete from \(Word.databaseTableName)
+                               where \(Word.Database.value) = ?
+                               """,
+                               arguments: [word.value])
                 return true
             }
             return success
@@ -264,9 +277,11 @@ class VocabDatabase {
         do {
             let doesWordExist = try dbQueue.inDatabase{ (db: Database) -> Bool in
                 let row = try Row.fetchOne(db,
-                                           "select * from \(Word.databaseTableName) " +
-                    "where \(Word.Database.value) = ?",
-                    arguments: [wordText])
+                                           """
+                                           select * from \(Word.databaseTableName)
+                                           where \(Word.Database.value) = ?
+                                           """,
+                                           arguments: [wordText])
                 if row != nil {
                     return true
                 }

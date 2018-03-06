@@ -47,27 +47,7 @@ class HomeViewController: UIViewController {
         if likelyNextWords.isEmpty {
             likelyNextWords = VocabDatabase.shared.getStartingWords(n: 5)
         }
-        
         populateWordButtons()
-        let wordsBegginingInA = VocabDatabase.shared.getWords(withPreffix: "a")
-        let wordsBegginingInB = VocabDatabase.shared.getWords(withPreffix: "b")
-        let wordsBegginingInC = VocabDatabase.shared.getWords(withPreffix: "c")
-        print("wordsBegginingInA count is: \(wordsBegginingInA.count)")
-        print("wordsBegginingInB count is: \(wordsBegginingInB.count)")
-        print("wordsBegginingInC count is: \(wordsBegginingInC.count)")
-        let wordsContainingA = VocabDatabase.shared.getWords(withSubstring: "a")
-        let wordsContainingB = VocabDatabase.shared.getWords(withSubstring: "b")
-        let wordsContainingC = VocabDatabase.shared.getWords(withSubstring: "c")
-        print("wordsContainingA count is: \(wordsContainingA.count)")
-        print("wordsContainingB count is: \(wordsContainingB.count)")
-        print("wordsContainingC count is: \(wordsContainingC.count)")
-        let wordsEndingInA = VocabDatabase.shared.getWords(withEnding: "a")
-        let wordsEndingInB = VocabDatabase.shared.getWords(withEnding: "b")
-        let wordsEndingInC = VocabDatabase.shared.getWords(withEnding: "c")
-        print("aWords count is: \(wordsEndingInA.count)")
-        print("bWords count is: \(wordsEndingInB.count)")
-        print("cWords count is: \(wordsEndingInC.count)")
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -76,7 +56,6 @@ class HomeViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         sentenceCollectionView.collectionViewLayout = flowLayout
-        
         
         let recognizer = UITapGestureRecognizer(target: self,action:#selector(self.handleTap(recognizer:)))
         recognizer.delegate = self

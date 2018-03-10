@@ -31,6 +31,12 @@ final class VocabViewController: UICollectionViewController {
     var nodes = [Node]()
     var pathTraveled = [String]()
     
+    var TEMP_NODE_INDEX: Int = -1
+    
+//    var tabBarController: UITabBarController? {
+//        get
+//    }
+    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var backButton: UIButton!
     @IBAction func goBack(_ sender: Any) {
@@ -42,28 +48,30 @@ final class VocabViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for char in "abcdefghijklmnopqrstuvwxyz" {vocabulary.addChild(child: Folder(name: String(char), imageName: ""), parentName: "")}
 
-        vocabulary.addChild(child: Folder(name: "animals", imageName: ""), parentName: "")
-        vocabulary.addChild(child: VocabularyWord(name: "dendrobates terribilis"), parentName: "animals")
-        vocabulary.addChild(child: VocabularyWord(name: "blue-ringed octopus"), parentName: "animals")
-        vocabulary.addChild(child: Folder(name: "mammals"), parentName: "animals")
-        vocabulary.addChild(child: VocabularyWord(name: "aardvark"), parentName: "mammals")
-        vocabulary.addChild(child: VocabularyWord(name: "vole"), parentName: "mammals")
-        vocabulary.addChild(child: VocabularyWord(name: "platypus"), parentName: "mammals")
-        vocabulary.addChild(child: VocabularyWord(name: "pangolin"), parentName: "mammals")
-        
-        vocabulary.addChild(child: Folder(name: "things that can kill you", imageName: ""), parentName: "")
-        vocabulary.addChild(child: VocabularyWord(name: "pneumonoultramicroscopicsilicovolcanoconiosis", imageName: ""), parentName: "things that can kill you")
-        vocabulary.addChild(child: VocabularyWord(name: "bovine spongiform encephalopathy"), parentName: "things that can kill you")
-        vocabulary.addChild(child: VocabularyWord(name: "dendrobates terribilis"), parentName: "things that can kill you")
-        vocabulary.addChild(child: VocabularyWord(name: "blue-ringed octopus"), parentName: "things that can kill you")
-        
-        vocabulary.addChild(child: VocabularyWord(name: "xhosa", imageName: ""), parentName: "")
+//        vocabulary.addChild(child: Folder(name: "animals", imageName: ""), parentName: "")
+//        vocabulary.addChild(child: VocabularyWord(name: "dendrobates terribilis"), parentName: "animals")
+//        vocabulary.addChild(child: VocabularyWord(name: "blue-ringed octopus"), parentName: "animals")
+//        vocabulary.addChild(child: Folder(name: "mammals"), parentName: "animals")
+//        vocabulary.addChild(child: VocabularyWord(name: "aardvark"), parentName: "mammals")
+//        vocabulary.addChild(child: VocabularyWord(name: "vole"), parentName: "mammals")
+//        vocabulary.addChild(child: VocabularyWord(name: "platypus"), parentName: "mammals")
+//        vocabulary.addChild(child: VocabularyWord(name: "pangolin"), parentName: "mammals")
+//
+//        vocabulary.addChild(child: Folder(name: "things that can kill you", imageName: ""), parentName: "")
+//        vocabulary.addChild(child: VocabularyWord(name: "pneumonoultramicroscopicsilicovolcanoconiosis", imageName: ""), parentName: "things that can kill you")
+//        vocabulary.addChild(child: VocabularyWord(name: "bovine spongiform encephalopathy"), parentName: "things that can kill you")
+//        vocabulary.addChild(child: VocabularyWord(name: "dendrobates terribilis"), parentName: "things that can kill you")
+//        vocabulary.addChild(child: VocabularyWord(name: "blue-ringed octopus"), parentName: "things that can kill you")
+//
+//        vocabulary.addChild(child: VocabularyWord(name: "xhosa", imageName: ""), parentName: "")
         
         self.nodes = vocabulary.getNodes(parentName: "")
         pathTraveled.append("")
     }
-    
+
     // MARK: - Helper Functions
     func loadNodes(_ parentName: String) {
         self.nodes = vocabulary.getNodes(parentName: parentName)
@@ -95,8 +103,8 @@ extension VocabViewController {
         let attr: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: font, NSAttributedStringKey.paragraphStyle: style, NSAttributedStringKey.backgroundColor: UIColor.clear]
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        word.draw(in: CGRect(x: 0, y: (size.height - textSize.height) / 2, width: textSize.width, height: textSize.height), withAttributes: attr)
-//        word.draw(in: CGRect(x: (size.width - textSize.width) / 2, y: (size.height - textSize.height) / 2, width: textSize.width, height: textSize.height), withAttributes: attr)
+//        word.draw(in: CGRect(x: 0, y: (size.height - textSize.height) / 2, width: textSize.width, height: textSize.height), withAttributes: attr)
+        word.draw(in: CGRect(x: (size.width - textSize.width) / 2, y: (size.height - textSize.height) / 2, width: textSize.width, height: textSize.height), withAttributes: attr)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
@@ -116,10 +124,59 @@ extension VocabViewController {
         if let index = indexPath {
 //            self.searchTextField.insertText("\(self.nodes[index.item].name)")
             if let node = self.nodes[index.item] as? Folder {
+                let loadedWords = VocabDatabase.shared.getWords(withPreffix: node.name)
+                
+                for word in loadedWords {
+                    if vocabulary.findWord(word: word.value) == "" {
+                        vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: ""), parentName: node.name)
+                    }
+                }
+                
                 self.pathTraveled.append(node.name)
                 self.loadNodes(node.name)
 //                self.nodes = vocabulary.getNodes(parentName: node.name)
 //                self.collectionView?.reloadData()
+            }
+            else {
+//                let node = self.nodes[index.item] as! VocabularyWord
+//                self.TEMP_NODE_INDEX = index.item
+                
+//                let homeViewController: HomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                var homeViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as! HomeViewController
+                
+//                let controller = segue.destination as! HomeViewController
+                
+                let node = self.nodes[index.item] as! VocabularyWord
+                
+                homeViewController.prevWord = Word(value: "")
+                homeViewController.currentWord = VocabDatabase.shared.getWord(withText: node.name)!
+                
+                homeViewController.likelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: homeViewController.currentWord, numWords: 5)
+                
+                homeViewController.speakPhrase(homeViewController.currentWord.spokenPhrase?.lowercased() ?? homeViewController.currentWord.value.lowercased())
+                
+                homeViewController.sentence.append(homeViewController.currentWord)
+                homeViewController.sentenceCollectionView.setNeedsLayout()
+                
+                let sentenceIndexPath = IndexPath(row:homeViewController.sentenceWordIndex, section: 0)
+                homeViewController.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
+                homeViewController.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
+                homeViewController.sentenceWordIndex += 1
+                
+                homeViewController.populateWordButtons()
+                
+//                let homeViewController: HomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                
+                tabBarController?.selectedIndex = 1
+                
+//                present(homeViewController, animated: true, completion: nil)
+                
+//                self.navigationController?.pushViewController(homeViewController, animated: true)
+//                performSegue(withIdentifier: "HomeViewController", sender: nil)
+                
+//                let homeViewController = HomeViewController()
+//                homeViewController.currentWord = Word(value: node.name)
+//                self.navigationController?.pushViewController(homeViewController, animated: true)
             }
         }
     }

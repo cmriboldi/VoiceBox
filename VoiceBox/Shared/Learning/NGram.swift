@@ -55,11 +55,8 @@ public class NGram {
         var probableWords = [Word]()
         var maxIndex = min(numWords, tempNextWords.count)
         for i in 0..<maxIndex {
-            if let word = VocabDatabase.shared.getWord(withText: tempNextWords[i].value.value) {
-                probableWords.append(word)
-            } else {
-                maxIndex += 1
-            }
+            if let word = VocabDatabase.shared.getWord(withText: tempNextWords[i].value.value) {probableWords.append(word)}
+            else {maxIndex += 1}
         }
     
         return probableWords

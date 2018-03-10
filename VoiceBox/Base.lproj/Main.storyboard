@@ -228,7 +228,7 @@
                                         </constraints>
                                         <state key="normal" title="+" image="ic_search"/>
                                         <connections>
-                                            <action selector="train:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JoS-Jp-SEl"/>
+                                            <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x5d-W8-DhW"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -305,10 +305,10 @@
             </objects>
             <point key="canvasLocation" x="1258.59375" y="-493.75"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--TabBarController-->
         <scene sceneID="qWz-yd-fUQ">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EQg-v3-KCH" customClass="TabBarController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="EQg-v3-KCH" customClass="TabBarController" customModule="VoiceBox" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0e3-SW-0QK">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

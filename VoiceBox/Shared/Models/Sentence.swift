@@ -47,7 +47,7 @@ class Sentence {
         var fullSentence = ""
         for word in sentenceWords {
             if let phrase = word.spokenPhrase {
-                fullSentence += phrase
+                fullSentence += phrase + " "
             }
         }
         return fullSentence

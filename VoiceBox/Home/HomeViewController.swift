@@ -43,10 +43,8 @@ class HomeViewController: UIViewController {
         
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
-        
-        if likelyNextWords.isEmpty {
-            likelyNextWords = VocabDatabase.shared.getStartingWords(n: 5)
-        }
+
+        if likelyNextWords.isEmpty {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: 5)}
         populateWordButtons()
     }
     
@@ -72,15 +70,16 @@ class HomeViewController: UIViewController {
 
         triggerButtonIndex = wordButtons.index(of: button)!
 
-        let newWord = self.likelyNextWords[button.tag]
+//        let newWord = self.likelyNextWords[button.tag]
+        let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.tag].value)!
 
         self.likelyNextWords = predictNextWords(newWord: newWord, numWords: 5)
 
         speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
-        
+
         self.sentence.append(newWord)
         self.sentenceCollectionView.setNeedsLayout()
-        
+
         let sentenceIndexPath = IndexPath(row:self.sentenceWordIndex, section: 0)
         self.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
         self.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
@@ -129,8 +128,12 @@ class HomeViewController: UIViewController {
     }
     
     // Currently unused
-    @IBAction func train(_ sender: UIButton) {
+    func train() {
         Trainer.shared.train(name: "train", extension: "txt")
+    }
+    
+    @IBAction func search(_ sender: UIButton) {
+        
     }
     
     // MARK: - Helper Functions

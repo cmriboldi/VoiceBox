@@ -121,10 +121,18 @@ class HomeViewController: UIViewController {
             self.sentenceCollectionView.deleteItems(at: [indexPath])
             
             self.currentWord = Word(self.prevWord)
-            if self.sentence.count > 2 {self.prevWord = Word(self.sentence[self.sentence.count - 2])}
-            else {self.prevWord = Word()}
-            if self.currentWord.value == "" {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)}
-            else {self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)}
+            if self.sentence.count >= 2 {
+                self.prevWord = Word(self.sentence[self.sentence.count - 2])
+            }
+            else {
+                self.prevWord = Word()
+            }
+            if self.currentWord.value == "" {
+                self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)
+            }
+            else {
+                self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)
+            }
             self.populateWordButtons()
         }
     }

@@ -25,6 +25,7 @@ class HomeViewController: UIViewController {
     var sentence = Sentence()
     var prevWord: Word = Word(value: "")
     var currentWord: Word = Word(value: "")
+    var numWords: Int = 5
     var likelyNextWords = [Word]()
     var transitionThumbnail: UIImageView?
 
@@ -44,7 +45,7 @@ class HomeViewController: UIViewController {
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
 
-        if likelyNextWords.isEmpty {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: 5)}
+        if likelyNextWords.isEmpty {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)}
         populateWordButtons()
     }
     
@@ -64,16 +65,14 @@ class HomeViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func wordPressed(_ button: RoundButton) {
-        guard button.tag < likelyNextWords.count else {
-            return
-        }
+        guard button.tag < likelyNextWords.count else {return}
 
         triggerButtonIndex = wordButtons.index(of: button)!
 
 //        let newWord = self.likelyNextWords[button.tag]
         let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.tag].value)!
 
-        self.likelyNextWords = predictNextWords(newWord: newWord, numWords: 5)
+        self.likelyNextWords = predictNextWords(newWord: newWord, numWords: numWords)
 
         speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
 
@@ -103,13 +102,9 @@ class HomeViewController: UIViewController {
                             let wordChangeDelay = 0.1
                             let showWordsDelay = 0.2
                             button.delay(wordChangeDelay).completion({button.alpha = 0})
-                            button.delay(wordChangeDelay).then(.moveTo(x: pressedCenterCornerX, y: pressedCenterCornerY), duration: 0.0)
-                                .delay(showWordsDelay)
-                                .then(.fade(way: .in))
+                            button.delay(wordChangeDelay).then(.moveTo(x: pressedCenterCornerX, y: pressedCenterCornerY), duration: 0.0).delay(showWordsDelay).then(.fade(way: .in))
                             for otherButton in self.wordButtons {
-                                if otherButton != button {
-                                    otherButton.delay(wordChangeDelay + showWordsDelay).then(.fade(way: .in))
-                                }
+                                if otherButton != button {otherButton.delay(wordChangeDelay + showWordsDelay).then(.fade(way: .in))}
                             }
                         })
                     }
@@ -124,16 +119,28 @@ class HomeViewController: UIViewController {
             sentence.removeLast()
             let indexPath = IndexPath(row:sentenceWordIndex, section: 0)
             self.sentenceCollectionView.deleteItems(at: [indexPath])
+            
+            self.currentWord = Word(self.prevWord)
+            if self.sentence.count > 2 {self.prevWord = Word(self.sentence[self.sentence.count - 2])}
+            else {self.prevWord = Word()}
+            if self.currentWord.value == "" {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)}
+            else {self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)}
+            self.populateWordButtons()
         }
     }
-    
+
     // Currently unused
     func train() {
         Trainer.shared.train(name: "train", extension: "txt")
     }
     
     @IBAction func search(_ sender: UIButton) {
-        
+//        if let vocabViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as? VocabViewController {
+//            while vocabViewController.pathTraveled.count > 1 {
+//                vocabViewController.goBack(nil)
+//            }
+//        }
+        tabBarController?.selectedIndex = 0
     }
     
     // MARK: - Helper Functions
@@ -144,30 +151,41 @@ class HomeViewController: UIViewController {
             sentenceWordIndex = 0
             sentenceCollectionView.reloadData()
             navigationController?.popToRootViewController(animated: true)
+            
+            self.prevWord = Word(value: "")
+            self.currentWord = Word(value: "")
+            self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)
+            self.populateWordButtons()
         }
     }
-    
+
     func populateWordButtons(closure: (() -> Void)? = nil) {
         self.mainWord.setTitle(self.getWordText(word: self.currentWord), for: .normal)
-        
-        for (i,likelyWord) in self.likelyNextWords.enumerated() {
-            self.wordButtons[i].setTitle(self.getWordText(word: likelyWord), for: .normal)
+
+        for i in 0..<self.numWords {
+            var word: Word = Word()
+            if i < self.likelyNextWords.count {word = self.likelyNextWords[i]}
+            self.wordButtons[i].setTitle(self.getWordText(word: word), for: .normal)
         }
+
+//        for (i,likelyWord) in self.likelyNextWords.enumerated() {
+//            self.wordButtons[i].setTitle(self.getWordText(word: likelyWord), for: .normal)
+//        }
         closure?()
     }
-    
+
     func getWordText(word: Word) -> String {
         if word.value == "i" {return "I"}
         return word.value
     }
-    
+
     func speakPhrase(_ phrase: String) {
         synth = AVSpeechSynthesizer()
         utterance = AVSpeechUtterance(string: phrase)
         utterance.rate = 0.4
         synth.speak(utterance)
     }
-    
+
     func predictNextWords(newWord: Word, numWords: Int) -> [Word] {
         self.prevWord = self.currentWord
         self.currentWord = newWord
@@ -175,14 +193,13 @@ class HomeViewController: UIViewController {
 
         return ngram.nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)
     }
-    
+
     static func makeFromStoryboard() -> HomeViewController {
         guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else {
             return HomeViewController()
         }
         return viewController
     }
-    
 }
 
 extension HomeViewController: UIGestureRecognizerDelegate {

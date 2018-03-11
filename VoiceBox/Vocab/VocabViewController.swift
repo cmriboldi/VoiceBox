@@ -39,7 +39,7 @@ final class VocabViewController: UICollectionViewController {
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var backButton: UIButton!
-    @IBAction func goBack(_ sender: Any) {
+    @IBAction func goBack(_ sender: Any?) {
         if pathTraveled.count > 1 {
             pathTraveled.removeLast()
             self.loadNodes(pathTraveled.last!)

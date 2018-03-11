@@ -65,6 +65,12 @@ struct Word: TableMapping, Encodable, Decodable {
         numOccur = 1
         commonInit()
     }
+    
+    init (_ word: Word) {
+        self.value = word.value
+        self.numOccur = word.numOccur
+        self.nextWords = word.nextWords
+    }
 
     mutating func commonInit() {
         self.nextWords = Words()

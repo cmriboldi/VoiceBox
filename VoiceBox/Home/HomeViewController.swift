@@ -72,7 +72,7 @@ class HomeViewController: UIViewController {
 //        let newWord = self.likelyNextWords[button.tag]
         let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.tag].value)!
 
-        self.likelyNextWords = predictNextWords(newWord: newWord, numWords: numWords)
+        self.likelyNextWords = self.predictNextWords(newWord: newWord)
 
         speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
 
@@ -120,19 +120,12 @@ class HomeViewController: UIViewController {
             let indexPath = IndexPath(row:sentenceWordIndex, section: 0)
             self.sentenceCollectionView.deleteItems(at: [indexPath])
             
-            self.currentWord = Word(self.prevWord)
-            if self.sentence.count >= 2 {
-                self.prevWord = Word(self.sentence[self.sentence.count - 2])
-            }
-            else {
-                self.prevWord = Word()
-            }
-            if self.currentWord.value == "" {
-                self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)
-            }
-            else {
-                self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)
-            }
+            if self.sentence.count >= 1 {self.currentWord = Word(self.sentence[self.sentence.count - 1])}
+            else {self.currentWord = Word()}
+            if self.sentence.count >= 2 {self.prevWord = Word(self.sentence[self.sentence.count - 2])}
+            else {self.prevWord = Word()}
+            if self.currentWord.value == "" {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)}
+            else {self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: self.currentWord)}
             self.populateWordButtons()
         }
     }
@@ -148,9 +141,16 @@ class HomeViewController: UIViewController {
 //                vocabViewController.goBack(nil)
 //            }
 //        }
+        
+        let vocabViewController = (tabBarController?.viewControllers![0] as! UINavigationController).viewControllers[0] as! VocabViewController
+
+        vocabViewController.vocabulary.clearTemp()
+        for word in self.likelyNextWords {vocabViewController.vocabulary.addChild(child: VocabularyWord(name: word.value), parentName: "", temp: true)}
+
+        vocabViewController.loadNodes("")
         tabBarController?.selectedIndex = 0
     }
-    
+
     // MARK: - Helper Functions
     @objc func clearSentence(_ sender: UIButton, event: UIEvent) {
         let touch: UITouch = event.allTouches!.first!
@@ -194,12 +194,11 @@ class HomeViewController: UIViewController {
         synth.speak(utterance)
     }
 
-    func predictNextWords(newWord: Word, numWords: Int) -> [Word] {
+    func predictNextWords(newWord: Word, numWords: Int = -1) -> [Word] {
         self.prevWord = self.currentWord
         self.currentWord = newWord
-        let ngram = NGram()
 
-        return ngram.nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)
+        return NGram().nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)
     }
 
     static func makeFromStoryboard() -> HomeViewController {

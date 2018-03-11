@@ -24,7 +24,7 @@ public class NGram {
 //    print("aWords: \(aWords) \nbWords:\(bWords)")
     
     //FIXME: Make sure you're correctly taking both words into account
-    func nextWords(prevWord: Word, word: Word, numWords: Int) -> [Word] {
+    func nextWords(prevWord: Word, word: Word, numWords: Int = -1) -> [Word] {
         let textWord = word.value
         
         var nextWords = Words()
@@ -52,13 +52,20 @@ public class NGram {
             let (_, actualWord1) = word1
             return actualWord0.numOccur > actualWord1.numOccur
         }
+        
         var probableWords = [Word]()
-        var maxIndex = min(numWords, tempNextWords.count)
+        
+        var maxIndex = 0
+        if numWords == -1 {maxIndex = tempNextWords.count}
+        else {maxIndex = min(numWords, tempNextWords.count)}
+        
         for i in 0..<maxIndex {
-            if let word = VocabDatabase.shared.getWord(withText: tempNextWords[i].value.value) {probableWords.append(word)}
-            else {maxIndex += 1}
+            if let word = VocabDatabase.shared.getWord(withText: tempNextWords[i].value.value) {
+                if word.numOccur > 2 {probableWords.append(word)}
+            }
+//            else {maxIndex += 1}
         }
-    
+
         return probableWords
     }
 }

@@ -69,7 +69,7 @@ final class VocabViewController: UICollectionViewController {
 //        vocabulary.addChild(child: VocabularyWord(name: "xhosa", imageName: ""), parentName: "")
         
         self.nodes = vocabulary.getNodes(parentName: "")
-        pathTraveled.append("")
+        self.pathTraveled.append("")
     }
 
     // MARK: - Helper Functions
@@ -142,7 +142,7 @@ extension VocabViewController {
 //                self.TEMP_NODE_INDEX = index.item
                 
 //                let homeViewController: HomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-                var homeViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as! HomeViewController
+                let homeViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as! HomeViewController
                 
 //                let controller = segue.destination as! HomeViewController
                 
@@ -151,7 +151,7 @@ extension VocabViewController {
                 homeViewController.prevWord = Word(value: "")
                 homeViewController.currentWord = VocabDatabase.shared.getWord(withText: node.name)!
                 
-                homeViewController.likelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: homeViewController.currentWord, numWords: 5)
+                homeViewController.likelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: homeViewController.currentWord)
                 
                 homeViewController.speakPhrase(homeViewController.currentWord.spokenPhrase?.lowercased() ?? homeViewController.currentWord.value.lowercased())
                 

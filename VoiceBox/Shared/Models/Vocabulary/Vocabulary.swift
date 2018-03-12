@@ -9,20 +9,22 @@
 import UIKit
 
 class Vocabulary: NSObject {
-    var rootTemp: Folder = Folder(name: "")
-    var root: Folder = Folder(name: "")
+    var root = Folder(name: "")
+    var rootLikely = Folder(name: "")
+    var rootSearch = Folder(name: "")
 
     func getChildren() -> [Node]? {
         return root.getChildren()
     }
 
-    func addChild(child: Node, parentName: String, temp: Bool = false) {
-        if temp {self.rootTemp.addChild(child: child, parentName: parentName)}
+    func addChild(child: Node, parentName: String, type root: String = "") {
+        if root == "likely" {self.rootLikely.addChild(child: child, parentName: parentName)}
+        else if root == "search" {self.rootSearch.addChild(child: child, parentName: parentName)}
         else {self.root.addChild(child: child, parentName: parentName)}
     }
 
-    func findWord(word: String) -> String {
-        return self.root.findWord(word: word)
+    func findWord(word: String, parent: String = "") -> String {
+        return self.root.findWord(word: word, parent: parent)
     }
 
     func getAllWords() -> [String] {
@@ -31,14 +33,19 @@ class Vocabulary: NSObject {
         return words
     }
 
-    func getNodes(parentName: String) -> [Node] {
+    func getNodes(parentName: String, search: Bool = false) -> [Node] {
         var nodes = [Node]()
-        self.rootTemp.getNodes(parentName: parentName, nodes: &nodes)
-        self.root.getNodes(parentName: parentName, nodes: &nodes)
+        if search {self.rootSearch.getNodes(parentName: parentName, nodes: &nodes)}
+        else {
+            self.rootLikely.getNodes(parentName: parentName, nodes: &nodes)
+            self.root.getNodes(parentName: parentName, nodes: &nodes)
+        }
         return nodes
     }
     
-    func clearTemp() {
-        self.rootTemp = Folder(name: "")
+    func clear(type root: String) {
+        if root == "likely" {self.rootLikely = Folder(name: "")}
+        else if root == "search" {self.rootSearch = Folder(name: "")}
+        else {self.root = Folder(name: "")}
     }
 }

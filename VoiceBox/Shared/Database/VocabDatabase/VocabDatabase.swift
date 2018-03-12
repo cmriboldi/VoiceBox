@@ -111,16 +111,16 @@ class VocabDatabase {
     }
     
     //
-    // Return an array of Word objects for the given preffix.
+    // Return an array of Word objects for the given prefix.
     //
-    func getWords(withPreffix preffix: String) -> [Word] {
+    func getWords(withPrefix prefix: String) -> [Word] {
         do {
             let words = try dbQueue.inDatabase{ (db: Database) -> [Word] in
                 var words = [Word]()
                 let rows = try Row.fetchAll(db,
                                             """
                                             select * from \(Word.databaseTableName)
-                                            where \(Word.Database.value) like "\(preffix)%"
+                                            where \(Word.Database.value) like "\(prefix)%"
                                             """)
                 for row in rows {
                     if let data = row[Word.Database.json] as? Data {
@@ -225,7 +225,7 @@ class VocabDatabase {
     }
     
     //
-    // Updates the word in the databade with the values contained in word.
+    // Updates the word in the database with the values contained in word.
     //
     func update(word: Word) -> Bool {
         do {
@@ -247,7 +247,7 @@ class VocabDatabase {
     }
     
     //
-    // Deletes the word in the databade with the values contained in word.
+    // Deletes the word in the database with the values contained in word.
     //
     func delete(word: Word) -> Bool {
         do {
@@ -292,4 +292,29 @@ class VocabDatabase {
             return false
         }
     }
+    
+//    //
+//    // Returns the result of searching in the database.
+//    //
+//    func search(withText wordText: String) -> [Word] {
+//        do {
+//            let foundWords: [Word] = []
+//            let doesWordExist = try dbQueue.inDatabase{ (db: Database) -> Bool in
+//                let row = try Row.fetchOne(db,
+//                                           """
+//                    select * from \(Word.databaseTableName)
+//                    where \(Word.Database.value) = ?
+//                    """,
+//                    arguments: [wordText])
+//                if row != nil {
+//                    return true
+//                }
+//                return false
+//            }
+//            return foundWords
+//        }
+//        catch {
+//            return []
+//        }
+//    }
 }

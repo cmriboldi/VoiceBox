@@ -39,9 +39,23 @@ class Folder: Node {
         else {for c in self.children {c.addChild(child: child, parentName: parentName)}}
     }
     
-    func findWord(word: String) -> String {
+    func findWord(word: String, parent: String) -> String {
+        if self.name != parent {
+            for c in self.children {
+                var foundWord = ""
+                if let folder = c as? Folder {foundWord = folder.findWord(word: word, parent: parent)}
+                if foundWord != "" {return foundWord}
+            }
+            return ""
+        }
+        return self.actualFindWord(word: word, parent: parent)
+    }
+    
+    func actualFindWord(word: String, parent: String) -> String {
         for c in self.children {
-            let foundWord = c.findWord(word: word)
+            var foundWord = ""
+            if let folder = c as? Folder {foundWord = folder.actualFindWord(word: word, parent: parent)}
+            else {foundWord = c.findWord(word: word, parent: parent)}
             if foundWord != "" {return foundWord}
         }
         return ""

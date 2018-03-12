@@ -28,7 +28,7 @@ class VocabularyWord: Node {
     
     func addChild(child: Node, parentName: String) {}
     
-    func findWord(word: String) -> String {
+    func findWord(word: String, parent: String) -> String {
         if self.name == word {return self.name}
         return ""
     }

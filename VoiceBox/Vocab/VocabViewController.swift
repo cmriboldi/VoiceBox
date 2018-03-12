@@ -30,8 +30,9 @@ final class VocabViewController: UICollectionViewController {
     var vocabulary = Vocabulary()
     var nodes = [Node]()
     var pathTraveled = [String]()
+    var isSearching = false
     
-    var TEMP_NODE_INDEX: Int = -1
+//    var TEMP_NODE_INDEX: Int = -1
     
 //    var tabBarController: UITabBarController? {
 //        get
@@ -43,9 +44,22 @@ final class VocabViewController: UICollectionViewController {
         if pathTraveled.count > 1 {
             pathTraveled.removeLast()
             self.loadNodes(pathTraveled.last!)
+            self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
     
+    // In order to go back to the original folder structure, clear the search field and press enter.
+    @IBAction func search(_ sender: Any) {
+        vocabulary.clear(type: "search")
+        if self.searchTextField.text! == "" {self.isSearching = false}
+        else {
+            self.isSearching = true
+            let foundWords = VocabDatabase.shared.search(withText: self.searchTextField.text!)
+            for word in foundWords {vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: ""), parentName: "", type: "search")}
+        }
+        self.loadNodes("")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,14 +81,14 @@ final class VocabViewController: UICollectionViewController {
 //        vocabulary.addChild(child: VocabularyWord(name: "blue-ringed octopus"), parentName: "things that can kill you")
 //
 //        vocabulary.addChild(child: VocabularyWord(name: "xhosa", imageName: ""), parentName: "")
-        
-        self.nodes = vocabulary.getNodes(parentName: "")
+
+        self.nodes = vocabulary.getNodes(parentName: "", search: self.isSearching)
         self.pathTraveled.append("")
     }
 
     // MARK: - Helper Functions
     func loadNodes(_ parentName: String) {
-        self.nodes = vocabulary.getNodes(parentName: parentName)
+        self.nodes = vocabulary.getNodes(parentName: parentName, search: self.isSearching)
         self.collectionView?.reloadData()
     }
 }
@@ -124,18 +138,17 @@ extension VocabViewController {
         if let index = indexPath {
 //            self.searchTextField.insertText("\(self.nodes[index.item].name)")
             if let node = self.nodes[index.item] as? Folder {
-                let loadedWords = VocabDatabase.shared.getWords(withPreffix: node.name)
+                let loadedWords = VocabDatabase.shared.getWords(withPrefix: node.name)
                 
                 for word in loadedWords {
-                    if vocabulary.findWord(word: word.value) == "" {
+                    if vocabulary.findWord(word: word.value, parent: self.pathTraveled[self.pathTraveled.count - 1]) == "" {
                         vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: ""), parentName: node.name)
                     }
                 }
                 
                 self.pathTraveled.append(node.name)
                 self.loadNodes(node.name)
-//                self.nodes = vocabulary.getNodes(parentName: node.name)
-//                self.collectionView?.reloadData()
+                self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
             else {
 //                let node = self.nodes[index.item] as! VocabularyWord
@@ -150,11 +163,8 @@ extension VocabViewController {
                 
                 homeViewController.prevWord = Word(value: "")
                 homeViewController.currentWord = VocabDatabase.shared.getWord(withText: node.name)!
-                
                 homeViewController.likelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: homeViewController.currentWord)
-                
                 homeViewController.speakPhrase(homeViewController.currentWord.spokenPhrase?.lowercased() ?? homeViewController.currentWord.value.lowercased())
-                
                 homeViewController.sentence.append(homeViewController.currentWord)
                 homeViewController.sentenceCollectionView.setNeedsLayout()
                 

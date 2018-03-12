@@ -136,18 +136,14 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func search(_ sender: UIButton) {
-//        if let vocabViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as? VocabViewController {
-//            while vocabViewController.pathTraveled.count > 1 {
-//                vocabViewController.goBack(nil)
-//            }
-//        }
-        
         let vocabViewController = (tabBarController?.viewControllers![0] as! UINavigationController).viewControllers[0] as! VocabViewController
 
-        vocabViewController.vocabulary.clearTemp()
-        for word in self.likelyNextWords {vocabViewController.vocabulary.addChild(child: VocabularyWord(name: word.value), parentName: "", temp: true)}
+        vocabViewController.vocabulary.clear(type: "likely")
+        for word in self.likelyNextWords {vocabViewController.vocabulary.addChild(child: VocabularyWord(name: word.value), parentName: "", type: "likely")}
 
         vocabViewController.loadNodes("")
+        vocabViewController.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        vocabViewController.isSearching = false
         tabBarController?.selectedIndex = 0
     }
 

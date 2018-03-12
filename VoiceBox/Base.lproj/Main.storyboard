@@ -76,6 +76,10 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" returnKeyType="search"/>
                             <connections>
+                                <action selector="search:" destination="C4i-V9-cXY" eventType="primaryActionTriggered" id="Lda-iz-umn"/>
+                                <action selector="search:" destination="C4i-V9-cXY" eventType="touchDown" id="N2t-15-l7F"/>
+                                <action selector="search:" destination="C4i-V9-cXY" eventType="valueChanged" id="gJm-2A-M9E"/>
+                                <action selector="search:" destination="C4i-V9-cXY" eventType="editingDidEnd" id="gLy-gD-G9g"/>
                                 <outlet property="delegate" destination="C4i-V9-cXY" id="Ff1-RQ-PE9"/>
                             </connections>
                         </textField>

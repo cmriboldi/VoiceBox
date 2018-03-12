@@ -17,7 +17,7 @@ protocol Node {
     init(node: Node)
     func getChildren() -> [Node]?
     func addChild(child: Node, parentName: String)
-    func findWord(word: String) -> String
+    func findWord(word: String, parent: String) -> String
     func getWords(words: inout [String])
     func getNodes(parentName: String, nodes: inout [Node])
 }

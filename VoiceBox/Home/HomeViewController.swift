@@ -69,7 +69,6 @@ class HomeViewController: UIViewController {
 
         triggerButtonIndex = wordButtons.index(of: button)!
 
-//        let newWord = self.likelyNextWords[button.tag]
         let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.tag].value)!
 
         self.likelyNextWords = self.predictNextWords(newWord: newWord)
@@ -165,16 +164,11 @@ class HomeViewController: UIViewController {
 
     func populateWordButtons(closure: (() -> Void)? = nil) {
         self.mainWord.setTitle(self.getWordText(word: self.currentWord), for: .normal)
-
         for i in 0..<self.numWords {
             var word: Word = Word()
             if i < self.likelyNextWords.count {word = self.likelyNextWords[i]}
             self.wordButtons[i].setTitle(self.getWordText(word: word), for: .normal)
         }
-
-//        for (i,likelyWord) in self.likelyNextWords.enumerated() {
-//            self.wordButtons[i].setTitle(self.getWordText(word: likelyWord), for: .normal)
-//        }
         closure?()
     }
 

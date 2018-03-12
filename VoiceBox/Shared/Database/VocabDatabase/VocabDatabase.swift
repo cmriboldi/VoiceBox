@@ -293,10 +293,10 @@ class VocabDatabase {
         }
     }
     
-//    //
-//    // Returns the result of searching in the database.
-//    //
-//    func search(withText wordText: String) -> [Word] {
+    //
+    // Returns the result of searching in the database.
+    //
+    func search(withText wordText: String) -> [Word] {
 //        do {
 //            let foundWords: [Word] = []
 //            let doesWordExist = try dbQueue.inDatabase{ (db: Database) -> Bool in
@@ -316,5 +316,6 @@ class VocabDatabase {
 //        catch {
 //            return []
 //        }
-//    }
+        return []
+    }
 }

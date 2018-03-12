@@ -32,12 +32,6 @@ final class VocabViewController: UICollectionViewController {
     var pathTraveled = [String]()
     var isSearching = false
     
-//    var TEMP_NODE_INDEX: Int = -1
-    
-//    var tabBarController: UITabBarController? {
-//        get
-//    }
-    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var backButton: UIButton!
     @IBAction func goBack(_ sender: Any?) {
@@ -64,23 +58,6 @@ final class VocabViewController: UICollectionViewController {
         super.viewDidLoad()
         
         for char in "abcdefghijklmnopqrstuvwxyz" {vocabulary.addChild(child: Folder(name: String(char), imageName: ""), parentName: "")}
-
-//        vocabulary.addChild(child: Folder(name: "animals", imageName: ""), parentName: "")
-//        vocabulary.addChild(child: VocabularyWord(name: "dendrobates terribilis"), parentName: "animals")
-//        vocabulary.addChild(child: VocabularyWord(name: "blue-ringed octopus"), parentName: "animals")
-//        vocabulary.addChild(child: Folder(name: "mammals"), parentName: "animals")
-//        vocabulary.addChild(child: VocabularyWord(name: "aardvark"), parentName: "mammals")
-//        vocabulary.addChild(child: VocabularyWord(name: "vole"), parentName: "mammals")
-//        vocabulary.addChild(child: VocabularyWord(name: "platypus"), parentName: "mammals")
-//        vocabulary.addChild(child: VocabularyWord(name: "pangolin"), parentName: "mammals")
-//
-//        vocabulary.addChild(child: Folder(name: "things that can kill you", imageName: ""), parentName: "")
-//        vocabulary.addChild(child: VocabularyWord(name: "pneumonoultramicroscopicsilicovolcanoconiosis", imageName: ""), parentName: "things that can kill you")
-//        vocabulary.addChild(child: VocabularyWord(name: "bovine spongiform encephalopathy"), parentName: "things that can kill you")
-//        vocabulary.addChild(child: VocabularyWord(name: "dendrobates terribilis"), parentName: "things that can kill you")
-//        vocabulary.addChild(child: VocabularyWord(name: "blue-ringed octopus"), parentName: "things that can kill you")
-//
-//        vocabulary.addChild(child: VocabularyWord(name: "xhosa", imageName: ""), parentName: "")
 
         self.nodes = vocabulary.getNodes(parentName: "", search: self.isSearching)
         self.pathTraveled.append("")
@@ -117,7 +94,6 @@ extension VocabViewController {
         let attr: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: font, NSAttributedStringKey.paragraphStyle: style, NSAttributedStringKey.backgroundColor: UIColor.clear]
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
-//        word.draw(in: CGRect(x: 0, y: (size.height - textSize.height) / 2, width: textSize.width, height: textSize.height), withAttributes: attr)
         word.draw(in: CGRect(x: (size.width - textSize.width) / 2, y: (size.height - textSize.height) / 2, width: textSize.width, height: textSize.height), withAttributes: attr)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -136,7 +112,6 @@ extension VocabViewController {
         let indexPath = self.collectionView?.indexPathForItem(at: location)
 
         if let index = indexPath {
-//            self.searchTextField.insertText("\(self.nodes[index.item].name)")
             if let node = self.nodes[index.item] as? Folder {
                 let loadedWords = VocabDatabase.shared.getWords(withPrefix: node.name)
                 
@@ -151,13 +126,7 @@ extension VocabViewController {
                 self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
             else {
-//                let node = self.nodes[index.item] as! VocabularyWord
-//                self.TEMP_NODE_INDEX = index.item
-                
-//                let homeViewController: HomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
                 let homeViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as! HomeViewController
-                
-//                let controller = segue.destination as! HomeViewController
                 
                 let node = self.nodes[index.item] as! VocabularyWord
                 
@@ -175,18 +144,7 @@ extension VocabViewController {
                 
                 homeViewController.populateWordButtons()
                 
-//                let homeViewController: HomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-                
                 tabBarController?.selectedIndex = 1
-                
-//                present(homeViewController, animated: true, completion: nil)
-                
-//                self.navigationController?.pushViewController(homeViewController, animated: true)
-//                performSegue(withIdentifier: "HomeViewController", sender: nil)
-                
-//                let homeViewController = HomeViewController()
-//                homeViewController.currentWord = Word(value: node.name)
-//                self.navigationController?.pushViewController(homeViewController, animated: true)
             }
         }
     }
@@ -202,56 +160,10 @@ extension VocabViewController {
         else {image = nodeToImage(node: cellNode, size: cellNode.getImageSize())}
         cell.imageView.image = image
 
-//        cell.activityIndicator.stopAnimating()
-
-//        guard indexPath == largePhotoIndexPath else {
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
-//        if !cell.isSelected {
-//            return cell
-//        }
-
-//        self.searchTextField.insertText("Got it!!!")
 
         return cell
     }
-    
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! WordCell
-//        var wordImage = UIImage(named: self.nodes[(indexPath as IndexPath).item].imageName)
-//
-//        cell.activityIndicator.stopAnimating()
-//
-//        guard indexPath == largePhotoIndexPath else {
-//            cell.imageView.image = wordImage
-//            return cell
-//        }
-//
-//        guard wordImage == nil else {
-//            cell.imageView.image = wordImage
-//            return cell
-//        }
-//
-//        cell.imageView.image = wordImage
-//        cell.activityIndicator.startAnimating()
-//
-//        wordImage.loadLargeImage { loadedFlickrPhoto, error in
-//            cell.activityIndicator.stopAnimating()
-//
-//            guard loadedFlickrPhoto.largeImage != nil && error == nil else {return}
-//
-//            if let cell = collectionView.cellForItem(at: indexPath) as? WordCell,
-//                indexPath == self.largePhotoIndexPath  {
-//                cell.imageView.image = loadedFlickrPhoto.largeImage
-//            }
-//        }
-//
-//        return cell
-//    }
-    
-//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-////        let node = self.nodes[indexPath.item]
-//        self.searchTextField.insertText("Got it!!!")
-//    }
 }
 
 extension VocabViewController: UICollectionViewDelegateFlowLayout {

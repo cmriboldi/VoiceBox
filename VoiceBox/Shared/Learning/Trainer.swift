@@ -26,12 +26,10 @@ public class Trainer {
     
     // MARK: - Initialization
     fileprivate init() {
-        
         let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         fileURL = documentDirURL.appendingPathComponent(Constant.fileName).appendingPathExtension(Constant.fileExtension)
         
         print("File Path: \(fileURL.path)")
-        
     }
     
     // MARK: - Helper Functions
@@ -78,7 +76,7 @@ public class Trainer {
                 textNextWord = self.textWords[1]
             }
         }
-        
+
         for index in 0..<self.textWords.count {
             var textNextNextWord = ""
             if index < self.textWords.count - 2 {
@@ -107,7 +105,6 @@ public class Trainer {
             print(error)
         }
         print("Done Writing to File")
-        
     }
     
 }

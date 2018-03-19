@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class VocabViewController: UICollectionViewController {
+final class VocabViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - Properties
     fileprivate let reuseIdentifier = "WordCell"
     fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
@@ -26,16 +26,24 @@ final class VocabViewController: UICollectionViewController {
             }
         }
     }
-    
+
     var vocabulary = Vocabulary()
     var nodes = [Node]()
     var pathTraveled = [String]()
     var isSearching = false
-    
+    let imagePicker = UIImagePickerController()
+    var currentNode: Node? = nil
+
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var backButton: UIButton!
     @IBAction func goBack(_ sender: Any?) {
-        if pathTraveled.count > 1 {
+        if self.isSearching {
+            vocabulary.clear(type: "search")
+            self.isSearching = false
+            self.searchTextField.text = ""
+            self.loadNodes("")
+        }
+        else if pathTraveled.count > 1 {
             pathTraveled.removeLast()
             self.loadNodes(pathTraveled.last!)
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -48,7 +56,8 @@ final class VocabViewController: UICollectionViewController {
         if self.searchTextField.text! == "" {self.isSearching = false}
         else {
             self.isSearching = true
-            let foundWords = VocabDatabase.shared.search(withText: self.searchTextField.text!)
+//            var foundWords = VocabDatabase.shared.getWords(withPrefix: self.searchTextField.text!)
+            let foundWords = VocabDatabase.shared.getWords(withSubstring: self.searchTextField.text!).sorted{$0.value < $1.value}
             for word in foundWords {vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: ""), parentName: "", type: "search")}
         }
         self.loadNodes("")
@@ -56,6 +65,8 @@ final class VocabViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
         
         for char in "abcdefghijklmnopqrstuvwxyz" {vocabulary.addChild(child: Folder(name: String(char), imageName: ""), parentName: "")}
 
@@ -113,7 +124,7 @@ extension VocabViewController {
 
         if let index = indexPath {
             if let node = self.nodes[index.item] as? Folder {
-                let loadedWords = VocabDatabase.shared.getWords(withPrefix: node.name)
+                let loadedWords = VocabDatabase.shared.getWords(withPrefix: node.name).sorted{$0.value < $1.value}
                 
                 for word in loadedWords {
                     if vocabulary.findWord(word: word.value, parent: self.pathTraveled[self.pathTraveled.count - 1]) == "" {
@@ -127,7 +138,6 @@ extension VocabViewController {
             }
             else {
                 let homeViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as! HomeViewController
-                
                 let node = self.nodes[index.item] as! VocabularyWord
                 
                 homeViewController.prevWord = Word(value: "")
@@ -141,14 +151,37 @@ extension VocabViewController {
                 homeViewController.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
                 homeViewController.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
                 homeViewController.sentenceWordIndex += 1
-                
                 homeViewController.populateWordButtons()
+                
+                self.isSearching = false
+                self.loadNodes("")
+                self.searchTextField.text = ""
                 
                 tabBarController?.selectedIndex = 1
             }
         }
     }
-    
+
+    @objc func handleLongPress(_ sender: UILongPressGestureRecognizer!) {
+        if sender.state != .ended {return}
+        
+        let location = sender.location(in: self.collectionView)
+        if let indexPath = self.collectionView?.indexPathForItem(at: location) {
+            // Get the long-pressed cell
+//            self.currentCell = self.collectionView?.cellForItem(at: indexPath) as! WordCell
+            self.currentNode = self.nodes[indexPath.item]
+            
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .photoLibrary
+            
+//            imagePicker.modalPresentationStyle = .popover
+            self.present(imagePicker, animated: true, completion: nil)
+//            imagePicker.popoverPresentationController?.barButtonItem = cell
+        }
+        else {print("Could not find index path.")}
+    }
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         super.collectionView(collectionView, cellForItemAt: indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! WordCell
@@ -156,11 +189,14 @@ extension VocabViewController {
         
         var image: UIImage? = nil
         let cellNode = self.nodes[(indexPath as IndexPath).item]
-        if cellNode.imageName != "" {image = UIImage(named: cellNode.imageName)!}
+        if cellNode.imageName != "" {
+            image = UIImage(named: cellNode.imageName)!
+        }
         else {image = nodeToImage(node: cellNode, size: cellNode.getImageSize())}
         cell.imageView.image = image
 
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
+        cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
 
         return cell
     }
@@ -221,5 +257,57 @@ extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         self.init(cgImage: image!.cgImage!)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension VocabViewController {
+//    func fetchLastImage(completion: (localIdentifier: String?) -> Void) {
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+//        fetchOptions.fetchLimit = 1
+//
+//        let fetchResult = PHAsset.fetchAssetsWithMediaType(.Image, options: fetchOptions)
+//        if (fetchResult.firstObject != nil) {
+//            let lastImageAsset: PHAsset = fetchResult.firstObject as! PHAsset
+//            completion(localIdentifier: lastImageAsset.localIdentifier)
+//        }
+//        else {completion(localIdentifier: nil)}
+//    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            if let data = UIImagePNGRepresentation(pickedImage) {
+                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension("png")
+                try? data.write(to: filename)
+                
+                self.currentNode?.setImageName(imageName: filename.absoluteString)
+                self.collectionView?.reloadData()
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
+//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+////            self.currentNode.imageView.contentMode = .scaleAspectFit
+////            self.currentNode.imageView.image = pickedImage
+//
+//            if let data = UIImagePNGRepresentation(pickedImage) {
+//                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+//                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension(".png")
+//                try? data.write(to: filename)
+//
+//                self.currentNode?.setImageName(imageName: filename.absoluteString)
+//                self.collectionView?.reloadData()
+//            }
+//        }
+//
+//        dismiss(animated: true, completion: nil)
+//    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 
 protocol Node {
     var name: String {get}
-    var imageName: String {get}
+    var imageName: String {get set}
 
     init(name: String, imageName: String)
     init(node: Node)
@@ -29,5 +29,9 @@ extension Node {
     
     func getImageSize() -> CGSize {
         return CGSize(width: 200, height: 200)
+    }
+    
+    mutating func setImageName(imageName: String) {
+        self.imageName = imageName
     }
 }

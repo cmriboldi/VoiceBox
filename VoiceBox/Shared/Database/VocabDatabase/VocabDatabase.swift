@@ -293,29 +293,29 @@ class VocabDatabase {
         }
     }
     
-    //
-    // Returns the result of searching in the database.
-    //
-    func search(withText wordText: String) -> [Word] {
-//        do {
-//            let foundWords: [Word] = []
-//            let doesWordExist = try dbQueue.inDatabase{ (db: Database) -> Bool in
-//                let row = try Row.fetchOne(db,
-//                                           """
-//                    select * from \(Word.databaseTableName)
-//                    where \(Word.Database.value) = ?
-//                    """,
-//                    arguments: [wordText])
-//                if row != nil {
-//                    return true
-//                }
-//                return false
-//            }
-//            return foundWords
-//        }
-//        catch {
-//            return []
-//        }
-        return []
-    }
+//    //
+//    // Returns the result of searching in the database.
+//    //
+//    func search(withText wordText: String) -> [Word] {
+////        do {
+////            let foundWords: [Word] = []
+////            let doesWordExist = try dbQueue.inDatabase{ (db: Database) -> Bool in
+////                let row = try Row.fetchOne(db,
+////                                           """
+////                    select * from \(Word.databaseTableName)
+////                    where \(Word.Database.value) = ?
+////                    """,
+////                    arguments: [wordText])
+////                if row != nil {
+////                    return true
+////                }
+////                return false
+////            }
+////            return foundWords
+////        }
+////        catch {
+////            return []
+////        }
+//        return []
+//    }
 }

@@ -6,5 +6,7 @@ target 'VoiceBox' do
     pod 'GRDB.swift'
     pod 'IBAnimatable'
     pod 'SwipeableTabBarController'
+    pod 'Firebase/Core'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Database'
 end
-

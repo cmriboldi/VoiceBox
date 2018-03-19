@@ -29,16 +29,16 @@ public class NGram {
         
         var nextWords = Words()
         
-        if !(prevWord.value == "" && prevWord.imageName == "") && prevWord.nextWords![textWord] != nil {
-            for (key, value) in (prevWord.nextWords![textWord]?.nextWords)! {
+        if prevWord.value != "" && prevWord.nextWords![textWord] != nil {
+            for (key, value) in (prevWord.nextWords?[textWord]?.nextWords)! {
                 if nextWords[key] == nil {
                     nextWords[key] = Word(value: key)
                 }
                 // Words at depth 3 should be weighted more heavily than words at shallower depths.
-                nextWords[key]?.numOccur = value.numOccur * 2
+                nextWords[key]?.numOccur = value.numOccur * 3
             }
         }
-        
+
         for (key, value) in (word.nextWords)! {
             if nextWords[key] == nil {
                 nextWords[key] = Word(value: key)
@@ -46,26 +46,25 @@ public class NGram {
             }
             nextWords[key]?.numOccur += value.numOccur
         }
-        
+
         let tempNextWords = nextWords.sorted {(word0, word1) -> Bool in
             let (_, actualWord0) = word0
             let (_, actualWord1) = word1
             return actualWord0.numOccur > actualWord1.numOccur
         }
-        
+
         var probableWords = [Word]()
-        
         var maxIndex = 0
         if numWords == -1 {maxIndex = tempNextWords.count}
         else {maxIndex = min(numWords, tempNextWords.count)}
-        
+
         for i in 0..<maxIndex {
             if let word = VocabDatabase.shared.getWord(withText: tempNextWords[i].value.value) {
                 if word.numOccur > 2 {probableWords.append(word)}
             }
-//            else {maxIndex += 1}
         }
 
         return probableWords
     }
 }
+

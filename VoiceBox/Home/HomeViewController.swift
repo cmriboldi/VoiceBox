@@ -128,18 +128,14 @@ class HomeViewController: UIViewController {
             self.populateWordButtons()
         }
     }
-
-    // Currently unused
-    func train() {
-        Trainer.shared.train(name: "train", extension: "txt")
-    }
     
     @IBAction func search(_ sender: UIButton) {
         let vocabViewController = (tabBarController?.viewControllers![0] as! UINavigationController).viewControllers[0] as! VocabViewController
-
+        
         vocabViewController.vocabulary.clear(type: "likely")
+        self.likelyNextWords = self.likelyNextWords.sorted{$0.value < $1.value}
         for word in self.likelyNextWords {vocabViewController.vocabulary.addChild(child: VocabularyWord(name: word.value), parentName: "", type: "likely")}
-
+        
         vocabViewController.loadNodes("")
         vocabViewController.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         vocabViewController.isSearching = false
@@ -154,7 +150,7 @@ class HomeViewController: UIViewController {
             sentenceWordIndex = 0
             sentenceCollectionView.reloadData()
             navigationController?.popToRootViewController(animated: true)
-            
+//
             self.prevWord = Word(value: "")
             self.currentWord = Word(value: "")
             self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)
@@ -196,6 +192,11 @@ class HomeViewController: UIViewController {
             return HomeViewController()
         }
         return viewController
+    }
+    
+    // Currently unused
+    func train() {
+        Trainer.shared.train(name: "train", extension: "txt")
     }
 }
 

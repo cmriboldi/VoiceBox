@@ -12,17 +12,20 @@ import UIKit
 class Folder: Node {
     var name: String
     var imageName: String
+    var image: UIImage?
     var children: [Node]
     
-    required init(name: String = "", imageName: String = "") {
+    required init(name: String = "", imageName: String = "", image: UIImage? = nil) {
         self.name = name
         self.imageName = imageName
+        self.image = image
         self.children = []
     }
     
     required init(node: Node) {
         self.name = node.name
         self.imageName = node.imageName
+        self.image = node.image
         self.children = node.getChildren()!
     }
     

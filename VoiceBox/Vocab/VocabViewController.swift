@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 final class VocabViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - Properties
@@ -90,33 +93,6 @@ extension VocabViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.nodes.count
     }
-    
-    func nodeToImage(node: Node, size: CGSize) -> UIImage {
-        let word = node.name
-        let baseSize = word.boundingRect(with: CGSize(width: 2048, height: 2048), options: .usesLineFragmentOrigin, attributes: [.font: UIFont.systemFont(ofSize: size.height / 2)], context: nil).size
-        let fontSize = size.width / max(baseSize.width, baseSize.height) * (size.width / 2)
-        let font = UIFont.systemFont(ofSize: fontSize)
-        let textSize = word.boundingRect(with: CGSize(width: size.width, height: size.height), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size
-        
-        let style = NSMutableParagraphStyle()
-        style.alignment = NSTextAlignment.center
-        style.lineBreakMode = NSLineBreakMode.byClipping
-        
-        let attr: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: font, NSAttributedStringKey.paragraphStyle: style, NSAttributedStringKey.backgroundColor: UIColor.clear]
-        
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        word.draw(in: CGRect(x: (size.width - textSize.width) / 2, y: (size.height - textSize.height) / 2, width: textSize.width, height: textSize.height), withAttributes: attr)
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        let imageView = UIImageView(image: image)
-        imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.clipsToBounds = true
-        if let _ = node as? Folder {imageView.layer.cornerRadius = imageView.bounds.width / 2}
-        
-        return UIImage(view: imageView)
-    }
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: self.collectionView)
@@ -163,6 +139,7 @@ extension VocabViewController {
     }
 
     @objc func handleLongPress(_ sender: UILongPressGestureRecognizer!) {
+//        if self.nodes[(self.collectionView?.indexPathForItem(at: sender.location(in: self.collectionView))?.item)!] is Folder {return}
         if sender.state != .ended {return}
         
         let location = sender.location(in: self.collectionView)
@@ -186,14 +163,7 @@ extension VocabViewController {
         super.collectionView(collectionView, cellForItemAt: indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! WordCell
         cell.backgroundColor = UIColor.white
-        
-        var image: UIImage? = nil
-        let cellNode = self.nodes[(indexPath as IndexPath).item]
-        if cellNode.imageName != "" {
-            image = UIImage(named: cellNode.imageName)!
-        }
-        else {image = nodeToImage(node: cellNode, size: cellNode.getImageSize())}
-        cell.imageView.image = image
+        cell.imageView.image = self.nodes[(indexPath as IndexPath).item].getImage()
 
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
@@ -278,11 +248,20 @@ extension VocabViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if let data = UIImagePNGRepresentation(pickedImage) {
-                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension("png")
-                try? data.write(to: filename)
-                
-                self.currentNode?.setImageName(imageName: filename.absoluteString)
+//                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+//                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension("png")
+
+                let user = Auth.auth().currentUser
+                let imageRef = Storage.storage().reference(withPath: "images/" + (user?.uid)! + "/" + (self.currentNode?.name)! + ".png")
+                self.currentNode?.setImage(image: pickedImage)
+
+                imageRef.putData(data, metadata: nil) { (metadata, error) in
+                    guard let metadata = metadata else {return}
+                    // Metadata contains file metadata such as size, content-type, and download URL.
+//                    let downloadURL = metadata.downloadURL
+
+                    self.collectionView?.reloadData()
+                }
                 self.collectionView?.reloadData()
             }
         }

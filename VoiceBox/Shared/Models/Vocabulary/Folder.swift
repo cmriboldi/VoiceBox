@@ -8,41 +8,37 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseStorage
 
 class Folder: Node {
-    var name: String
-    var imageName: String
-    var image: UIImage?
     var children: [Node]
     
     required init(name: String = "", imageName: String = "", image: UIImage? = nil) {
-        self.name = name
-        self.imageName = imageName
-        self.image = image
         self.children = []
+        super.init(name: name, imageName: imageName, image: image)
     }
     
     required init(node: Node) {
-        self.name = node.name
-        self.imageName = node.imageName
-        self.image = node.image
         self.children = node.getChildren()!
+        super.init(node: node)
     }
     
-    func getChildren() -> [Node]? {
+    override func getChildren() -> [Node]? {
         return self.children
     }
     
-    func getName() -> String {
+    override func getName() -> String {
         return self.name
     }
 
-    func addChild(child: Node, parentName: String) {
+    override func addChild(child: Node, parentName: String) {
         if parentName == self.name {children.append(child)}
         else {for c in self.children {c.addChild(child: child, parentName: parentName)}}
     }
     
-    func findWord(word: String, parent: String) -> String {
+    override func findWord(word: String, parent: String) -> String {
         if self.name != parent {
             for c in self.children {
                 var foundWord = ""
@@ -64,12 +60,14 @@ class Folder: Node {
         return ""
     }
     
-    func getWords(words: inout [String]) {
+    override func getWords(words: inout [String]) {
         for c in children {c.getWords(words: &words)}
     }
     
-    func getNodes(parentName: String, nodes: inout [Node]) {
+    override func getNodes(parentName: String, nodes: inout [Node]) {
         if parentName == self.name {for c in children {nodes.append(c)}}
         else {for c in children {c.getNodes(parentName: parentName, nodes: &nodes)}}
     }
+    
+    override func getType() -> String {return "Folder"}
 }

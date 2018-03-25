@@ -8,38 +8,27 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseStorage
 
 class VocabularyWord: Node {
-    var name: String
-    var imageName: String
-    var image: UIImage?
-    
-    required init(name: String = "", imageName: String = "", image: UIImage? = nil) {
-        self.name = name
-        self.imageName = imageName
-        self.image = image
-    }
-    
-    required init(node: Node) {
-        self.name = node.name
-        self.imageName = node.imageName
-        self.image = node.image
-    }
-    
-    func getChildren() -> [Node]? {
+    override func getChildren() -> [Node]? {
         return nil
     }
     
-    func addChild(child: Node, parentName: String) {}
+    override func addChild(child: Node, parentName: String) {}
     
-    func findWord(word: String, parent: String) -> String {
+    override func findWord(word: String, parent: String) -> String {
         if self.name == word {return self.name}
         return ""
     }
     
-    func getWords(words: inout [String]) {
+    override func getWords(words: inout [String]) {
         words.append(self.name)
     }
     
-    func getNodes(parentName: String, nodes: inout [Node]) {}
+    override func getNodes(parentName: String, nodes: inout [Node]) {}
+    
+    override func getType() -> String {return "VocabularyWord"}
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
@@ -18,6 +19,7 @@ class SettingsViewController: UIViewController {
     @IBAction func train(_ sender: Any) {
         Trainer.shared.train(name: "train", extension: "txt")
     }
+
     @IBAction func login(_ sender: Any) {
         let auth = Auth.auth()
 //        do {try auth.signOut()}
@@ -45,12 +47,22 @@ class SettingsViewController: UIViewController {
 //        do {try Auth.auth().signOut()}
 //        catch let error as NSError{}
         if let user = user {
-            var _ = Database.database().reference(withPath: "users/" + user.uid).observe(DataEventType.value, with: { (snapshot) in
-                let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-                self.userInfo.text = self.userInfo.text! + (postDict["first_name"] as! String)  + " " + (postDict["last_name"] as! String) + "\n"
-                self.userInfo.text = self.userInfo.text! + (postDict["username"] as! String) + "\n"
-                self.userInfo.text = self.userInfo.text! + (postDict["email"] as! String)
-            })
+            Firestore.firestore().collection("users").document(user.uid).getDocument { (document, error) in
+                if let document = document {
+//                    print("Document data: \(document.data())")
+                    self.userInfo.text = self.userInfo.text! + (document["first_name"] as! String)  + " " + (document["last_name"] as! String) + "\n"
+                    self.userInfo.text = self.userInfo.text! + (document["username"] as! String) + "\n"
+                    self.userInfo.text = self.userInfo.text! + (document["email"] as! String)
+                }
+                else {print("Document does not exist")}
+            }
+
+//            var _ = Database.database().reference(withPath: "users/" + user.uid).observe(DataEventType.value, with: { (snapshot) in
+//                let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+//                self.userInfo.text = self.userInfo.text! + (postDict["first_name"] as! String)  + " " + (postDict["last_name"] as! String) + "\n"
+//                self.userInfo.text = self.userInfo.text! + (postDict["username"] as! String) + "\n"
+//                self.userInfo.text = self.userInfo.text! + (postDict["email"] as! String)
+//            })
         }
         self.emailTextField.text = ""
         self.passwordTextField.text = ""

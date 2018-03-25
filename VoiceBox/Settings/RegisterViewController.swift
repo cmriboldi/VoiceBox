@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
@@ -19,11 +20,21 @@ class RegisterViewController: UIViewController {
     
     @IBAction func register(_ sender: Any) {
         Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) {(user, error) in
-            Database.database().reference(withPath: "users/" + user!.uid).setValue(["email": self.emailTextField.text!,
-                                                                                    "first_name": self.firstNameTextField.text!,
-                                                                                    "last_name": self.lastNameTextField.text!,
-                                                                                    "uid": user!.uid,
-                                                                                    "username": self.usernameTextField.text!])
+            Firestore.firestore().collection("users").document((user?.uid)!).setData([
+                "email": self.emailTextField.text!,
+                "first_name": self.firstNameTextField.text!,
+                "last_name": self.lastNameTextField.text!,
+                "uid": user!.uid,
+                "username": self.usernameTextField.text!
+            ]) { err in
+                if let err = err {print("Error writing document: \(err)")}
+                else {print("Document successfully written!")}
+            }
+//            Database.database().reference(withPath: "users/" + user!.uid).setValue(["email": self.emailTextField.text!,
+//                                                                                    "first_name": self.firstNameTextField.text!,
+//                                                                                    "last_name": self.lastNameTextField.text!,
+//                                                                                    "uid": user!.uid,
+//                                                                                    "username": self.usernameTextField.text!])
 
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
                 ((((self.navigationController?.parent as! TabBarController).viewControllers![2]) as! UINavigationController).viewControllers[0] as! SettingsViewController).loadUserInfo()

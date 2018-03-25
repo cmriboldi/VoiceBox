@@ -8,31 +8,43 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseStorage
 
-protocol Node {
-    var name: String {get}
-    var imageName: String {get set}
-    var image: UIImage? {get set}
+class Node {
+    var name: String
+    var imageName: String
+    var image: UIImage?
 
-    init(name: String, imageName: String, image: UIImage?)
-    init(node: Node)
-    func getChildren() -> [Node]?
-    func addChild(child: Node, parentName: String)
-    func findWord(word: String, parent: String) -> String
-    func getWords(words: inout [String])
-    func getNodes(parentName: String, nodes: inout [Node])
-}
-
-extension Node {
+    required init(name: String = "", imageName: String = "", image: UIImage? = nil) {
+        self.name = name
+        self.imageName = imageName
+        self.image = image
+    }
+    
+    required init(node: Node) {
+        self.name = node.name
+        self.imageName = node.imageName
+        self.image = node.image
+    }
+    
+    func getChildren() -> [Node]? {return nil}
+    func addChild(child: Node, parentName: String){}
+    func findWord(word: String, parent: String) -> String {return ""}
+    func getWords(words: inout [String]) {}
+    func getNodes(parentName: String, nodes: inout [Node]) {}
+    func getType() -> String {return ""}
+    
     func getName() -> String {
         return self.name
     }
-
+    
     func getImageSize() -> CGSize {
         return CGSize(width: 200, height: 200)
     }
-
-    mutating func setImageName(imageName: String) {
+    
+    func setImageName(imageName: String) {
         self.imageName = imageName
     }
     
@@ -63,16 +75,38 @@ extension Node {
         return UIImage(view: imageView)
     }
 
-    mutating func getImage() -> UIImage {
+    func getImage() -> UIImage {
         if self.image == nil {
-            if self.imageName != "" {self.setImage(image: UIImage(named: self.imageName)!)}
-            else {self.image = self.createImage(size: self.getImageSize())}
-        }
+            if self.imageName != "" {
+                self.setImage(image: UIImage(named: self.imageName)!)
+            }
+            else {
+                // Create a reference with an initial file path and name
+                let user = Auth.auth().currentUser
 
+                var path = "images/"
+                path.append((user?.uid)!)
+                path.append("/")
+                path.append(self.getType())
+                path.append("/")
+                path.append(self.name)
+                path.append(".png")
+
+                let imageRef = Storage.storage().reference(withPath: path)
+
+                // Download in memory with a maximum allowed size of 50MB (50 * 1024 * 1024 bytes)
+                //FIXME: This maxSize might need to be adjusted.
+                let _ = imageRef.getData(maxSize: 50 * 1024 * 1024) { (data, error) in
+                    if let error = error {}
+                    else {self.setImage(image: UIImage(data: data!)!)}
+                }
+            }
+        }
+        if self.image == nil {self.setImage(image: self.createImage(size: self.getImageSize()))}
         return self.image!
     }
     
-    mutating func setImage(image: UIImage) {
+    func setImage(image: UIImage) {
         let size = image.size
         let targetSize = self.getImageSize()
         
@@ -99,7 +133,7 @@ extension Node {
         if let _ = self as? Folder {
             let imageView = UIImageView(image: newImage)
             imageView.clipsToBounds = true
-//            imageView.layer.cornerRadius = imageView.bounds.width / 2.5
+            //            imageView.layer.cornerRadius = imageView.bounds.width / 2.5
             imageView.layer.cornerRadius = 50
             newImage = UIImage(view: imageView)
         }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
@@ -89,7 +90,7 @@ extension VocabViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.nodes.count
     }
@@ -163,7 +164,9 @@ extension VocabViewController {
         super.collectionView(collectionView, cellForItemAt: indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! WordCell
         cell.backgroundColor = UIColor.white
-        cell.imageView.image = self.nodes[(indexPath as IndexPath).item].getImage()
+        var node = self.nodes[(indexPath as IndexPath).item]
+        
+        cell.imageView.image = node.getImage()
 
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
@@ -245,29 +248,73 @@ extension VocabViewController {
 //        else {completion(localIdentifier: nil)}
 //    }
     
+//    func getStringPathTraveled() -> String {
+//        var path = ""
+//        for folder in self.pathTraveled {path.append("/" + folder)}
+//        return path
+//    }
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if let data = UIImagePNGRepresentation(pickedImage) {
+//                data = data as Data
 //                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 //                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension("png")
 
                 let user = Auth.auth().currentUser
-                let imageRef = Storage.storage().reference(withPath: "images/" + (user?.uid)! + "/" + (self.currentNode?.name)! + ".png")
+//                let imageRef = Storage.storage().reference(withPath: "images/" + (user?.uid)! + "/" + (self.currentNode?.name)! + ".png")
                 self.currentNode?.setImage(image: pickedImage)
 
-                imageRef.putData(data, metadata: nil) { (metadata, error) in
-                    guard let metadata = metadata else {return}
-                    // Metadata contains file metadata such as size, content-type, and download URL.
-//                    let downloadURL = metadata.downloadURL
+                // Create a root reference
+                let storageRef = Storage.storage().reference()
+                
+//                // Create a reference to "mountains.jpg"
+//                let wordRef = storageRef.child((self.currentNode?.name)! + ".png")
+                
+                
+                // Create a reference to the image location
+//                let wordImagesRef = storageRef.child((user?.uid)! + "/images/" + (self.currentNode?e.name)! + ".png")
+                // Create a reference to the image location
 
+                var path = "images/"
+                path.append((user?.uid)!)
+                path.append("/")
+                path.append((self.currentNode?.getType())!)
+                path.append("/")
+                path.append((self.currentNode?.name)!)
+                path.append(".png")
+//                path.append(uid).append("/").append(type).append("/").append(name).append(".png")
+                let wordImagesRef = Storage.storage().reference(withPath: path)
+                
+                // Upload the file to the correct location
+                let _ = wordImagesRef.putData(data, metadata: nil) { (metadata, error) in
+                    guard let metadata = metadata else {
+                        // Uh-oh, an error occurred!
+                        print("Uh-oh, an error occurred! \(String(describing: error))")
+                        return
+                    }
+                    // Metadata contains file metadata such as size, content-type, and download URL.
+                    let downloadURL = metadata.downloadURL
                     self.collectionView?.reloadData()
                 }
-                self.collectionView?.reloadData()
+
+//                var uid = user?.uid
+//                db.collection("images").document((user?.uid)!).setData([
+//                var temp = data.base64EncodedString()
+//                var len = temp.count
+//                Firestore.firestore().collection("images").document((user?.uid)!).setData([
+////                    (self.currentNode?.name)!: ["data": data as NSData, "type": "VocabularyWord"],
+//                    (self.currentNode?.name)!: ["data": temp, "type": "VocabularyWord"]
+//                ]) { err in
+//                    if let err = err {print("Error writing document: \(err)")}
+//                    else {print("Document successfully written!")}
+//                }
+//                self.collectionView?.reloadData()
             }
         }
         dismiss(animated: true, completion: nil)
     }
-    
+
 //    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
 //        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
 ////            self.currentNode.imageView.contentMode = .scaleAspectFit
@@ -285,7 +332,7 @@ extension VocabViewController {
 //
 //        dismiss(animated: true, completion: nil)
 //    }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }

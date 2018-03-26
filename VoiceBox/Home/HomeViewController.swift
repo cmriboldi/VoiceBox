@@ -13,8 +13,9 @@ import AVFoundation
 class HomeViewController: UIViewController {
     
     // MARK: - Constants
-    private struct Storyboard {
+    private struct Constants {
         static let SentenceWordCellID = "sentenceWordCell"
+        static let numberOfNextWords = 5
     }
     
     // MARK: - Properties
@@ -24,7 +25,6 @@ class HomeViewController: UIViewController {
     var sentence = Sentence()
     var prevWord: Word = Word(value: "")
     var currentWord: Word?
-    var numWords: Int = 5
     var likelyNextWords = [Word]()
     var transitionThumbnail: UIImageView?
 
@@ -44,7 +44,7 @@ class HomeViewController: UIViewController {
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
 
-        if likelyNextWords.isEmpty {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)}
+        if likelyNextWords.isEmpty {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)}
         populateWordButtons()
     }
     
@@ -55,7 +55,7 @@ class HomeViewController: UIViewController {
         flowLayout.scrollDirection = .horizontal
         sentenceCollectionView.collectionViewLayout = flowLayout
         
-        let recognizer = UITapGestureRecognizer(target: self,action:#selector(self.handleTap(recognizer:)))
+        let recognizer = UITapGestureRecognizer(target: self, action:#selector(self.handleTap(recognizer:)))
         recognizer.delegate = self
         sentenceCollectionView.addGestureRecognizer(recognizer)
         
@@ -143,7 +143,7 @@ class HomeViewController: UIViewController {
             if let currentWord = self.currentWord {
                 self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: currentWord)
             } else {
-                self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)
+                self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             }
             
             self.populateWordButtons()
@@ -167,14 +167,17 @@ class HomeViewController: UIViewController {
     @objc func clearSentence(_ sender: UIButton, event: UIEvent) {
         let touch: UITouch = event.allTouches!.first!
         if (touch.tapCount == 2) {
-            sentence.removeAll()
-            sentenceWordIndex = 0
-            sentenceCollectionView.reloadData()
-            navigationController?.popToRootViewController(animated: true)
-//
-            self.prevWord = Word(value: "")
-            self.currentWord = Word(value: "")
-            self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)
+            
+            while !sentence.isEmpty {
+                sentenceWordIndex -= 1
+                sentence.removeLast()
+                let indexPath = IndexPath(row:sentenceWordIndex, section: 0)
+                self.sentenceCollectionView.deleteItems(at: [indexPath])
+            }
+            
+            self.currentWord = nil
+            self.prevWord = Word()
+            self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             self.populateWordButtons()
         }
     }
@@ -187,16 +190,23 @@ class HomeViewController: UIViewController {
             mainWord.addSubview(mainWordView)
         }
         
-        for (i,likelyWord) in self.likelyNextWords.enumerated() {
-            self.wordButtons[i].subviews.forEach({ $0.removeFromSuperview() })
-            let buttonView = RoundedButton.init(frame: self.wordButtons[i].frame)
-            buttonView.setTitle(self.getWordText(word: likelyWord))
-            let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(wordPressed))
-            gesture.numberOfTapsRequired = 1
-            buttonView.isUserInteractionEnabled = true
-            buttonView.addGestureRecognizer(gesture)
-            buttonView.index = i
-            self.wordButtons[i].addSubview(buttonView)
+        for i in 0..<Constants.numberOfNextWords {
+            let wordButton = self.wordButtons[i]
+            wordButton.subviews.forEach({ $0.removeFromSuperview() })
+            
+            if i < likelyNextWords.count {
+                let likelyWord = self.likelyNextWords[i]
+
+                let buttonView = RoundedButton.init(frame: wordButton.frame)
+                buttonView.setTitle(self.getWordText(word: likelyWord))
+                
+                let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(wordPressed))
+                gesture.numberOfTapsRequired = 1
+                buttonView.isUserInteractionEnabled = true
+                buttonView.addGestureRecognizer(gesture)
+                buttonView.index = i
+                wordButton.addSubview(buttonView)
+            }
         }
         closure?()
     }
@@ -213,7 +223,7 @@ class HomeViewController: UIViewController {
         synth.speak(utterance)
     }
 
-    func predictNextWords(newWord: Word, numWords: Int = 6) -> [Word] {
+    func predictNextWords(newWord: Word, numWords: Int = Constants.numberOfNextWords) -> [Word] {
         guard let currentWord = self.currentWord else {
             return []
         }
@@ -249,7 +259,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.SentenceWordCellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.SentenceWordCellID, for: indexPath)
         let word = sentence[indexPath.item]
         if let sentenceWordCell = cell as? SentenceWordCell {
             sentenceWordCell.sentenceItemView.word = word

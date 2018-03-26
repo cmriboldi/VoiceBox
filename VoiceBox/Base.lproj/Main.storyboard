@@ -32,7 +32,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xAm-NO-oqJ">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xAm-NO-oqJ">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         </imageView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="de9-zp-i5J">
@@ -41,10 +41,12 @@
                                     </subviews>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="top" secondItem="vFD-qt-KzR" secondAttribute="top" id="8mH-C7-c1T"/>
                                     <constraint firstItem="xAm-NO-oqJ" firstAttribute="centerX" secondItem="vFD-qt-KzR" secondAttribute="centerX" id="JSC-Ho-iJl"/>
                                     <constraint firstItem="de9-zp-i5J" firstAttribute="centerX" secondItem="vFD-qt-KzR" secondAttribute="centerX" id="JXV-QO-Yx0"/>
                                     <constraint firstItem="xAm-NO-oqJ" firstAttribute="centerY" secondItem="vFD-qt-KzR" secondAttribute="centerY" id="Teb-DZ-HMd"/>
                                     <constraint firstItem="de9-zp-i5J" firstAttribute="centerY" secondItem="vFD-qt-KzR" secondAttribute="centerY" id="qJV-DA-4uk"/>
+                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="leading" secondItem="vFD-qt-KzR" secondAttribute="leading" id="v1l-AX-vSd"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="activityIndicator" destination="de9-zp-i5J" id="UyQ-Ui-WTD"/>
@@ -91,7 +93,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BX9-f5-tBs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-475.19531249999994" y="244.53125"/>
+            <point key="canvasLocation" x="-1039" y="487"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -155,76 +157,55 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p2p-Sb-uj1">
                                 <rect key="frame" x="0.0" y="159.5" width="1024" height="559.5"/>
                                 <subviews>
-                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hWg-Ng-VCq" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pU-gk-BAS" userLabel="Main Word">
                                         <rect key="frame" x="437" y="204.5" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="UI2-eh-9iD"/>
-                                            <constraint firstAttribute="width" constant="150" id="a6f-Ew-wnc"/>
+                                            <constraint firstAttribute="height" constant="150" id="9By-zE-39f"/>
+                                            <constraint firstAttribute="width" constant="150" id="Z72-A7-osd"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                        <state key="normal" title="Word"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="B1O-xZ-YwA" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDQ-a8-znc" userLabel="Word1">
                                         <rect key="frame" x="342" y="34.5" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="MyV-GW-VbI"/>
-                                            <constraint firstAttribute="height" constant="150" id="z6b-fO-bmF"/>
+                                            <constraint firstAttribute="width" constant="150" id="PB9-Re-9lD"/>
+                                            <constraint firstAttribute="height" constant="150" id="SFH-Uw-82O"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                        <state key="normal" title="Word"/>
-                                        <connections>
-                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WsQ-tp-5CE"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-Lk-ibW" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yMo-lC-sIU" userLabel="Word2">
                                         <rect key="frame" x="532" y="34.5" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="Kdu-fj-hCv"/>
-                                            <constraint firstAttribute="height" constant="150" id="V9u-g4-Oeh"/>
+                                            <constraint firstAttribute="height" constant="150" id="NJc-SJ-gZy"/>
+                                            <constraint firstAttribute="width" constant="150" id="eKK-fo-4o4"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                        <state key="normal" title="Word"/>
-                                        <connections>
-                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eyF-01-d1H"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bAa-IJ-xst" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
-                                        <rect key="frame" x="247" y="205" width="150" height="150"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4E-4n-XRT" userLabel="Word3">
+                                        <rect key="frame" x="247" y="204.5" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="60h-hn-Y5P"/>
-                                            <constraint firstAttribute="width" constant="150" id="gy6-Tt-xKI"/>
+                                            <constraint firstAttribute="height" constant="150" id="GcV-QA-MUn"/>
+                                            <constraint firstAttribute="width" constant="150" id="cFj-yl-E8I"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                        <state key="normal" title="Word"/>
-                                        <connections>
-                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dWE-W9-7XU"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5SE-hC-RYB" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fvf-LF-slL" userLabel="Word4">
                                         <rect key="frame" x="627" y="204.5" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="TAl-aZ-8y6"/>
-                                            <constraint firstAttribute="width" constant="150" id="bMi-UA-VTY"/>
+                                            <constraint firstAttribute="width" constant="150" id="AZ4-nf-foA"/>
+                                            <constraint firstAttribute="height" constant="150" id="Jyv-aQ-ff4"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                        <state key="normal" title="Word"/>
-                                        <connections>
-                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="coc-Sz-xtf"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jsP-fc-F58" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
-                                        <rect key="frame" x="342" y="375" width="150" height="150"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p6E-gf-xdH" userLabel="Word5">
+                                        <rect key="frame" x="342" y="374.5" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="8U5-s9-mbg"/>
-                                            <constraint firstAttribute="width" constant="150" id="GlI-8p-BLA"/>
+                                            <constraint firstAttribute="height" constant="150" id="FR8-Dx-fLG"/>
+                                            <constraint firstAttribute="width" constant="150" id="xx3-OM-4nR"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                        <state key="normal" title="Word"/>
-                                        <connections>
-                                            <action selector="wordPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KXd-wv-Le3"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-gN-TCc" customClass="RoundButton" customModule="VoiceBox" customModuleProvider="target">
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-gN-TCc">
                                         <rect key="frame" x="532" y="374.5" width="150" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="kSb-TJ-LuW"/>
@@ -238,20 +219,20 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="oQ5-gN-TCc" firstAttribute="top" secondItem="hWg-Ng-VCq" secondAttribute="bottom" constant="20" id="9GD-NW-cxm"/>
-                                    <constraint firstItem="hWg-Ng-VCq" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" id="A7d-Lv-RkH"/>
-                                    <constraint firstItem="hWg-Ng-VCq" firstAttribute="top" secondItem="b1n-Lk-ibW" secondAttribute="bottom" constant="20" id="Br9-iH-SFZ"/>
-                                    <constraint firstItem="5SE-hC-RYB" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="KvV-4S-89I"/>
-                                    <constraint firstItem="B1O-xZ-YwA" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="-95" id="SWi-L2-D2x"/>
-                                    <constraint firstItem="jsP-fc-F58" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="-95" id="TBX-2Y-mS4"/>
-                                    <constraint firstItem="5SE-hC-RYB" firstAttribute="leading" secondItem="hWg-Ng-VCq" secondAttribute="trailing" constant="40" id="VFj-9g-fhG"/>
-                                    <constraint firstItem="bAa-IJ-xst" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="WmI-3m-SGd"/>
+                                    <constraint firstItem="oQ5-gN-TCc" firstAttribute="top" secondItem="3pU-gk-BAS" secondAttribute="bottom" constant="20" id="20P-CD-nYL"/>
+                                    <constraint firstItem="3pU-gk-BAS" firstAttribute="top" secondItem="KDQ-a8-znc" secondAttribute="bottom" constant="20" id="8st-ji-yoD"/>
+                                    <constraint firstItem="Fvf-LF-slL" firstAttribute="leading" secondItem="3pU-gk-BAS" secondAttribute="trailing" constant="40" id="D9z-Dk-jLf"/>
+                                    <constraint firstItem="Fvf-LF-slL" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="GGE-S4-8Sz"/>
+                                    <constraint firstItem="c4E-4n-XRT" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="OVl-li-1xu"/>
+                                    <constraint firstItem="p6E-gf-xdH" firstAttribute="top" secondItem="3pU-gk-BAS" secondAttribute="bottom" constant="20" id="WJm-S3-qTV"/>
+                                    <constraint firstItem="3pU-gk-BAS" firstAttribute="top" secondItem="yMo-lC-sIU" secondAttribute="bottom" constant="20" id="bD9-SB-dSD"/>
                                     <constraint firstItem="oQ5-gN-TCc" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="95" id="eHw-tF-dY4"/>
-                                    <constraint firstItem="hWg-Ng-VCq" firstAttribute="top" secondItem="B1O-xZ-YwA" secondAttribute="bottom" constant="20" id="fnn-Ff-Nyt"/>
-                                    <constraint firstItem="hWg-Ng-VCq" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="mT0-up-lPU"/>
-                                    <constraint firstItem="jsP-fc-F58" firstAttribute="top" secondItem="bAa-IJ-xst" secondAttribute="bottom" constant="20" id="mvZ-lf-2pU"/>
-                                    <constraint firstItem="b1n-Lk-ibW" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="95" id="r7Q-qu-dOS"/>
-                                    <constraint firstItem="hWg-Ng-VCq" firstAttribute="leading" secondItem="bAa-IJ-xst" secondAttribute="trailing" constant="40" id="t10-MY-ifz"/>
+                                    <constraint firstItem="p6E-gf-xdH" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="-95" id="gvU-wl-YEK"/>
+                                    <constraint firstItem="3pU-gk-BAS" firstAttribute="leading" secondItem="c4E-4n-XRT" secondAttribute="trailing" constant="40" id="o9O-IA-pSU"/>
+                                    <constraint firstItem="3pU-gk-BAS" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="ptF-4L-QkV"/>
+                                    <constraint firstItem="3pU-gk-BAS" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" id="r49-ly-gkE"/>
+                                    <constraint firstItem="KDQ-a8-znc" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="-95" id="s8J-QQ-Cw6"/>
+                                    <constraint firstItem="yMo-lC-sIU" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="95" id="uJv-yq-d45"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -271,18 +252,18 @@
                     <navigationItem key="navigationItem" id="Myl-qb-S4C"/>
                     <connections>
                         <outlet property="deleteButton" destination="iXK-j3-AA1" id="YJR-rI-3Li"/>
-                        <outlet property="mainWord" destination="hWg-Ng-VCq" id="UHB-Am-haV"/>
+                        <outlet property="mainWord" destination="3pU-gk-BAS" id="nDd-Kz-C9Q"/>
                         <outlet property="sentenceCollectionView" destination="F1H-GL-vIM" id="iPa-KB-c8T"/>
-                        <outletCollection property="wordButtons" destination="B1O-xZ-YwA" collectionClass="NSMutableArray" id="7TG-JB-yAb"/>
-                        <outletCollection property="wordButtons" destination="b1n-Lk-ibW" collectionClass="NSMutableArray" id="x2M-ju-r0E"/>
-                        <outletCollection property="wordButtons" destination="bAa-IJ-xst" collectionClass="NSMutableArray" id="xAQ-dw-7pg"/>
-                        <outletCollection property="wordButtons" destination="5SE-hC-RYB" collectionClass="NSMutableArray" id="uDb-yh-cuV"/>
-                        <outletCollection property="wordButtons" destination="jsP-fc-F58" collectionClass="NSMutableArray" id="t9c-wy-gfu"/>
+                        <outletCollection property="wordButtons" destination="KDQ-a8-znc" collectionClass="NSMutableArray" id="y52-s6-KTF"/>
+                        <outletCollection property="wordButtons" destination="yMo-lC-sIU" collectionClass="NSMutableArray" id="UTR-3J-RuI"/>
+                        <outletCollection property="wordButtons" destination="c4E-4n-XRT" collectionClass="NSMutableArray" id="NFg-gO-bLu"/>
+                        <outletCollection property="wordButtons" destination="Fvf-LF-slL" collectionClass="NSMutableArray" id="yZy-Wn-Gn1"/>
+                        <outletCollection property="wordButtons" destination="p6E-gf-xdH" collectionClass="NSMutableArray" id="AWD-T1-nyj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="321.6796875" y="245.3125"/>
+            <point key="canvasLocation" x="199" y="487"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="w0F-vh-atG">
@@ -477,7 +458,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ON9-ez-GeH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="321.6796875" y="-493.75"/>
+            <point key="canvasLocation" x="199" y="-399"/>
         </scene>
         <!--Vocab-->
         <scene sceneID="634-Sz-XSj">
@@ -497,7 +478,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9f5-rT-3pO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-475" y="-494"/>
+            <point key="canvasLocation" x="-1039" y="-399"/>
         </scene>
         <!--Settings-->
         <scene sceneID="chK-yP-Oj5">

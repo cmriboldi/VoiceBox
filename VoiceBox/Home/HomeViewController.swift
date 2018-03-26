@@ -18,21 +18,20 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Properties
-    var triggerButtonIndex = 0
     var synth = AVSpeechSynthesizer()
     var utterance = AVSpeechUtterance(string: "")
     var sentenceWordIndex = 0
     var sentence = Sentence()
     var prevWord: Word = Word(value: "")
-    var currentWord: Word = Word(value: "")
+    var currentWord: Word?
     var numWords: Int = 5
     var likelyNextWords = [Word]()
     var transitionThumbnail: UIImageView?
 
     @IBOutlet weak var sentenceCollectionView: UICollectionView!
     @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var mainWord: UIButton!
-    @IBOutlet var wordButtons: [RoundButton]!
+    @IBOutlet weak var mainWord: UIView!
+    @IBOutlet var wordButtons: [UIView]!
     
     // MARK: - ViewController Functions
     override func viewDidLoad() {
@@ -64,13 +63,17 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @IBAction func wordPressed(_ button: RoundButton) {
-        guard button.tag < likelyNextWords.count else {return}
+    @objc func wordPressed(_ sender: UITapGestureRecognizer) {
+        guard let button = sender.view as? RoundedButton else {
+            return
+        }
+        guard button.index < likelyNextWords.count else {
+            return
+        }
 
-        triggerButtonIndex = wordButtons.index(of: button)!
-
-        let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.tag].value)!
-
+        let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.index].value)!
+        
+        self.currentWord = newWord
         self.likelyNextWords = self.predictNextWords(newWord: newWord)
 
         speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
@@ -90,26 +93,32 @@ class HomeViewController: UIViewController {
         
         button.animate(.moveTo(x: centerCornerX, y: centerCornerY))
         
-        for otherButton in self.wordButtons {
-            if otherButton != button {
-                let buttonCenterCornerX = Double(otherButton.center.x) - Double(otherButton.bounds.width / 2)
-                let buttonCenterCornerY = Double(otherButton.center.y) - Double(otherButton.bounds.height / 2)
-                otherButton.animate(.moveTo(x: centerCornerX, y: centerCornerY))
-                otherButton.animate(.fade(way: .out)).then(.moveTo(x: buttonCenterCornerX, y: buttonCenterCornerY)).completion({
-                    if otherButton == self.wordButtons.last || otherButton == self.wordButtons.secondToLast {
-                        self.populateWordButtons(closure: {
-                            let wordChangeDelay = 0.1
-                            let showWordsDelay = 0.2
-                            button.delay(wordChangeDelay).completion({button.alpha = 0})
-                            button.delay(wordChangeDelay).then(.moveTo(x: pressedCenterCornerX, y: pressedCenterCornerY), duration: 0.0).delay(showWordsDelay).then(.fade(way: .in))
-                            for otherButton in self.wordButtons {
-                                if otherButton != button {otherButton.delay(wordChangeDelay + showWordsDelay).then(.fade(way: .in))}
-                            }
-                        })
-                    }
-                })
-            }
-        }
+        populateWordButtons()
+        
+//        for otherButton in self.wordButtons {
+//            if let otherButton = otherButton as? RoundedButton, otherButton != button {
+//                let buttonCenterCornerX = Double(otherButton.center.x) - Double(otherButton.bounds.width / 2)
+//                let buttonCenterCornerY = Double(otherButton.center.y) - Double(otherButton.bounds.height / 2)
+//                otherButton.animate(.moveTo(x: centerCornerX, y: centerCornerY))
+//                otherButton.animate(.fade(way: .out)).then(.moveTo(x: buttonCenterCornerX, y: buttonCenterCornerY)).completion({
+//                    if otherButton == self.wordButtons.last || otherButton == self.wordButtons.secondToLast {
+//                        self.populateWordButtons(closure: {
+//                            let wordChangeDelay = 0.1
+//                            let showWordsDelay = 0.2
+//                            button.delay(wordChangeDelay).completion({button.alpha = 0})
+//                            button.delay(wordChangeDelay).then(.moveTo(x: pressedCenterCornerX, y: pressedCenterCornerY), duration: 0.0).delay(showWordsDelay).then(.fade(way: .in))
+//                            for otherButton in self.wordButtons {
+//                                if let otherButton = otherButton as? RoundedButton, otherButton != button {
+//                                    otherButton.delay(wordChangeDelay + showWordsDelay).then(.fade(way: .in))
+//                                }
+//                            }
+//                        })
+//                    }
+//                })
+//            }
+//        }
+        
+        
     }
     
     @IBAction func deleteWord(_ sender: Any) {
@@ -119,12 +128,24 @@ class HomeViewController: UIViewController {
             let indexPath = IndexPath(row:sentenceWordIndex, section: 0)
             self.sentenceCollectionView.deleteItems(at: [indexPath])
             
-            if self.sentence.count >= 1 {self.currentWord = Word(self.sentence[self.sentence.count - 1])}
-            else {self.currentWord = Word()}
-            if self.sentence.count >= 2 {self.prevWord = Word(self.sentence[self.sentence.count - 2])}
-            else {self.prevWord = Word()}
-            if self.currentWord.value == "" {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)}
-            else {self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: self.currentWord)}
+            if self.sentence.count >= 1 {
+                self.currentWord = Word(self.sentence[self.sentence.count - 1])
+            } else {
+                self.currentWord = nil
+            }
+            
+            if self.sentence.count >= 2 {
+                self.prevWord = Word(self.sentence[self.sentence.count - 2])
+            } else {
+                self.prevWord = Word()
+            }
+            
+            if let currentWord = self.currentWord {
+                self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: currentWord)
+            } else {
+                self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: numWords)
+            }
+            
             self.populateWordButtons()
         }
     }
@@ -159,11 +180,23 @@ class HomeViewController: UIViewController {
     }
 
     func populateWordButtons(closure: (() -> Void)? = nil) {
-        self.mainWord.setTitle(self.getWordText(word: self.currentWord), for: .normal)
-        for i in 0..<self.numWords {
-            var word: Word = Word()
-            if i < self.likelyNextWords.count {word = self.likelyNextWords[i]}
-            self.wordButtons[i].setTitle(self.getWordText(word: word), for: .normal)
+        if let currentWord = currentWord {
+            mainWord.subviews.forEach({ $0.removeFromSuperview() })
+            let mainWordView = RoundedButton.init(frame: self.mainWord.frame)
+            mainWordView.setTitle(currentWord.value)
+            mainWord.addSubview(mainWordView)
+        }
+        
+        for (i,likelyWord) in self.likelyNextWords.enumerated() {
+            self.wordButtons[i].subviews.forEach({ $0.removeFromSuperview() })
+            let buttonView = RoundedButton.init(frame: self.wordButtons[i].frame)
+            buttonView.setTitle(self.getWordText(word: likelyWord))
+            let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(wordPressed))
+            gesture.numberOfTapsRequired = 1
+            buttonView.isUserInteractionEnabled = true
+            buttonView.addGestureRecognizer(gesture)
+            buttonView.index = i
+            self.wordButtons[i].addSubview(buttonView)
         }
         closure?()
     }
@@ -180,11 +213,15 @@ class HomeViewController: UIViewController {
         synth.speak(utterance)
     }
 
-    func predictNextWords(newWord: Word, numWords: Int = -1) -> [Word] {
-        self.prevWord = self.currentWord
+    func predictNextWords(newWord: Word, numWords: Int = 6) -> [Word] {
+        guard let currentWord = self.currentWord else {
+            return []
+        }
+        
+        self.prevWord = currentWord
         self.currentWord = newWord
 
-        return NGram().nextWords(prevWord: self.prevWord, word: self.currentWord, numWords: numWords)
+        return NGram().nextWords(prevWord: self.prevWord, word: currentWord, numWords: numWords)
     }
 
     static func makeFromStoryboard() -> HomeViewController {

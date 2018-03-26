@@ -112,16 +112,28 @@ extension VocabViewController {
                 self.pathTraveled.append(node.name)
                 self.loadNodes(node.name)
                 self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            }
-            else {
-                let homeViewController = (tabBarController?.viewControllers![1] as! UINavigationController).viewControllers[0] as! HomeViewController
-                let node = self.nodes[index.item] as! VocabularyWord
+            } else {
+                guard let tabBarController = self.tabBarController,
+                      let tabVCs = tabBarController.viewControllers,
+                      let homeNameVC = tabVCs[1] as? UINavigationController,
+                      let homeViewController = homeNameVC.viewControllers[0] as? HomeViewController else {
+                    return
+                }
+                guard let node = self.nodes[index.item] as? VocabularyWord else {
+                    return
+                }
+                guard let currentWord = homeViewController.currentWord else {
+                    return
+                }
+                guard let newCurrentWord = VocabDatabase.shared.getWord(withText: node.name), let newSpokenPhrase = currentWord.spokenPhrase else {
+                    return
+                }
                 
                 homeViewController.prevWord = Word(value: "")
-                homeViewController.currentWord = VocabDatabase.shared.getWord(withText: node.name)!
-                homeViewController.likelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: homeViewController.currentWord)
-                homeViewController.speakPhrase(homeViewController.currentWord.spokenPhrase?.lowercased() ?? homeViewController.currentWord.value.lowercased())
-                homeViewController.sentence.append(homeViewController.currentWord)
+                homeViewController.currentWord = newCurrentWord
+                homeViewController.likelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: newCurrentWord)
+                homeViewController.speakPhrase(newSpokenPhrase.lowercased())
+                homeViewController.sentence.append(newCurrentWord)
                 homeViewController.sentenceCollectionView.setNeedsLayout()
                 
                 let sentenceIndexPath = IndexPath(row:homeViewController.sentenceWordIndex, section: 0)
@@ -129,12 +141,12 @@ extension VocabViewController {
                 homeViewController.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
                 homeViewController.sentenceWordIndex += 1
                 homeViewController.populateWordButtons()
-                
+
                 self.isSearching = false
                 self.loadNodes("")
                 self.searchTextField.text = ""
-                
-                tabBarController?.selectedIndex = 1
+
+                self.tabBarController?.selectedIndex = 1
             }
         }
     }

@@ -207,6 +207,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		5E9D5E2D2059C1B50092A63F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				032581A0202FAC09000BB130 /* RoundedButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		5EA332E4200FA13300E9C6EB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,9 +263,9 @@
 		5EA332E9200FA1B100E9C6EB /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5E9D5E2D2059C1B50092A63F /* View */,
 				032F8B44201DE4570072A680 /* WordList.swift */,
 				5EAA33F1200E5D2300519B7E /* HomeViewController.swift */,
-				032581A0202FAC09000BB130 /* RoundedButton.swift */,
 				5EB1DB83203640AF000F0B1A /* SentenceWordCell.swift */,
 				5EB1DB85203640C5000F0B1A /* SentenceItemView.swift */,
 				5EB1DB8720364121000F0B1A /* VocabItemView.swift */,

@@ -18,7 +18,7 @@ public class Trainer {
     
     // MARK: - Properties
     var fileURL: URL!
-    private var textWords: [String] = []
+//    private var textWords: [String] = []
     private var words: Words = [:]
     
     // MARK: - Singleton
@@ -52,49 +52,51 @@ public class Trainer {
         var textFile: String = ""
         
         if let filepath = Bundle.main.path(forResource: fileName, ofType: fileExtension) {
-            do {
-                textFile = try String(contentsOfFile: filepath)
-            } catch {
-                print("Contents of \(fileName).\(fileExtension) could not be loaded.")
-            }
-        } else {
-            print("\(fileName).\(fileExtension) was not found.")
+            do {textFile = try String(contentsOfFile: filepath)}
+            catch {print("Contents of \(fileName).\(fileExtension) could not be loaded.")}
         }
-        
+        else {print("\(fileName).\(fileExtension) was not found.")}
+
+        var textSentences: [String] = []
         textFile.enumerateSubstrings(in: textFile.startIndex..<textFile.endIndex,
-                                     options: .byWords) {
+                                     options: .bySentences) {
                                         (substring, _, _, _) -> () in
-                                        self.textWords.append(substring!.lowercased())
+                                        textSentences.append(substring!.lowercased())
                                     }
-        
-        var textWord = ""
-        var textNextWord = ""
-        
-        if self.textWords.count > 0 {
-            textWord = self.textWords[0]
-            if self.textWords.count > 1 {
-                textNextWord = self.textWords[1]
+
+        for sentence in textSentences {
+            var sentenceWords: [String] = []
+            sentence.enumerateSubstrings(in: sentence.startIndex..<sentence.endIndex,
+                                         options: .byWords)  {
+                                            (substring, _, _, _) -> () in
+                                            sentenceWords.append(substring!.lowercased())
+                                        }
+            
+            var textWord = ""
+            var textNextWord = ""
+
+            if sentenceWords.count > 0 {
+                textWord = sentenceWords[0]
+                if sentenceWords.count > 1 {textNextWord = sentenceWords[1]}
+            }
+
+            for index in 0..<sentenceWords.count {
+                var textNextNextWord = ""
+                if index < sentenceWords.count - 2 {textNextNextWord = sentenceWords[index+2]}
+                self.insertWord(textWord: textWord, textNextWord: textNextWord, textNextNextWord: textNextNextWord)
+                textWord = textNextWord
+                textNextWord = textNextNextWord
             }
         }
 
-        for index in 0..<self.textWords.count {
-            var textNextNextWord = ""
-            if index < self.textWords.count - 2 {
-                textNextNextWord = self.textWords[index+2]
-            }
-            self.insertWord(textWord: textWord, textNextWord: textNextWord, textNextNextWord: textNextNextWord)
-            textWord = textNextWord
-            textNextWord = textNextNextWord
-        }
-        
         print("Done Training")
-        
+
         writeJsonFile(words: words)
         DatabaseUpdater.shared.update(withWords: words)
-        
+
         print("Done Updating Database")
     }
-    
+
     func writeJsonFile(words: Words) {
         
         do {
@@ -106,5 +108,4 @@ public class Trainer {
         }
         print("Done Writing to File")
     }
-    
 }

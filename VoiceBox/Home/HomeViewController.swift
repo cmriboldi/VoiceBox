@@ -209,7 +209,7 @@ class HomeViewController: UIViewController {
             if i < likelyNextWords.count {
                 let likelyWord = self.likelyNextWords[i]
 
-                let buttonView = RoundedButton.init(frame: wordButton.frame)
+                let buttonView = RoundedButton.init(frame: wordButton.frame, image: likelyWord.image)
                 buttonView.setTitle(self.getWordText(word: likelyWord))
                 
                 let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(wordPressed))

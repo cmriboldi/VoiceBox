@@ -70,8 +70,9 @@ class HomeViewController: UIViewController {
         guard button.index < likelyNextWords.count else {
             return
         }
-
-        let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.index].value)!
+        guard let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.index].value) else {
+            return
+        }
         
         self.currentWord = newWord
         self.likelyNextWords = self.predictNextWords(newWord: newWord)
@@ -151,7 +152,11 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func search(_ sender: UIButton) {
-        let vocabViewController = (tabBarController?.viewControllers![0] as! UINavigationController).viewControllers[0] as! VocabViewController
+        guard let viewControllers = tabBarController?.viewControllers,
+              let vocabNav = viewControllers[0] as? UINavigationController,
+              let vocabViewController = vocabNav.viewControllers[0] as? VocabViewController else {
+            return
+        }
         
         vocabViewController.vocabulary.clear(type: "likely")
         self.likelyNextWords = self.likelyNextWords.sorted{$0.value < $1.value}
@@ -165,9 +170,8 @@ class HomeViewController: UIViewController {
 
     // MARK: - Helper Functions
     @objc func clearSentence(_ sender: UIButton, event: UIEvent) {
-        let touch: UITouch = event.allTouches!.first!
+        guard let touch = event.allTouches?.first else { return }
         if (touch.tapCount == 2) {
-            
             while !sentence.isEmpty {
                 sentenceWordIndex -= 1
                 sentence.removeLast()

@@ -47,21 +47,21 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
             self.searchTextField.text = ""
             self.loadNodes("")
         }
-        else if pathTraveled.count > 1 {
+        else if pathTraveled.count > 1, let lastPathTraveled = pathTraveled.last {
             pathTraveled.removeLast()
-            self.loadNodes(pathTraveled.last!)
+            self.loadNodes(lastPathTraveled)
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
     
     // In order to go back to the original folder structure, clear the search field and press enter.
     @IBAction func search(_ sender: Any) {
+        guard let searchText = self.searchTextField.text else { return }
         vocabulary.clear(type: "search")
-        if self.searchTextField.text! == "" {self.isSearching = false}
+        if searchText == "" {self.isSearching = false}
         else {
             self.isSearching = true
-//            var foundWords = VocabDatabase.shared.getWords(withPrefix: self.searchTextField.text!)
-            let foundWords = VocabDatabase.shared.getWords(withSubstring: self.searchTextField.text!).sorted{$0.value < $1.value}
+            let foundWords = VocabDatabase.shared.getWords(withSubstring: searchText).sorted{$0.value < $1.value}
             for word in foundWords {vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: ""), parentName: "", type: "search")}
         }
         self.loadNodes("")
@@ -174,9 +174,12 @@ extension VocabViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         super.collectionView(collectionView, cellForItemAt: indexPath)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! WordCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? WordCell else {
+            return UICollectionViewCell()
+        }
+        
         cell.backgroundColor = UIColor.white
-        var node = self.nodes[(indexPath as IndexPath).item]
+        let node = self.nodes[(indexPath as IndexPath).item]
         
         cell.imageView.image = node.getImage()
 
@@ -273,9 +276,11 @@ extension VocabViewController {
 //                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 //                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension("png")
 
-                let user = Auth.auth().currentUser
+                guard let user = Auth.auth().currentUser, let currentNode = self.currentNode else {
+                    return
+                }
 //                let imageRef = Storage.storage().reference(withPath: "images/" + (user?.uid)! + "/" + (self.currentNode?.name)! + ".png")
-                self.currentNode?.setImage(image: pickedImage)
+                currentNode.setImage(image: pickedImage)
 
                 // Create a root reference
                 let storageRef = Storage.storage().reference()
@@ -289,11 +294,11 @@ extension VocabViewController {
                 // Create a reference to the image location
 
                 var path = "images/"
-                path.append((user?.uid)!)
+                path.append(user.uid)
                 path.append("/")
-                path.append((self.currentNode?.getType())!)
+                path.append(currentNode.getType())
                 path.append("/")
-                path.append((self.currentNode?.name)!)
+                path.append(currentNode.name)
                 path.append(".png")
 //                path.append(uid).append("/").append(type).append("/").append(name).append(".png")
                 let wordImagesRef = Storage.storage().reference(withPath: path)

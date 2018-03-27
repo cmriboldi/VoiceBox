@@ -77,33 +77,39 @@ class Node {
 
     func getImage() -> UIImage {
         if self.image == nil {
-            if self.imageName != "" {
-                self.setImage(image: UIImage(named: self.imageName)!)
-            }
-            else {
+            if let user = Auth.auth().currentUser {
                 // Create a reference with an initial file path and name
-                let user = Auth.auth().currentUser
-
+                
                 var path = "images/"
-                path.append((user?.uid)!)
+                path.append(user.uid)
                 path.append("/")
                 path.append(self.getType())
                 path.append("/")
                 path.append(self.name)
                 path.append(".png")
-
+                
                 let imageRef = Storage.storage().reference(withPath: path)
-
+                
                 // Download in memory with a maximum allowed size of 50MB (50 * 1024 * 1024 bytes)
                 //FIXME: This maxSize might need to be adjusted.
                 let _ = imageRef.getData(maxSize: 50 * 1024 * 1024) { (data, error) in
-                    if let error = error {}
-                    else {self.setImage(image: UIImage(data: data!)!)}
+                    if let error = error {
+                        print("There was an error sading the image. \(error)")
+                    }
+                    else if let data = data, let img = UIImage(data: data) {
+                        self.setImage(image: img)
+                    }
                 }
             }
+            if self.imageName != "", let img = UIImage(named: self.imageName) {
+                self.setImage(image: img)
+            }
         }
-        if self.image == nil {self.setImage(image: self.createImage(size: self.getImageSize()))}
-        return self.image!
+        if self.image == nil {
+            self.setImage(image: self.createImage(size: self.getImageSize()))
+        }
+        guard let image = self.image else { return UIImage() }
+        return image
     }
     
     func setImage(image: UIImage) {

@@ -27,6 +27,7 @@
 		03C804B6205FC2150033938D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C804B5205FC2150033938D /* RegisterViewController.swift */; };
 		5E24167720226B7E00EF7C79 /* test_train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E24167620226B7E00EF7C79 /* test_train.txt */; };
 		5E6DA9502034FFF20000E6EC /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DA94F2034FFF20000E6EC /* String+helpers.swift */; };
+		5E7EB02D206AB18B000FBBD1 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EB02C206AB18B000FBBD1 /* SearchButton.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
 		5EA38FD620476648007F60E2 /* Array+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA38FD520476648007F60E2 /* Array+helpers.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
@@ -84,6 +85,7 @@
 		5E1DDC96201B89B10003627A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		5E24167620226B7E00EF7C79 /* test_train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_train.txt; sourceTree = "<group>"; };
 		5E6DA94F2034FFF20000E6EC /* String+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+helpers.swift"; sourceTree = "<group>"; };
+		5E7EB02C206AB18B000FBBD1 /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5EA38FD520476648007F60E2 /* Array+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+helpers.swift"; sourceTree = "<group>"; };
 		5EAA33EC200E5D2300519B7E /* VoiceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				032581A0202FAC09000BB130 /* RoundedButton.swift */,
+				5E7EB02C206AB18B000FBBD1 /* SearchButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 				032CC1822044C3FF0007BCA4 /* VocabViewController.swift in Sources */,
 				037F51432029044D00209685 /* TabBarController.swift in Sources */,
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
+				5E7EB02D206AB18B000FBBD1 /* SearchButton.swift in Sources */,
 				032F8B6A201FC3C80072A680 /* Trie.swift in Sources */,
 				032F8B69201FC3C80072A680 /* NGram.swift in Sources */,
 				032F8B46201DE4570072A680 /* WordList.swift in Sources */,

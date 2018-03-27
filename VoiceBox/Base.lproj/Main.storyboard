@@ -205,34 +205,31 @@
                                             <constraint firstAttribute="width" constant="150" id="xx3-OM-4nR"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-gN-TCc">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1E1-zK-tiN" userLabel="SeachButton">
                                         <rect key="frame" x="532" y="374.5" width="150" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="kSb-TJ-LuW"/>
-                                            <constraint firstAttribute="width" constant="150" id="mT2-6B-VeZ"/>
+                                            <constraint firstAttribute="height" constant="150" id="V6c-vX-gfo"/>
+                                            <constraint firstAttribute="width" constant="150" id="dCM-2n-ta5"/>
                                         </constraints>
-                                        <state key="normal" title="+" image="ic_search"/>
-                                        <connections>
-                                            <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x5d-W8-DhW"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="oQ5-gN-TCc" firstAttribute="top" secondItem="3pU-gk-BAS" secondAttribute="bottom" constant="20" id="20P-CD-nYL"/>
                                     <constraint firstItem="3pU-gk-BAS" firstAttribute="top" secondItem="KDQ-a8-znc" secondAttribute="bottom" constant="20" id="8st-ji-yoD"/>
                                     <constraint firstItem="Fvf-LF-slL" firstAttribute="leading" secondItem="3pU-gk-BAS" secondAttribute="trailing" constant="40" id="D9z-Dk-jLf"/>
                                     <constraint firstItem="Fvf-LF-slL" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="GGE-S4-8Sz"/>
+                                    <constraint firstItem="1E1-zK-tiN" firstAttribute="top" secondItem="3pU-gk-BAS" secondAttribute="bottom" constant="20" id="LKC-Ho-xI5"/>
                                     <constraint firstItem="c4E-4n-XRT" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="OVl-li-1xu"/>
                                     <constraint firstItem="p6E-gf-xdH" firstAttribute="top" secondItem="3pU-gk-BAS" secondAttribute="bottom" constant="20" id="WJm-S3-qTV"/>
                                     <constraint firstItem="3pU-gk-BAS" firstAttribute="top" secondItem="yMo-lC-sIU" secondAttribute="bottom" constant="20" id="bD9-SB-dSD"/>
-                                    <constraint firstItem="oQ5-gN-TCc" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="95" id="eHw-tF-dY4"/>
                                     <constraint firstItem="p6E-gf-xdH" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="-95" id="gvU-wl-YEK"/>
                                     <constraint firstItem="3pU-gk-BAS" firstAttribute="leading" secondItem="c4E-4n-XRT" secondAttribute="trailing" constant="40" id="o9O-IA-pSU"/>
                                     <constraint firstItem="3pU-gk-BAS" firstAttribute="centerY" secondItem="p2p-Sb-uj1" secondAttribute="centerY" id="ptF-4L-QkV"/>
                                     <constraint firstItem="3pU-gk-BAS" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" id="r49-ly-gkE"/>
                                     <constraint firstItem="KDQ-a8-znc" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="-95" id="s8J-QQ-Cw6"/>
                                     <constraint firstItem="yMo-lC-sIU" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="95" id="uJv-yq-d45"/>
+                                    <constraint firstItem="1E1-zK-tiN" firstAttribute="centerX" secondItem="p2p-Sb-uj1" secondAttribute="centerX" constant="95" id="yyo-yC-wu0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -253,6 +250,7 @@
                     <connections>
                         <outlet property="deleteButton" destination="iXK-j3-AA1" id="YJR-rI-3Li"/>
                         <outlet property="mainWord" destination="3pU-gk-BAS" id="nDd-Kz-C9Q"/>
+                        <outlet property="searchButton" destination="1E1-zK-tiN" id="vj8-nf-TLW"/>
                         <outlet property="sentenceCollectionView" destination="F1H-GL-vIM" id="iPa-KB-c8T"/>
                         <outletCollection property="wordButtons" destination="KDQ-a8-znc" collectionClass="NSMutableArray" id="y52-s6-KTF"/>
                         <outletCollection property="wordButtons" destination="yMo-lC-sIU" collectionClass="NSMutableArray" id="UTR-3J-RuI"/>
@@ -506,7 +504,6 @@
         <image name="ic_back" width="50" height="50"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_pages" width="24" height="24"/>
-        <image name="ic_search" width="37" height="37"/>
         <image name="ic_settings" width="24" height="24"/>
     </resources>
 </document>

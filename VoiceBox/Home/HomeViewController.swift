@@ -32,6 +32,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var mainWord: UIView!
     @IBOutlet var wordButtons: [UIView]!
+    @IBOutlet weak var searchButton: UIView!
+    
     
     // MARK: - ViewController Functions
     override func viewDidLoad() {
@@ -45,6 +47,12 @@ class HomeViewController: UIViewController {
         sentenceCollectionView.dataSource = self
 
         if likelyNextWords.isEmpty {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)}
+        
+        let searchButtonView = SearchButton(frame: searchButton.frame)
+        searchButton.addSubview(searchButtonView)
+        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(self.search))
+        searchButton.addGestureRecognizer(tapGesture)
+        
         populateWordButtons()
     }
     
@@ -187,8 +195,8 @@ class HomeViewController: UIViewController {
     }
 
     func populateWordButtons(closure: (() -> Void)? = nil) {
+        mainWord.subviews.forEach({ $0.removeFromSuperview() })
         if let currentWord = currentWord {
-            mainWord.subviews.forEach({ $0.removeFromSuperview() })
             let mainWordView = RoundedButton.init(frame: self.mainWord.frame)
             mainWordView.setTitle(currentWord.value)
             mainWord.addSubview(mainWordView)

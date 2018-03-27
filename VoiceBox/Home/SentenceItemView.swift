@@ -11,8 +11,9 @@ import UIKit
 class SentenceItemView : VocabItemView {
     
     override func draw(_ rect: CGRect) {
-        drawImage()
-        drawWord()
+        let wordView = RoundedButton.init(frame: rect, image: word.image, needsBorder: false)
+        wordView.wordLabel.text = word.value
+        self.addSubview(wordView)
     }
     
 }

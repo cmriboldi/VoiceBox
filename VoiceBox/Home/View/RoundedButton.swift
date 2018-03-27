@@ -23,18 +23,25 @@ import IBAnimatable
     var index: Int!
     var image: UIImage?
     
-    init(frame:CGRect, image: UIImage? = nil) {
+    init(frame:CGRect, image: UIImage? = nil, needsBorder: Bool = true) {
         super.init(frame:frame)
-        setup(frame: frame, image: image)
+        setup(frame: frame, image: image, needsBorder: needsBorder)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    private func setup(frame: CGRect, image: UIImage? = nil) {
+    private func setup(frame: CGRect, image: UIImage?, needsBorder: Bool) {
         self.frame = CGRect.init(x: 0.0, y: 0.0, width: frame.width, height: frame.height)
         let margins = self.layoutMarginsGuide
+        // configure border layout.
+        self.cornerRadius = 0.15 * bounds.size.width
+        self.backgroundColor = UIColor.white
+        self.borderWidth = 2
+        self.clipsToBounds = true
+        if needsBorder {self.borderColor = UIColor.black}
+        else {self.borderColor = UIColor.clear}
         
         if let image = image {
             wordImage = UIImageView(frame: CGRect.init(x: 0.0, y: Constants.imageOffset, width: frame.width, height: frame.height-Constants.labelHeight))
@@ -59,13 +66,6 @@ import IBAnimatable
             wordLabel.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
             wordLabel.translatesAutoresizingMaskIntoConstraints = false
             wordLabel.adjustsFontSizeToFitWidth = true
-            
-            // configure border layout.
-            self.cornerRadius = 0.15 * bounds.size.width
-            self.backgroundColor = UIColor.white
-            self.borderColor = UIColor.black
-            self.borderWidth = 2
-            self.clipsToBounds = true
             
             self.addSubview(wordLabel)
             self.addSubview(wordImage)
@@ -93,13 +93,6 @@ import IBAnimatable
             wordLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
             wordLabel.translatesAutoresizingMaskIntoConstraints = false
             wordLabel.adjustsFontSizeToFitWidth = true
-            
-            // configure border layout.
-            self.cornerRadius = 0.15 * bounds.size.width
-            self.backgroundColor = UIColor.white
-            self.borderColor = UIColor.black
-            self.borderWidth = 2
-            self.clipsToBounds = true
             
             self.addSubview(wordLabel)
             

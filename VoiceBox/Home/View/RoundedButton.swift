@@ -32,7 +32,7 @@ import IBAnimatable
         super.init(coder: aDecoder)
     }
     
-    private func setup(frame: CGRect, image: UIImage?, needsBorder: Bool) {
+    func setup(frame: CGRect, image: UIImage?, needsBorder: Bool) {
         self.frame = CGRect.init(x: 0.0, y: 0.0, width: frame.width, height: frame.height)
         let margins = self.layoutMarginsGuide
         // configure border layout.

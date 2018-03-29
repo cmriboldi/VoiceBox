@@ -32,25 +32,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xAm-NO-oqJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
-                                        </imageView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="de9-zp-i5J">
                                             <rect key="frame" x="81" y="81" width="37" height="37"/>
                                         </activityIndicatorView>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="top" secondItem="vFD-qt-KzR" secondAttribute="top" id="8mH-C7-c1T"/>
-                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="centerX" secondItem="vFD-qt-KzR" secondAttribute="centerX" id="JSC-Ho-iJl"/>
                                     <constraint firstItem="de9-zp-i5J" firstAttribute="centerX" secondItem="vFD-qt-KzR" secondAttribute="centerX" id="JXV-QO-Yx0"/>
-                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="centerY" secondItem="vFD-qt-KzR" secondAttribute="centerY" id="Teb-DZ-HMd"/>
                                     <constraint firstItem="de9-zp-i5J" firstAttribute="centerY" secondItem="vFD-qt-KzR" secondAttribute="centerY" id="qJV-DA-4uk"/>
-                                    <constraint firstItem="xAm-NO-oqJ" firstAttribute="leading" secondItem="vFD-qt-KzR" secondAttribute="leading" id="v1l-AX-vSd"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="activityIndicator" destination="de9-zp-i5J" id="UyQ-Ui-WTD"/>
-                                    <outlet property="imageView" destination="xAm-NO-oqJ" id="Goi-CH-JL6"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

@@ -9,20 +9,17 @@
 import UIKit
 
 class WordCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // MARK: - Properties
-    override var isSelected: Bool {
-        didSet {
-            imageView.layer.borderWidth = isSelected ? 10 : 0
-        }
-    }
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var wordView: RoundedButton?
+    let borderOffset: CGFloat = 10.0
     
     // MARK: - View Life Cycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-//        imageView.layer.borderColor = themeColor.cgColor
-        isSelected = false
+        self.subviews.forEach({ $0.removeFromSuperview() })
+        wordView = RoundedButton.init(frame: CGRect.init(x: self.frame.minX + borderOffset, y: self.frame.minY + borderOffset, width: self.frame.width - borderOffset*2, height: self.frame.height - borderOffset*2), image: nil, needsBorder: true)
+        self.addSubview(wordView!)
     }
 }

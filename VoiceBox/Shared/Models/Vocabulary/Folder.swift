@@ -15,7 +15,7 @@ import FirebaseStorage
 class Folder: Node {
     var children: [Node]
     
-    required init(name: String = "", imageName: String = "", image: UIImage? = nil) {
+    required init(name: String = "", imageName: String? = nil, image: UIImage? = nil) {
         self.children = []
         super.init(name: name, imageName: imageName, image: image)
     }

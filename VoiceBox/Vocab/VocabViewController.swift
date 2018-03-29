@@ -62,7 +62,7 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
         else {
             self.isSearching = true
             let foundWords = VocabDatabase.shared.getWords(withSubstring: searchText).sorted{$0.value < $1.value}
-            for word in foundWords {vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: ""), parentName: "", type: "search")}
+            for word in foundWords {vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: word.imageName), parentName: "", type: "search")}
         }
         self.loadNodes("")
     }
@@ -72,7 +72,7 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
         
         imagePicker.delegate = self
         
-        for char in "abcdefghijklmnopqrstuvwxyz" {vocabulary.addChild(child: Folder(name: String(char), imageName: ""), parentName: "")}
+        for char in "abcdefghijklmnopqrstuvwxyz" {vocabulary.addChild(child: Folder(name: String(char).uppercased(), imageName: ""), parentName: "")}
 
         self.nodes = vocabulary.getNodes(parentName: "", search: self.isSearching)
         self.pathTraveled.append("")
@@ -105,7 +105,7 @@ extension VocabViewController {
                 
                 for word in loadedWords {
                     if vocabulary.findWord(word: word.value, parent: self.pathTraveled[self.pathTraveled.count - 1]) == "" {
-                        vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: ""), parentName: node.name)
+                        vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: word.imageName), parentName: node.name)
                     }
                 }
                 
@@ -181,7 +181,10 @@ extension VocabViewController {
         cell.backgroundColor = UIColor.white
         let node = self.nodes[(indexPath as IndexPath).item]
         
-        cell.imageView.image = node.getImage()
+        if let frame = cell.wordView?.frame {
+            cell.wordView?.setup(frame: frame, image: node.getImage(), needsBorder: true)
+        }
+        cell.wordView?.wordLabel.text = node.getName()
 
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
@@ -193,26 +196,6 @@ extension VocabViewController {
 extension VocabViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath == largePhotoIndexPath {
-            let wordImage = UIImage(named: self.nodes[(indexPath as IndexPath).item].imageName)
-            var size = collectionView.bounds.size
-            size.height -= topLayoutGuide.length
-            size.height -= (sectionInsets.top + sectionInsets.right)
-            size.width -= (sectionInsets.left + sectionInsets.right)
-            
-            let imageSize = wordImage?.size
-            var returnSize = size
-            
-            let aspectRatio = imageSize!.width / imageSize!.height
-            returnSize.height = returnSize.width / aspectRatio
-            
-            if returnSize.height > size.height {
-                returnSize.height = size.height
-                returnSize.width = size.height * aspectRatio
-            }
-            
-            return returnSize
-        }
 
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
@@ -280,7 +263,7 @@ extension VocabViewController {
                     return
                 }
 //                let imageRef = Storage.storage().reference(withPath: "images/" + (user?.uid)! + "/" + (self.currentNode?.name)! + ".png")
-                currentNode.setImage(image: pickedImage)
+//                currentNode.image = pickedImage
 
                 // Create a root reference
                 let storageRef = Storage.storage().reference()

@@ -168,7 +168,9 @@ class HomeViewController: UIViewController {
         
         vocabViewController.vocabulary.clear(type: "likely")
         self.likelyNextWords = self.likelyNextWords.sorted{$0.value < $1.value}
-        for word in self.likelyNextWords {vocabViewController.vocabulary.addChild(child: VocabularyWord(name: word.value), parentName: "", type: "likely")}
+        for word in self.likelyNextWords {
+            vocabViewController.vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: word.imageName), parentName: "", type: "likely")
+        }
         
         vocabViewController.loadNodes("")
         vocabViewController.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

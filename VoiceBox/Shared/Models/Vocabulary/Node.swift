@@ -14,10 +14,10 @@ import FirebaseStorage
 
 class Node {
     var name: String
-    var imageName: String
+    var imageName: String?
     var image: UIImage?
 
-    required init(name: String = "", imageName: String = "", image: UIImage? = nil) {
+    required init(name: String = "", imageName: String? = nil, image: UIImage? = nil) {
         self.name = name
         self.imageName = imageName
         self.image = image
@@ -75,75 +75,74 @@ class Node {
         return UIImage(view: imageView)
     }
 
-    func getImage() -> UIImage {
-        if self.image == nil {
-            if let user = Auth.auth().currentUser {
-                // Create a reference with an initial file path and name
-                
-                var path = "images/"
-                path.append(user.uid)
-                path.append("/")
-                path.append(self.getType())
-                path.append("/")
-                path.append(self.name)
-                path.append(".png")
-                
-                let imageRef = Storage.storage().reference(withPath: path)
-                
-                // Download in memory with a maximum allowed size of 50MB (50 * 1024 * 1024 bytes)
-                //FIXME: This maxSize might need to be adjusted.
-                let _ = imageRef.getData(maxSize: 50 * 1024 * 1024) { (data, error) in
-                    if let error = error {
-                        print("There was an error sading the image. \(error)")
-                    }
-                    else if let data = data, let img = UIImage(data: data) {
-                        self.setImage(image: img)
-                    }
+    func getImage() -> UIImage? {
+        var imageFound: UIImage?
+        
+        if let user = Auth.auth().currentUser {
+            // Create a reference with an initial file path and name
+            
+            var path = "images/"
+            path.append(user.uid)
+            path.append("/")
+            path.append(self.getType())
+            path.append("/")
+            path.append(self.name)
+            path.append(".png")
+            
+            let imageRef = Storage.storage().reference(withPath: path)
+            
+            // Download in memory with a maximum allowed size of 50MB (50 * 1024 * 1024 bytes)
+            //FIXME: This maxSize might need to be adjusted.
+            let _ = imageRef.getData(maxSize: 50 * 1024 * 1024) { (data, error) in
+                if let error = error {
+                    print("There was an error sading the image. \(error)")
+                }
+                else if let data = data, let img = UIImage(data: data) {
+                    self.image = img
                 }
             }
-            if self.imageName != "", let img = UIImage(named: self.imageName) {
-                self.setImage(image: img)
-            }
         }
-        if self.image == nil {
-            self.setImage(image: self.createImage(size: self.getImageSize()))
+        if let image = self.image {
+            imageFound = image
+        } else if let imgName = self.imageName, let img = UIImage(named: imgName) {
+            imageFound = img
         }
-        guard let image = self.image else { return UIImage() }
-        return image
+        
+        return imageFound
     }
     
-    func setImage(image: UIImage) {
-        let size = image.size
-        let targetSize = self.getImageSize()
-        
-        let widthRatio  = targetSize.width  / image.size.width
-        let heightRatio = targetSize.height / image.size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-        }
-        
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        var newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        if let _ = self as? Folder {
-            let imageView = UIImageView(image: newImage)
-            imageView.clipsToBounds = true
-            //            imageView.layer.cornerRadius = imageView.bounds.width / 2.5
-            imageView.layer.cornerRadius = 50
-            newImage = UIImage(view: imageView)
-        }
-        
-        self.image = newImage
-    }
+//    func setImage(image: UIImage) {
+//        let size = image.size
+//        let targetSize = self.getImageSize()
+//
+//        let widthRatio  = targetSize.width  / image.size.width
+//        let heightRatio = targetSize.height / image.size.height
+//
+//        // Figure out what our orientation is, and use that to form the rectangle
+//        var newSize: CGSize
+//        if(widthRatio > heightRatio) {
+//            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+//        } else {
+//            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+//        }
+//
+//        // This is the rect that we've calculated out and this is what is actually used below
+//        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+//
+//        // Actually do the resizing to the rect using the ImageContext stuff
+//        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+//        image.draw(in: rect)
+//        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//
+//        if let _ = self as? Folder {
+//            let imageView = UIImageView(image: newImage)
+//            imageView.clipsToBounds = true
+//            //            imageView.layer.cornerRadius = imageView.bounds.width / 2.5
+//            imageView.layer.cornerRadius = 50
+//            newImage = UIImage(view: imageView)
+//        }
+//
+//        self.image = newImage
+//    }
 }

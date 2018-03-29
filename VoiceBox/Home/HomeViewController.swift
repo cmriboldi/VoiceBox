@@ -25,7 +25,8 @@ class HomeViewController: UIViewController {
     var sentence = Sentence()
     var prevWord: Word = Word(value: "")
     var currentWord: Word?
-    var likelyNextWords = [Word]()
+    var topLikelyNextWords = [Word]()
+    var allLikelyNextWords = [Word]()
     var transitionThumbnail: UIImageView?
 
     @IBOutlet weak var sentenceCollectionView: UICollectionView!
@@ -46,7 +47,7 @@ class HomeViewController: UIViewController {
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
 
-        if likelyNextWords.isEmpty {self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)}
+        if topLikelyNextWords.isEmpty {self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)}
         
         let searchButtonView = SearchButton(frame: searchButton.frame)
         searchButton.addSubview(searchButtonView)
@@ -75,15 +76,15 @@ class HomeViewController: UIViewController {
         guard let button = sender.view as? RoundedButton else {
             return
         }
-        guard button.index < likelyNextWords.count else {
+        guard button.index < topLikelyNextWords.count else {
             return
         }
-        guard let newWord = VocabDatabase.shared.getWord(withText: self.likelyNextWords[button.index].value) else {
+        guard let newWord = VocabDatabase.shared.getWord(withText: self.topLikelyNextWords[button.index].value) else {
             return
         }
         
         self.currentWord = newWord
-        self.likelyNextWords = self.predictNextWords(newWord: newWord)
+        self.predictNextWords(newWord: newWord)
 
         speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
 
@@ -150,9 +151,9 @@ class HomeViewController: UIViewController {
             }
             
             if let currentWord = self.currentWord {
-                self.likelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: currentWord)
+                self.topLikelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: currentWord)
             } else {
-                self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
+                self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             }
             
             self.populateWordButtons()
@@ -167,8 +168,9 @@ class HomeViewController: UIViewController {
         }
         
         vocabViewController.vocabulary.clear(type: "likely")
-        self.likelyNextWords = self.likelyNextWords.sorted{$0.value < $1.value}
-        for word in self.likelyNextWords {
+        self.allLikelyNextWords = self.allLikelyNextWords.sorted{$0.value < $1.value}
+        print("total likely words count: \(self.allLikelyNextWords.count)")
+        for word in self.allLikelyNextWords {
             vocabViewController.vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: word.imageName), parentName: "", type: "likely")
         }
         
@@ -191,7 +193,7 @@ class HomeViewController: UIViewController {
             
             self.currentWord = nil
             self.prevWord = Word()
-            self.likelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
+            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             self.populateWordButtons()
         }
     }
@@ -208,8 +210,8 @@ class HomeViewController: UIViewController {
             let wordButton = self.wordButtons[i]
             wordButton.subviews.forEach({ $0.removeFromSuperview() })
             
-            if i < likelyNextWords.count {
-                let likelyWord = self.likelyNextWords[i]
+            if i < topLikelyNextWords.count {
+                let likelyWord = self.topLikelyNextWords[i]
 
                 let buttonView = RoundedButton.init(frame: wordButton.frame, image: likelyWord.image)
                 buttonView.setTitle(self.getWordText(word: likelyWord))
@@ -237,15 +239,21 @@ class HomeViewController: UIViewController {
         synth.speak(utterance)
     }
 
-    func predictNextWords(newWord: Word, numWords: Int = Constants.numberOfNextWords) -> [Word] {
+    func predictNextWords(newWord: Word) {
         guard let currentWord = self.currentWord else {
-            return []
+            return
         }
         
         self.prevWord = currentWord
         self.currentWord = newWord
-
-        return NGram().nextWords(prevWord: self.prevWord, word: currentWord, numWords: numWords)
+        
+        allLikelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: currentWord, numWords: -1)
+        topLikelyNextWords = [Word]()
+        for i in 0..<Constants.numberOfNextWords {
+            if i < allLikelyNextWords.count {
+                topLikelyNextWords.append(allLikelyNextWords[i])
+            }
+        }
     }
 
     static func makeFromStoryboard() -> HomeViewController {

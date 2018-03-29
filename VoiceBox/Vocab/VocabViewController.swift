@@ -131,7 +131,7 @@ extension VocabViewController {
                 
                 homeViewController.prevWord = Word(value: "")
                 homeViewController.currentWord = newCurrentWord
-                homeViewController.likelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: newCurrentWord)
+                homeViewController.topLikelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: newCurrentWord)
                 homeViewController.speakPhrase(newSpokenPhrase.lowercased())
                 homeViewController.sentence.append(newCurrentWord)
                 homeViewController.sentenceCollectionView.setNeedsLayout()

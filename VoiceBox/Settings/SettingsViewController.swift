@@ -43,16 +43,18 @@ class SettingsViewController: UIViewController {
     
     func loadUserInfo() {
         self.userInfo.text = ""
-        let user = Auth.auth().currentUser
+        let authUser = Auth.auth().currentUser
 //        do {try Auth.auth().signOut()}
 //        catch let error as NSError{}
-        if let user = user {
+        if let user = authUser {
             Firestore.firestore().collection("users").document(user.uid).getDocument { (document, error) in
                 if let document = document {
 //                    print("Document data: \(document.data())")
-                    self.userInfo.text = self.userInfo.text! + (document["first_name"] as! String)  + " " + (document["last_name"] as! String) + "\n"
-                    self.userInfo.text = self.userInfo.text! + (document["username"] as! String) + "\n"
-                    self.userInfo.text = self.userInfo.text! + (document["email"] as! String)
+                    if let data = document.data() {
+                        self.userInfo.text = self.userInfo.text! + (data["first_name"] as! String)  + " " + (data["last_name"] as! String) + "\n"
+                        self.userInfo.text = self.userInfo.text! + (data["username"] as! String) + "\n"
+                        self.userInfo.text = self.userInfo.text! + (data["email"] as! String)
+                    }
                 }
                 else {print("Document does not exist")}
             }
@@ -67,7 +69,44 @@ class SettingsViewController: UIViewController {
         self.emailTextField.text = ""
         self.passwordTextField.text = ""
     }
-
+    
+    @IBAction func addWord(_ sender: Any) {
+        //Creating UIAlertController and
+        //Setting title and message for the alert dialog
+        let alertController = UIAlertController(title: "Add word", message: "Enter the new word here", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+            
+            //getting the input values from user
+            if let word = alertController.textFields?[0].text {
+                if let user = Auth.auth().currentUser {
+                    let uid = user.uid
+                    Firestore.firestore().collection("users").document(user.uid).collection("words").addDocument(data: [word: word]) { err in
+                        if let err = err {print("Error writing document: \(err)")}
+                        else {print("Document successfully written!")}
+                    }
+                    //                    let updateSuccess = VocabDatabase.shared.update(word: Word(value: word))
+                }
+            }
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Word"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

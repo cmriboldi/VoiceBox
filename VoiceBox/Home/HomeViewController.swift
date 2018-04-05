@@ -9,6 +9,9 @@
 import UIKit
 import IBAnimatable
 import AVFoundation
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 
 class HomeViewController: UIViewController {
     
@@ -270,8 +273,116 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UIGestureRecognizerDelegate {
+//    //FIXME: This is broken (but I'm not sure if it's a necessary function).
+//    func sendWordToFirebase(textWord: String, textNextWord: String, textNextNextWord: String) {
+////        var ref: DocumentReference? = nil
+////        ref = Firestore.firestore().collection("word_data").addDocument(data: [
+////            "name": "Tokyo",
+////            "country": "Japan"
+////        ]) { err in
+////            if let err = err {
+////                print("Error adding document: \(err)")
+////            } else {
+////                print("Document added with ID: \(ref!.documentID)")
+////            }
+////        }
+//
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        let collecRef = Firestore.firestore().collection("wordData").document(uid).collection("words")
+//        let docRef = collecRef.document(textWord)
+//
+//        var word = Word(value: textWord)
+//
+////        Firestore.firestore().collection("word_data").document(uid).collection("words").document(textWord).setData(wordDictionary) { err in
+////            if let err = err {print("Error writing document: \(err)")}
+////            else {print("Document successfully written!")}
+////        }
+//
+//
+//        docRef.getDocument { (document, error) in
+//            if let document = document {
+//                if document.exists{
+//                    print("Document data: \(String(describing: document.data()))")
+//                    guard let data = (document.data()) else {return}
+//                    word = Word(value: data["value"] as! String)
+//                    word.numOccur = (data["numOccur"] as! Int) + 1
+//                    word.type = WordType(rawValue: "word")!
+//
+//                    var tempAny = data["nextWords"]
+//                    var tempDictionary = data["nextWords"] as! [String:Word]
+//                    word.nextWords = data["nextWords"] as? Words
+//                }
+//
+//                if textNextWord != "" {
+//                    word.addWord(value: textNextWord)
+//                    if textNextNextWord != "" {
+//                        word.nextWords?[textNextWord]?.addWord(value: textNextNextWord)
+//                    }
+//                }
+//
+//                var wordDictionary = ""
+////                do {wordDictionary = try JSONSerialization.jsonObject(with: try JSONEncoder().encode(word), options: []) as! [String:AnyObject]}
+//                do {wordDictionary = String(data: try JSONEncoder().encode(word), encoding: String.Encoding.utf8) as String!}
+//                catch let error as NSError {
+//                    print("Failed to write to URL.")
+//                    print(error)
+//                    return
+//                }
+//
+//                collecRef.document(textWord).setData(["object": wordDictionary]) { err in
+//                    if let err = err {print("Error writing document: \(err)")}
+//                    else {print("Document successfully written!")}
+//                }
+//            }
+//        }
+//    }
+
+    private func insertWord(textWord: String, textNextWord: String, textNextNextWord: String) {
+        var word = Word(value: textWord)
+        let doesExist = VocabDatabase.shared.doesWordExist(withText: textWord)
+        if doesExist {
+            word = VocabDatabase.shared.getWord(withText: textWord)!
+        }
+
+        if textNextWord != "" {
+            word.addWord(value: textNextWord)
+            if textNextNextWord != "" {
+                word.nextWords?[textNextWord]?.addWord(value: textNextNextWord)
+            }
+        }
+
+        if doesExist {VocabDatabase.shared.update(word: word)}
+        else {VocabDatabase.shared.create(word: word)}
+        let temp = VocabDatabase.shared.getWord(withText: "sorry")
+    }
+
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
-        speakPhrase(sentence.getSpokenSentence())
+        let spokenSentence = sentence.getSpokenSentence()
+        speakPhrase(spokenSentence)
+        
+        var sentenceWords: [String] = []
+        spokenSentence.enumerateSubstrings(in: spokenSentence.startIndex..<spokenSentence.endIndex,
+                                           options: .byWords)  {
+                                            (substring, _, _, _) -> () in
+                                            sentenceWords.append(substring!.lowercased())
+        }
+        
+        var textWord = ""
+        var textNextWord = ""
+        
+        if sentenceWords.count > 0 {
+            textWord = sentenceWords[0]
+            if sentenceWords.count > 1 {textNextWord = sentenceWords[1]}
+        }
+        
+        for index in 0..<sentenceWords.count {
+            var textNextNextWord = ""
+            if index < sentenceWords.count - 2 {textNextNextWord = sentenceWords[index+2]}
+//            self.sendWordToFirebase(textWord: textWord, textNextWord: textNextWord, textNextNextWord: textNextNextWord)
+            self.insertWord(textWord: textWord, textNextWord: textNextWord, textNextNextWord: textNextNextWord)
+            textWord = textNextWord
+            textNextWord = textNextNextWord
+        }
     }
 }
 

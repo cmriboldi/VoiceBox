@@ -310,15 +310,30 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5v-Mc-qHh">
-                                <rect key="frame" x="20" y="161" width="363" height="68"/>
+                                <rect key="frame" x="20" y="161" width="363" height="118"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rY-IF-mNC">
+                                <rect key="frame" x="904" y="619" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="PjF-KJ-wgQ"/>
+                                    <constraint firstAttribute="height" constant="100" id="Vpl-Ui-DUP"/>
+                                </constraints>
+                                <state key="normal" image="ic_plus"/>
+                                <connections>
+                                    <action selector="addWord:" destination="MqU-1e-ZFE" eventType="touchUpInside" id="c6S-xx-88g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="W5q-a1-w84" firstAttribute="trailing" secondItem="1rY-IF-mNC" secondAttribute="trailing" constant="20" id="Aq4-MS-xoX"/>
+                            <constraint firstItem="1rY-IF-mNC" firstAttribute="bottom" secondItem="W5q-a1-w84" secondAttribute="bottom" id="VW4-Go-Ehq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="W5q-a1-w84"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="0BA-AZ-3ZP" appends="YES" id="FgC-h4-1hG"/>
@@ -338,7 +353,31 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1486" y="487"/>
+            <point key="canvasLocation" x="1485.9375" y="486.71875"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="jJe-xS-v2s">
+            <objects>
+                <viewController storyboardIdentifier="AddWord" id="MbH-Qk-ZtD" sceneMemberID="viewController">
+                    <view key="view" contentMode="center" id="aaj-L5-e5N">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xzo-0d-rQ9">
+                                <rect key="frame" x="350" y="369" width="324" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Yt6-de-las"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tNG-jk-Uyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2107.03125" y="486.71875"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Lap-zL-jzp">
@@ -405,7 +444,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49Z-ca-prg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1486" y="1463"/>
+            <point key="canvasLocation" x="1486" y="1232"/>
         </scene>
         <!--TabBarController-->
         <scene sceneID="qWz-yd-fUQ">
@@ -496,6 +535,7 @@
         <image name="ic_back" width="50" height="50"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_pages" width="24" height="24"/>
+        <image name="ic_plus" width="50" height="50"/>
         <image name="ic_settings" width="24" height="24"/>
     </resources>
 </document>

@@ -1973,9 +1973,17 @@ Absolutely not!
 No thank you
 Okay, that's fine.
 That's okay.
+Please do it again.
+Do not eat that.
+Please eat that.
+Do not drink that.
+Please drink that.
+Please go.
+Go, please.
+Please stop.
+Stop, please.
 
-again
-eat, drink, go, stop, run, jump, walk, sleep, wash, kiss, open, close, push, pull, fix, break, play, want, hug, love, hurt, tickle, give, all gone, give me, all done, dance, help, fall, shake, see, watch, look, sit, stand, stand up, throw, catch, blow, cry, throw, swing, slide, climb, ride, rock, come, come on, color, draw
+run, jump, walk, sleep, wash, kiss, open, close, push, pull, fix, break, play, want, hug, love, hurt, tickle, give, all gone, give me, all done, dance, help, fall, shake, see, watch, look, sit, stand, stand up, throw, catch, blow, cry, throw, swing, slide, climb, ride, rock, come, come on, color, draw
 up, down, in, out, off, on, here, there, around, under, behind, over, at
 big, little, hot, cold, loud, quiet, yucky, icky, scary, funny, silly, dirty, clean, gentle, wet, soft, fast, slow, red, blue, yellow, green, pink, orange, purple, black, white, brown, all, none, more, some, rest
 one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty

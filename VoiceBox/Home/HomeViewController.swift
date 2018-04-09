@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
     var sentenceWordIndex = 0
     var sentence = Sentence()
     var prevWord: Word = Word(value: "")
-    var currentWord: Word?
+    var currentWord: Word = Word(value: "")
     var topLikelyNextWords = [Word]()
     var allLikelyNextWords = [Word]()
     var transitionThumbnail: UIImageView?
@@ -53,12 +53,12 @@ class HomeViewController: UIViewController {
         self.currentWord = Word(value: "")
 
         if topLikelyNextWords.isEmpty {
-            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
+//            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             
-//            guard let newWord = VocabDatabase.shared.getWord(withText: "") else {return}
-//
-//            self.currentWord = newWord
-//            self.predictNextWords(newWord: newWord)
+            guard let newWord = VocabDatabase.shared.getWord(withText: "") else {return}
+
+            self.currentWord = newWord
+            self.predictNextWords(newWord: newWord)
         }
         
         let searchButtonView = SearchButton(frame: searchButton.frame)
@@ -153,7 +153,8 @@ class HomeViewController: UIViewController {
             if self.sentence.count >= 1 {
                 self.currentWord = Word(self.sentence[self.sentence.count - 1])
             } else {
-                self.currentWord = nil
+                guard let newWord = VocabDatabase.shared.getWord(withText: "") else {return}
+                self.currentWord = newWord
             }
             
             if self.sentence.count >= 2 {
@@ -162,12 +163,15 @@ class HomeViewController: UIViewController {
                 self.prevWord = Word()
             }
             
-            if let currentWord = self.currentWord {
-                self.topLikelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: currentWord)
-            } else {
-                self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
-            }
-            
+            self.predictNextWords(newWord: self.currentWord)
+//            self.topLikelyNextWords = NGram().nextWords(prevWord: self.prevWord, word: currentWord)
+//            if self.currentWord.value != "" {
+//            }
+//            else {
+//                self.predictNextWords(newWord: self.currentWord)
+//                self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
+//            }
+//
             self.populateWordButtons()
         }
     }
@@ -203,7 +207,7 @@ class HomeViewController: UIViewController {
                 self.sentenceCollectionView.deleteItems(at: [indexPath])
             }
             
-            self.currentWord = nil
+            self.currentWord = Word(value: "")
             self.prevWord = Word()
             self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             self.populateWordButtons()
@@ -212,11 +216,11 @@ class HomeViewController: UIViewController {
 
     func populateWordButtons(closure: (() -> Void)? = nil) {
         mainWord.subviews.forEach({ $0.removeFromSuperview() })
-        if let currentWord = currentWord {
-            let mainWordView = RoundedButton.init(frame: self.mainWord.frame)
-            mainWordView.setTitle(currentWord.value)
-            mainWord.addSubview(mainWordView)
-        }
+//        if self.currentWord.value != "" {
+        let mainWordView = RoundedButton.init(frame: self.mainWord.frame)
+        mainWordView.setTitle(self.getWordText(word: currentWord))
+        mainWord.addSubview(mainWordView)
+//        }
         
         for i in 0..<Constants.numberOfNextWords {
             let wordButton = self.wordButtons[i]
@@ -252,9 +256,7 @@ class HomeViewController: UIViewController {
     }
 
     func predictNextWords(newWord: Word) {
-        guard let currentWord = self.currentWord else {
-            return
-        }
+        let currentWord = self.currentWord
         
         self.prevWord = currentWord
         self.currentWord = newWord

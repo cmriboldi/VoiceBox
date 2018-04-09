@@ -41,7 +41,4 @@ class DatabaseUpdater {
         print("Successfully updated \(successfulUpdates)/\(totalUpdates)")
         print("Successfully created \(successfulCreates)/\(totalCreates)")
     }
-    
-    
 }
-

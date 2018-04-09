@@ -25,6 +25,7 @@
 		037F51432029044D00209685 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F51422029044C00209685 /* TabBarController.swift */; };
 		03C804B4205FBC620033938D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03C804B3205FBC610033938D /* GoogleService-Info.plist */; };
 		03C804B6205FC2150033938D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C804B5205FC2150033938D /* RegisterViewController.swift */; };
+		03F9DE6D207BA06E0088B1AB /* VocabularyDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 03F9DE6C207BA06D0088B1AB /* VocabularyDB.db */; };
 		5E24167720226B7E00EF7C79 /* test_train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E24167620226B7E00EF7C79 /* test_train.txt */; };
 		5E6DA9502034FFF20000E6EC /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DA94F2034FFF20000E6EC /* String+helpers.swift */; };
 		5E7EB02D206AB18B000FBBD1 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EB02C206AB18B000FBBD1 /* SearchButton.swift */; };
@@ -43,7 +44,6 @@
 		5EB1DB86203640C5000F0B1A /* SentenceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB85203640C5000F0B1A /* SentenceItemView.swift */; };
 		5EB1DB8820364121000F0B1A /* VocabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1DB8720364121000F0B1A /* VocabItemView.swift */; };
 		5ECECB1D2037320500AB53B4 /* UINavigationController+completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECECB1C2037320500AB53B4 /* UINavigationController+completion.swift */; };
-		5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 5ED17FD5201A5779002E1ADB /* VocabularyDB.db */; };
 		8CB5D2BE06CB4E0FAF04920B /* Pods_VoiceBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 768DBE447492CD9C78C8A852 /* Pods_VoiceBox.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +81,7 @@
 		037F51422029044C00209685 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		03C804B3205FBC610033938D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		03C804B5205FC2150033938D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		03F9DE6C207BA06D0088B1AB /* VocabularyDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = VocabularyDB.db; sourceTree = "<group>"; };
 		5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDatabase.swift; sourceTree = "<group>"; };
 		5E1DDC96201B89B10003627A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		5E24167620226B7E00EF7C79 /* test_train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_train.txt; sourceTree = "<group>"; };
@@ -107,7 +108,6 @@
 		5EB1DB85203640C5000F0B1A /* SentenceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceItemView.swift; sourceTree = "<group>"; };
 		5EB1DB8720364121000F0B1A /* VocabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabItemView.swift; sourceTree = "<group>"; };
 		5ECECB1C2037320500AB53B4 /* UINavigationController+completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+completion.swift"; sourceTree = "<group>"; };
-		5ED17FD5201A5779002E1ADB /* VocabularyDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = VocabularyDB.db; sourceTree = "<group>"; };
 		75074F08D8DEBA02E50E3D27 /* Pods-VoiceBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.debug.xcconfig"; sourceTree = "<group>"; };
 		753E1473BEC6095E4BC624B5 /* Pods-VoiceBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBox.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox.release.xcconfig"; sourceTree = "<group>"; };
 		768DBE447492CD9C78C8A852 /* Pods_VoiceBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,8 +183,8 @@
 		5E02CFC72049B123007725E7 /* VocabDatabase */ = {
 			isa = PBXGroup;
 			children = (
+				03F9DE6C207BA06D0088B1AB /* VocabularyDB.db */,
 				5E0EB2F7201B8661002EED45 /* VocabDatabase.swift */,
-				5ED17FD5201A5779002E1ADB /* VocabularyDB.db */,
 			);
 			path = VocabDatabase;
 			sourceTree = "<group>";
@@ -471,10 +471,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EAA33FA200E5D2300519B7E /* LaunchScreen.storyboard in Resources */,
+				03F9DE6D207BA06E0088B1AB /* VocabularyDB.db in Resources */,
 				03C804B4205FBC620033938D /* GoogleService-Info.plist in Resources */,
 				032F8B712023C64D0072A680 /* words.txt in Resources */,
 				5E24167720226B7E00EF7C79 /* test_train.txt in Resources */,
-				5ED17FD6201A5779002E1ADB /* VocabularyDB.db in Resources */,
 				5EAA33F7200E5D2300519B7E /* Assets.xcassets in Resources */,
 				032F8B65201FC3BF0072A680 /* train.txt in Resources */,
 				5EAA33F5200E5D2300519B7E /* Main.storyboard in Resources */,

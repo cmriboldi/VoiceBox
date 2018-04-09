@@ -123,9 +123,7 @@ extension VocabViewController {
                 guard let node = self.nodes[index.item] as? VocabularyWord else {
                     return
                 }
-                guard let currentWord = homeViewController.currentWord else {
-                    return
-                }
+                let currentWord = homeViewController.currentWord
                 guard let newCurrentWord = VocabDatabase.shared.getWord(withText: node.name), let newSpokenPhrase = currentWord.spokenPhrase else {
                     return
                 }

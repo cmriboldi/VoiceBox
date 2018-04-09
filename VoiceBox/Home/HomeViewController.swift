@@ -49,8 +49,17 @@ class HomeViewController: UIViewController {
 
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
+        
+        self.currentWord = Word(value: "")
 
-        if topLikelyNextWords.isEmpty {self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)}
+        if topLikelyNextWords.isEmpty {
+            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
+            
+//            guard let newWord = VocabDatabase.shared.getWord(withText: "") else {return}
+//
+//            self.currentWord = newWord
+//            self.predictNextWords(newWord: newWord)
+        }
         
         let searchButtonView = SearchButton(frame: searchButton.frame)
         searchButton.addSubview(searchButtonView)

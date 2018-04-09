@@ -79,6 +79,7 @@ public class Trainer {
                 textWord = sentenceWords[0]
                 if sentenceWords.count > 1 {textNextWord = sentenceWords[1]}
             }
+            self.insertWord(textWord: "", textNextWord: textWord, textNextNextWord: textNextWord)
 
             for index in 0..<sentenceWords.count {
 //                if textWord == "fifteen" {

@@ -32,11 +32,11 @@ import IBAnimatable
         super.init(coder: aDecoder)
     }
     
-    func setup(frame: CGRect, image: UIImage?, needsBorder: Bool) {
+    func setup(frame: CGRect, image: UIImage?, needsBorder: Bool, cornerRadius: CGFloat = 0.15) {
         self.frame = CGRect.init(x: 0.0, y: 0.0, width: frame.width, height: frame.height)
         let margins = self.layoutMarginsGuide
         // configure border layout.
-        self.cornerRadius = 0.15 * bounds.size.width
+        self.cornerRadius = cornerRadius * bounds.size.width
         self.backgroundColor = UIColor.white
         self.borderWidth = 2
         self.clipsToBounds = true

@@ -130,7 +130,7 @@ extension VocabViewController {
                     return
                 }
                 
-                homeViewController.prevWord = Word(value: "")
+                homeViewController.prevWord = Word(currentWord)
                 homeViewController.currentWord = newCurrentWord
                 homeViewController.topLikelyNextWords = NGram().nextWords(prevWord: homeViewController.prevWord, word: newCurrentWord)
                 homeViewController.speakPhrase(newSpokenPhrase.lowercased())
@@ -183,7 +183,12 @@ extension VocabViewController {
         let node = self.nodes[(indexPath as IndexPath).item]
         
         if let frame = cell.wordView?.frame {
-            cell.wordView?.setup(frame: frame, image: node.getImage(), needsBorder: true)
+            if let node = node as? Folder {
+                cell.wordView?.setup(frame: frame, image: node.getImage(), needsBorder: true, cornerRadius: 0.50)
+            }
+            else {
+                cell.wordView?.setup(frame: frame, image: node.getImage(), needsBorder: true)
+            }
         }
         cell.wordView?.wordLabel.text = node.getName()
 
@@ -269,14 +274,9 @@ extension VocabViewController {
                 // Create a root reference
                 let storageRef = Storage.storage().reference()
                 
-//                // Create a reference to "mountains.jpg"
-//                let wordRef = storageRef.child((self.currentNode?.name)! + ".png")
-                
-                
                 // Create a reference to the image location
 //                let wordImagesRef = storageRef.child((user?.uid)! + "/images/" + (self.currentNode?e.name)! + ".png")
                 // Create a reference to the image location
-
                 var path = "images/"
                 path.append(user.uid)
                 path.append("/")
@@ -315,24 +315,6 @@ extension VocabViewController {
         }
         dismiss(animated: true, completion: nil)
     }
-
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
-//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-////            self.currentNode.imageView.contentMode = .scaleAspectFit
-////            self.currentNode.imageView.image = pickedImage
-//
-//            if let data = UIImagePNGRepresentation(pickedImage) {
-//                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-//                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension(".png")
-//                try? data.write(to: filename)
-//
-//                self.currentNode?.setImageName(imageName: filename.absoluteString)
-//                self.collectionView?.reloadData()
-//            }
-//        }
-//
-//        dismiss(animated: true, completion: nil)
-//    }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)

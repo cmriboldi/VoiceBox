@@ -103,28 +103,18 @@ class HomeViewController: UIViewController {
             return
         }
         
-        self.currentWord = newWord
-        self.predictNextWords(newWord: newWord)
-
-        speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
-
-        self.sentence.append(newWord)
-        self.sentenceCollectionView.setNeedsLayout()
-
-        let sentenceIndexPath = IndexPath(row:self.sentenceWordIndex, section: 0)
-        self.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
-        self.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
-        self.sentenceWordIndex += 1
+        select(newWord: newWord)
         
-        let pressedCenterCornerX = Double(button.center.x) - Double(button.bounds.width / 2)
-        let pressedCenterCornerY = Double(button.center.y) - Double(button.bounds.height / 2)
-        let centerCornerX = Double(mainWord.center.x) - Double(mainWord.bounds.width / 2)
-        let centerCornerY = Double(mainWord.center.y) - Double(mainWord.bounds.height / 2)
+        SearchImagesAPI.searchImages(newWord.value, callback: imagesCallback)
         
-        button.animate(.moveTo(x: centerCornerX, y: centerCornerY))
-        
-        populateWordButtons()
-        
+//        let pressedCenterCornerX = Double(button.center.x) - Double(button.bounds.width / 2)
+//        let pressedCenterCornerY = Double(button.center.y) - Double(button.bounds.height / 2)
+//        let centerCornerX = Double(mainWord.center.x) - Double(mainWord.bounds.width / 2)
+//        let centerCornerY = Double(mainWord.center.y) - Double(mainWord.bounds.height / 2)
+//
+//        button.animate(.moveTo(x: centerCornerX, y: centerCornerY))
+//
+//
 //        for otherButton in self.wordButtons {
 //            if let otherButton = otherButton as? RoundedButton, otherButton != button {
 //                let buttonCenterCornerX = Double(otherButton.center.x) - Double(otherButton.bounds.width / 2)
@@ -149,6 +139,29 @@ class HomeViewController: UIViewController {
 //        }
         
         
+    }
+    
+    func imagesCallback(returnedImage: UIImage?) {
+        print("done searching img is: \(returnedImage)")
+    }
+    
+    func select(newWord: Word) {
+        
+        self.prevWord = self.currentWord ?? Word.init()
+        self.currentWord = newWord
+        self.predictNextWords(newWord: newWord)
+        
+        speakPhrase(newWord.spokenPhrase?.lowercased() ?? newWord.value.lowercased())
+        
+        self.sentence.append(newWord)
+        self.sentenceCollectionView.setNeedsLayout()
+        
+        let sentenceIndexPath = IndexPath(row:self.sentenceWordIndex, section: 0)
+        self.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
+        self.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
+        self.sentenceWordIndex += 1
+        
+        populateWordButtons()
     }
     
     @IBAction func deleteWord(_ sender: Any) {

@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.0)
   - BoringSSL (10.0):
     - BoringSSL/Implementation (= 10.0)
     - BoringSSL/Interface (= 10.0)
@@ -89,6 +90,7 @@ PODS:
   - SwipeableTabBarController (1.0.11)
 
 DEPENDENCIES:
+  - Alamofire
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -99,6 +101,7 @@ DEPENDENCIES:
   - SwipeableTabBarController
 
 SPEC CHECKSUMS:
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   BoringSSL: 32764dbaf5f5888cf51fbaa172a010126b41bcd4
   Firebase: 632216af3ed7f31e3be34776947fdc7546cfb572
   FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
@@ -121,6 +124,6 @@ SPEC CHECKSUMS:
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   SwipeableTabBarController: ffdb77cfe9997c92078b5022b4e770bdf88d76bd
 
-PODFILE CHECKSUM: faad9e90e1b3c79fed11af32376f444a82bfcb19
+PODFILE CHECKSUM: 5b15b22b0ed1ee32b12b1357feaeac876f689efe
 
 COCOAPODS: 1.4.0

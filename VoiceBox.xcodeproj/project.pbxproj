@@ -29,6 +29,8 @@
 		5E24167720226B7E00EF7C79 /* test_train.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5E24167620226B7E00EF7C79 /* test_train.txt */; };
 		5E6DA9502034FFF20000E6EC /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6DA94F2034FFF20000E6EC /* String+helpers.swift */; };
 		5E7EB02D206AB18B000FBBD1 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7EB02C206AB18B000FBBD1 /* SearchButton.swift */; };
+		5E8E9E2D206EC5FD005EC6C4 /* SearchImagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E9E2C206EC5FD005EC6C4 /* SearchImagesAPI.swift */; };
+		5E8E9E2F206EDA5B005EC6C4 /* UIImage+download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E9E2E206EDA5B005EC6C4 /* UIImage+download.swift */; };
 		5EA332EF200FA9B700E9C6EB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */; };
 		5EA38FD620476648007F60E2 /* Array+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA38FD520476648007F60E2 /* Array+helpers.swift */; };
 		5EAA33F0200E5D2300519B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA33EF200E5D2300519B7E /* AppDelegate.swift */; };
@@ -87,6 +89,8 @@
 		5E24167620226B7E00EF7C79 /* test_train.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_train.txt; sourceTree = "<group>"; };
 		5E6DA94F2034FFF20000E6EC /* String+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+helpers.swift"; sourceTree = "<group>"; };
 		5E7EB02C206AB18B000FBBD1 /* SearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
+		5E8E9E2C206EC5FD005EC6C4 /* SearchImagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImagesAPI.swift; sourceTree = "<group>"; };
+		5E8E9E2E206EDA5B005EC6C4 /* UIImage+download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+download.swift"; sourceTree = "<group>"; };
 		5EA332EE200FA9B700E9C6EB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5EA38FD520476648007F60E2 /* Array+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+helpers.swift"; sourceTree = "<group>"; };
 		5EAA33EC200E5D2300519B7E /* VoiceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,8 +209,17 @@
 				5E6DA94F2034FFF20000E6EC /* String+helpers.swift */,
 				5ECECB1C2037320500AB53B4 /* UINavigationController+completion.swift */,
 				5EA38FD520476648007F60E2 /* Array+helpers.swift */,
+				5E8E9E2E206EDA5B005EC6C4 /* UIImage+download.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5E8E9E2B206EC5CA005EC6C4 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				5E8E9E2C206EC5FD005EC6C4 /* SearchImagesAPI.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		5E9D5E2D2059C1B50092A63F /* View */ = {
@@ -221,6 +234,7 @@
 		5EA332E4200FA13300E9C6EB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				5E8E9E2B206EC5CA005EC6C4 /* API */,
 				5E6DA954203500970000E6EC /* Extensions */,
 				032F8B5B201FC3700072A680 /* Learning */,
 				032F8B59201FC34B0072A680 /* Data */,
@@ -505,6 +519,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VoiceBox/Pods-VoiceBox-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GRDB.swift/GRDB.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -521,6 +536,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -584,12 +600,14 @@
 				032CC17E2044C3820007BCA4 /* Node.swift in Sources */,
 				032F8B47201DE62C0072A680 /* VocabDatabase.swift in Sources */,
 				032CC17D2044C3820007BCA4 /* VocabularyWord.swift in Sources */,
+				5E8E9E2F206EDA5B005EC6C4 /* UIImage+download.swift in Sources */,
 				032F8B48201DE6300072A680 /* Word.swift in Sources */,
 				032CC1822044C3FF0007BCA4 /* VocabViewController.swift in Sources */,
 				037F51432029044D00209685 /* TabBarController.swift in Sources */,
 				5EAA33F2200E5D2300519B7E /* HomeViewController.swift in Sources */,
 				5E7EB02D206AB18B000FBBD1 /* SearchButton.swift in Sources */,
 				032F8B6A201FC3C80072A680 /* Trie.swift in Sources */,
+				5E8E9E2D206EC5FD005EC6C4 /* SearchImagesAPI.swift in Sources */,
 				032F8B69201FC3C80072A680 /* NGram.swift in Sources */,
 				032F8B46201DE4570072A680 /* WordList.swift in Sources */,
 				5EB1DB8220363E19000F0B1A /* Sentence.swift in Sources */,

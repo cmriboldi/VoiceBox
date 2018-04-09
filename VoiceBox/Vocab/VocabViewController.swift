@@ -135,11 +135,7 @@ extension VocabViewController {
                 homeViewController.sentence.append(newCurrentWord)
                 homeViewController.sentenceCollectionView.setNeedsLayout()
                 
-                let sentenceIndexPath = IndexPath(row:homeViewController.sentenceWordIndex, section: 0)
-                homeViewController.sentenceCollectionView.insertItems(at: [sentenceIndexPath])
-                homeViewController.sentenceCollectionView.scrollToItem(at: sentenceIndexPath, at: .right, animated: true)
-                homeViewController.sentenceWordIndex += 1
-                homeViewController.populateWordButtons()
+                homeViewController.select(newWord: newWord)
 
                 self.isSearching = false
                 self.loadNodes("")

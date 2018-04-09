@@ -34,7 +34,7 @@ public class NGram {
                     nextWords[key] = Word(value: key)
                 }
                 // Words at depth 3 should be weighted more heavily than words at shallower depths.
-                nextWords[key]?.numOccur = value.numOccur * 3
+                nextWords[key]?.numOccur = value.numOccur * 10
             }
         }
 

@@ -269,8 +269,8 @@ extension VocabViewController {
 //                let imageRef = Storage.storage().reference(withPath: "images/" + (user?.uid)! + "/" + (self.currentNode?.name)! + ".png")
 //                currentNode.image = pickedImage
 
-                // Create a root reference
-                let storageRef = Storage.storage().reference()
+//                // Create a root reference
+//                let storageRef = Storage.storage().reference()
                 
                 // Create a reference to the image location
 //                let wordImagesRef = storageRef.child((user?.uid)! + "/images/" + (self.currentNode?e.name)! + ".png")
@@ -296,6 +296,20 @@ extension VocabViewController {
                     let downloadURL = metadata.downloadURL
                     self.collectionView?.reloadData()
                 }
+                
+                let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+                let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+//                if let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true) {
+                let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+                if paths.count > 0 {
+                    if let dirPath = paths.first {
+                        if let writePath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(currentNode.name + "_img.png") {
+                            do {try data.write(to: writePath, options: .atomic)}
+                            catch let error as NSError {return}
+                        }
+                    }
+                }
+//                }
 
 //                var uid = user?.uid
 //                db.collection("images").document((user?.uid)!).setData([

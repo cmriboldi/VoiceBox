@@ -45,7 +45,22 @@ struct Word: TableMapping, Encodable, Decodable {
     }
     var image: UIImage? {
         let imgName = self.imageName ?? ""
-        return UIImage.init(named: imgName)
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        if paths.count > 0 {
+            if let dirPath = paths.first {
+                if let readPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(value + "_img.png") {
+                    do {
+                        let imageData = try Data(contentsOf: readPath)
+                        return UIImage(data: imageData)
+                    }
+                    catch {print("Error loading image : \(error)")}
+                }
+            }
+        }
+        return UIImage.init(named: "")
+//        return UIImage.init(named: imgName)
     }
     var spokenPhrase: String? {
         get {

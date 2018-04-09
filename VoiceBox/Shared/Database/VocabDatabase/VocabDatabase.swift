@@ -209,7 +209,12 @@ class VocabDatabase {
     func create(word: Word) -> Int? {
         do {
             let newWordID = try dbQueue.inDatabase{ (db: Database) -> Int in
-                let json = try JSONEncoder().encode(word)
+                var json = try JSONEncoder().encode(word)
+                let databaseTableName = Word.databaseTableName
+                let value = Word.Database.value
+                let newJson = Word.Database.json
+                let newValue = word.value
+                let newNewJson = String(describing: json)
                 try db.execute("""
                                insert into \(Word.databaseTableName) (\(Word.Database.value), \(Word.Database.json))
                                values (?,?,?)

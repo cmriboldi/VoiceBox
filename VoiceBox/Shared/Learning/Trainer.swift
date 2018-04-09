@@ -81,6 +81,9 @@ public class Trainer {
             }
 
             for index in 0..<sentenceWords.count {
+//                if textWord == "fifteen" {
+//                    print("fifteen")
+//                }
                 var textNextNextWord = ""
                 if index < sentenceWords.count - 2 {textNextNextWord = sentenceWords[index+2]}
                 self.insertWord(textWord: textWord, textNextWord: textNextWord, textNextNextWord: textNextNextWord)

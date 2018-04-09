@@ -77,17 +77,22 @@ class SettingsViewController: UIViewController {
         
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-            
             //getting the input values from user
-            if let word = alertController.textFields?[0].text {
-                if let user = Auth.auth().currentUser {
-                    let uid = user.uid
-                    Firestore.firestore().collection("users").document(user.uid).collection("words").addDocument(data: [word: word]) { err in
-                        if let err = err {print("Error writing document: \(err)")}
-                        else {print("Document successfully written!")}
-                    }
-                    //                    let updateSuccess = VocabDatabase.shared.update(word: Word(value: word))
+            if let textWord = alertController.textFields?[0].text?.lowercased() {
+                if !(VocabDatabase.shared.doesWordExist(withText: textWord)) {
+                    let word = Word(value: textWord)
+                    //FIXME!!!
+                    VocabDatabase.shared.create(word: word)
                 }
+
+//                if let user = Auth.auth().currentUser {
+//                    let uid = user.uid
+//                    Firestore.firestore().collection("users").document(user.uid).collection("words").addDocument(data: [word: word]) { err in
+//                        if let err = err {print("Error writing document: \(err)")}
+//                        else {print("Document successfully written!")}
+//                    }
+//                    //                    let updateSuccess = VocabDatabase.shared.update(word: Word(value: word))
+//                }
             }
         }
         

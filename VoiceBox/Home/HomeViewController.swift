@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
         if let navController = self.navigationController {
             navController.isNavigationBarHidden = true
         }
-        
+
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
 
@@ -56,7 +56,7 @@ class HomeViewController: UIViewController {
         searchButton.addSubview(searchButtonView)
         let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(self.search))
         searchButton.addGestureRecognizer(tapGesture)
-        
+
         populateWordButtons()
     }
     
@@ -353,7 +353,6 @@ extension HomeViewController: UIGestureRecognizerDelegate {
 
         if doesExist {VocabDatabase.shared.update(word: word)}
         else {VocabDatabase.shared.create(word: word)}
-        let temp = VocabDatabase.shared.getWord(withText: "sorry")
     }
 
     @objc func handleTap(recognizer:UITapGestureRecognizer) {

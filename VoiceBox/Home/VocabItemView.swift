@@ -28,9 +28,9 @@ class VocabItemView: UIView {
         get {
             return word.value
         }
-        set {
-            word.value = newValue
-        }
+//        set {
+//            word.value = newValue
+//        }
     }
     
     @IBInspectable var image: UIImage? {

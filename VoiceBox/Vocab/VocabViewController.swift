@@ -47,8 +47,9 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
             self.searchTextField.text = ""
             self.loadNodes("")
         }
-        else if pathTraveled.count > 1, let lastPathTraveled = pathTraveled.last {
+        else if pathTraveled.count > 1 {
             pathTraveled.removeLast()
+            guard let lastPathTraveled = pathTraveled.last else {return}
             self.loadNodes(lastPathTraveled)
             self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
@@ -101,7 +102,7 @@ extension VocabViewController {
 
         if let index = indexPath {
             if let node = self.nodes[index.item] as? Folder {
-                let loadedWords = VocabDatabase.shared.getWords(withPrefix: node.name).sorted{$0.value < $1.value}
+                let loadedWords = VocabDatabase.shared.getWords(withPrefix: node.name.lowercased()).sorted{$0.value < $1.value}
                 
                 for word in loadedWords {
                     if vocabulary.findWord(word: word.value, parent: self.pathTraveled[self.pathTraveled.count - 1]) == "" {

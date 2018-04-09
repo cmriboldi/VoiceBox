@@ -15,18 +15,39 @@ import FirebaseStorage
 class Node {
     var name: String
     var imageName: String?
-    var image: UIImage?
+//    var image: UIImage?
+    var image: UIImage? {
+//        let imgName = self.imageName ?? ""
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        if paths.count > 0 {
+            if let dirPath = paths.first {
+                let imgName = "\(name)_image.png"
+                self.imageName = imgName
+                if let readPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(imgName) {
+                    do {
+                        let imageData = try Data(contentsOf: readPath)
+                        return UIImage(data: imageData)
+                    }
+                    catch {print("Error loading image : \(error)")}
+                }
+            }
+        }
+        return UIImage.init(named: "")
+        //        return UIImage.init(named: imgName)
+    }
 
     required init(name: String = "", imageName: String? = nil, image: UIImage? = nil) {
         self.name = name
         self.imageName = imageName
-        self.image = image
+//        self.image = image
     }
     
     required init(node: Node) {
         self.name = node.name
         self.imageName = node.imageName
-        self.image = node.image
+//        self.image = node.image
     }
     
     func getChildren() -> [Node]? {return nil}
@@ -75,41 +96,41 @@ class Node {
         return UIImage(view: imageView)
     }
 
-    func getImage() -> UIImage? {
-        var imageFound: UIImage?
-        
-        if let user = Auth.auth().currentUser {
-            // Create a reference with an initial file path and name
-            
-            var path = "images/"
-            path.append(user.uid)
-            path.append("/")
-            path.append(self.getType())
-            path.append("/")
-            path.append(self.name)
-            path.append(".png")
-            
-            let imageRef = Storage.storage().reference(withPath: path)
-            
-            // Download in memory with a maximum allowed size of 50MB (50 * 1024 * 1024 bytes)
-            //FIXME: This maxSize might need to be adjusted.
-            let _ = imageRef.getData(maxSize: 50 * 1024 * 1024) { (data, error) in
-                if let error = error {
-                    print("There was an error sading the image. \(error)")
-                }
-                else if let data = data, let img = UIImage(data: data) {
-                    self.image = img
-                }
-            }
-        }
-        if let image = self.image {
-            imageFound = image
-        } else if let imgName = self.imageName, let img = UIImage(named: imgName) {
-            imageFound = img
-        }
-        
-        return imageFound
-    }
+//    func getImage() -> UIImage? {
+//        var imageFound: UIImage?
+//
+//        if let user = Auth.auth().currentUser {
+//            // Create a reference with an initial file path and name
+//
+//            var path = "images/"
+//            path.append(user.uid)
+//            path.append("/")
+//            path.append(self.getType())
+//            path.append("/")
+//            path.append(self.name)
+//            path.append(".png")
+//
+//            let imageRef = Storage.storage().reference(withPath: path)
+//
+//            // Download in memory with a maximum allowed size of 50MB (50 * 1024 * 1024 bytes)
+//            //FIXME: This maxSize might need to be adjusted.
+//            let _ = imageRef.getData(maxSize: 50 * 1024 * 1024) { (data, error) in
+//                if let error = error {
+//                    print("There was an error sading the image. \(error)")
+//                }
+//                else if let data = data, let img = UIImage(data: data) {
+//                    self.image = img
+//                }
+//            }
+//        }
+//        if let image = self.image {
+//            imageFound = image
+//        } else if let imgName = self.imageName, let img = UIImage(named: imgName) {
+//            imageFound = img
+//        }
+//
+//        return imageFound
+//    }
     
 //    func setImage(image: UIImage) {
 //        let size = image.size

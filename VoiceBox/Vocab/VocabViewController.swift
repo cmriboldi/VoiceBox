@@ -182,10 +182,10 @@ extension VocabViewController {
         
         if let frame = cell.wordView?.frame {
             if let node = node as? Folder {
-                cell.wordView?.setup(frame: frame, image: node.getImage(), needsBorder: true, cornerRadius: 0.50)
+                cell.wordView?.setup(frame: frame, image: node.image, needsBorder: true, cornerRadius: 0.50)
             }
             else {
-                cell.wordView?.setup(frame: frame, image: node.getImage(), needsBorder: true)
+                cell.wordView?.setup(frame: frame, image: node.image, needsBorder: true)
             }
         }
         cell.wordView?.wordLabel.text = node.getName()

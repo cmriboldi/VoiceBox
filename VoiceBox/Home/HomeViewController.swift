@@ -39,6 +39,13 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var searchButton: UIView!
     
     
+    func initializeSentence() {
+        guard let newWord = VocabDatabase.shared.getWord(withText: "") else {return}
+        
+        self.currentWord = newWord
+        self.predictNextWords(newWord: newWord)
+    }
+    
     // MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,10 +62,11 @@ class HomeViewController: UIViewController {
         if topLikelyNextWords.isEmpty {
 //            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             
-            guard let newWord = VocabDatabase.shared.getWord(withText: "") else {return}
-
-            self.currentWord = newWord
-            self.predictNextWords(newWord: newWord)
+//            guard let newWord = VocabDatabase.shared.getWord(withText: "") else {return}
+//
+//            self.currentWord = newWord
+//            self.predictNextWords(newWord: newWord)
+            self.initializeSentence()
         }
         
         let searchButtonView = SearchButton(frame: searchButton.frame)
@@ -207,9 +215,10 @@ class HomeViewController: UIViewController {
                 self.sentenceCollectionView.deleteItems(at: [indexPath])
             }
             
-            self.currentWord = Word(value: "")
-            self.prevWord = Word()
-            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
+            self.initializeSentence()
+//            self.currentWord = Word(value: "")
+//            self.prevWord = Word()
+//            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             self.populateWordButtons()
         }
     }

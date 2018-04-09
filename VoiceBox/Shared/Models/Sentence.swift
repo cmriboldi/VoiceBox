@@ -32,7 +32,14 @@ class Sentence {
     }
     
     func append(_ word: Word) {
-        sentenceWords.append(word)
+        if word.value == "i" {
+            var adjustedWord = Word(word)
+            adjustedWord.value = "I"
+            sentenceWords.append(adjustedWord)
+        }
+        else {
+            sentenceWords.append(word)
+        }
     }
     
     func copy() -> Sentence {

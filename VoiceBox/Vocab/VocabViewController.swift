@@ -135,7 +135,7 @@ extension VocabViewController {
                 homeViewController.sentence.append(newCurrentWord)
                 homeViewController.sentenceCollectionView.setNeedsLayout()
                 
-                homeViewController.select(newWord: newWord)
+                homeViewController.select(newWord: newCurrentWord)
 
                 self.isSearching = false
                 self.loadNodes("")

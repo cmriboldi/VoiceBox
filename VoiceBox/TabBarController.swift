@@ -13,7 +13,7 @@ class TabBarController: SwipeableTabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectedViewController = viewControllers?[1]
+        selectedViewController = viewControllers?[0]
         setSwipeAnimation(type: SwipeAnimationType.sideBySide)
     }
 }

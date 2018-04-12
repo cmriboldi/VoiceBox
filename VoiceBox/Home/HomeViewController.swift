@@ -198,7 +198,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func search(_ sender: UIButton) {
         guard let viewControllers = tabBarController?.viewControllers,
-              let vocabNav = viewControllers[0] as? UINavigationController,
+              let vocabNav = viewControllers[1] as? UINavigationController,
               let vocabViewController = vocabNav.viewControllers[0] as? VocabViewController else {
             return
         }
@@ -213,7 +213,7 @@ class HomeViewController: UIViewController {
         vocabViewController.loadNodes("")
         vocabViewController.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         vocabViewController.isSearching = false
-        tabBarController?.selectedIndex = 0
+        tabBarController?.selectedIndex = 1
     }
 
     // MARK: - Helper Functions

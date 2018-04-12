@@ -467,8 +467,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="9L6-AC-Be1" kind="relationship" relationship="viewControllers" id="biD-Ma-cqD"/>
                         <segue destination="SjT-Ho-XKo" kind="relationship" relationship="viewControllers" id="rJi-kM-bX9"/>
+                        <segue destination="9L6-AC-Be1" kind="relationship" relationship="viewControllers" id="biD-Ma-cqD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZF-lt-aB2" userLabel="First Responder" sceneMemberID="firstResponder"/>

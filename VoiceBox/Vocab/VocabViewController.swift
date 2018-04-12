@@ -148,7 +148,7 @@ extension VocabViewController {
             } else {
                 guard let tabBarController = self.tabBarController,
                       let tabVCs = tabBarController.viewControllers,
-                      let homeNameVC = tabVCs[1] as? UINavigationController,
+                      let homeNameVC = tabVCs[0] as? UINavigationController,
                       let homeViewController = homeNameVC.viewControllers[0] as? HomeViewController else {
                     return
                 }
@@ -173,7 +173,7 @@ extension VocabViewController {
                 self.loadNodes("")
                 self.searchTextField.text = ""
 
-                self.tabBarController?.selectedIndex = 1
+                self.tabBarController?.selectedIndex = 0
             }
         }
     }

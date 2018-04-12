@@ -227,9 +227,11 @@ class HomeViewController: UIViewController {
                 self.sentenceCollectionView.deleteItems(at: [indexPath])
             }
             
-            self.initializeSentence()
+            
+//            self.predictNextWords(newWord: self.currentWord)
 //            self.currentWord = Word(value: "")
 //            self.prevWord = Word()
+            self.initializeSentence()
 //            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
             self.populateWordButtons()
         }

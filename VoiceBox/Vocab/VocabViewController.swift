@@ -67,6 +67,38 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
         }
         self.loadNodes("")
     }
+    
+    @IBAction func addWord(_ sender: Any) {
+        //Creating UIAlertController and
+        //Setting title and message for the alert dialog
+        let alertController = UIAlertController(title: "Add word", message: "Enter the new word here", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+            //getting the input values from user
+            if let textWord = alertController.textFields?[0].text?.lowercased() {
+                if !(VocabDatabase.shared.doesWordExist(withText: textWord)) {
+                    let word = Word(value: textWord)
+                    VocabDatabase.shared.create(word: word)
+                }
+            }
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Word"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

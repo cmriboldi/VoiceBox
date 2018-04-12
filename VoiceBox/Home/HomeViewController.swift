@@ -57,7 +57,7 @@ class HomeViewController: UIViewController {
         sentenceCollectionView.delegate = self
         sentenceCollectionView.dataSource = self
         
-        self.currentWord = Word(value: "")
+//        self.currentWord = Word(value: "")
 
         if topLikelyNextWords.isEmpty {
 //            self.topLikelyNextWords = VocabDatabase.shared.getStartingWords(n: Constants.numberOfNextWords)
@@ -146,7 +146,6 @@ class HomeViewController: UIViewController {
     }
     
     func select(newWord: Word) {
-        
         self.prevWord = self.currentWord ?? Word.init()
         self.currentWord = newWord
         self.predictNextWords(newWord: newWord)
@@ -239,7 +238,7 @@ class HomeViewController: UIViewController {
     func populateWordButtons(closure: (() -> Void)? = nil) {
         mainWord.subviews.forEach({ $0.removeFromSuperview() })
 //        if self.currentWord.value != "" {
-        let mainWordView = RoundedButton.init(frame: self.mainWord.frame)
+        let mainWordView = RoundedButton.init(frame: self.mainWord.frame, image: self.currentWord.image)
         mainWordView.setTitle(self.getWordText(word: currentWord))
         mainWord.addSubview(mainWordView)
 //        }

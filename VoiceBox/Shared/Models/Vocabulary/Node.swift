@@ -23,7 +23,7 @@ class Node {
         let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
         if paths.count > 0 {
             if let dirPath = paths.first {
-                let imgName = "\(name)_image.png"
+                let imgName = "\(name)_img.png"
                 self.imageName = imgName
                 if let readPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(imgName) {
                     do {

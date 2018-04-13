@@ -17,13 +17,13 @@ class Node {
     var imageName: String?
 //    var image: UIImage?
     var image: UIImage? {
-//        let imgName = self.imageName ?? ""
+        var imgName = self.imageName ?? ""
         let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
         let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
         let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
         if paths.count > 0 {
             if let dirPath = paths.first {
-                let imgName = "\(name)_img.png"
+                imgName = "\(name)_img.png"
                 self.imageName = imgName
                 if let readPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(imgName) {
                     do {
@@ -34,8 +34,8 @@ class Node {
                 }
             }
         }
-        return UIImage.init(named: "")
-        //        return UIImage.init(named: imgName)
+//        return UIImage.init(named: "")
+        return UIImage.init(named: imgName)
     }
 
     required init(name: String = "", imageName: String? = nil, image: UIImage? = nil) {

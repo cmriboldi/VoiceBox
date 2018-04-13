@@ -14,7 +14,6 @@ import Alamofire
 //}
 
 class SearchImagesAPI {
-    
     struct API {
         static let baseUrl = "https://api.cognitive.microsoft.com/bing/v7.0/images/search"
         static let genericParams: Parameters = ["mkt":"en-us HTTP/1.1","safeSearch":"strict","imageType":"Clipart","count":"5"]
@@ -22,27 +21,29 @@ class SearchImagesAPI {
         static let queryParamName = "q"
     }
     
-    static func searchImages(_ queryParam: String, callback: @escaping ((UIImage?) -> Void) ) {
-        
+    static func searchImages(_ queryParam: String, callback: @escaping ((UIImage?, String) -> Void) ) {
         var params = API.genericParams
         params[API.queryParamName] = queryParam
         
         Alamofire.request(API.baseUrl, parameters: params, headers: API.genericHeaders).responseJSON { response in
             switch response.result {
             case .success(let value):
-                if let dict = value as? [String:Any], let results = dict["value"] as? [[String: Any]], let imgLink = results[0]["contentUrl"] as? String {
-                    let imageView = UIImageView()
-                    imageView.downloadedFrom(link: imgLink.replacingOccurrences(of: "http:", with: "https:"), callback: {
-                        callback(imageView.image)
-                    })
+                if let dict = value as? [String:Any], let results = dict["value"] as? [[String: Any]] {//}, let imgLink = results[0]["contentUrl"] as? String {
+                    if results.count > 0 {
+                        if let imgLink = results[0]["contentUrl"] as? String {
+                            let imageView = UIImageView()
+                            imageView.downloadedFrom(link: imgLink.replacingOccurrences(of: "http:", with: "https:"), callback: {
+                                callback(imageView.image, queryParam)
+                            })
+                        }
+                    }
                 } else {
-                    callback(nil)
+                    callback(nil, queryParam)
                 }
             case .failure(let error):
                 print("error searching for image: \(error)")
-                callback(nil)
+                callback(nil, queryParam)
             }
         }
     }
 }
-

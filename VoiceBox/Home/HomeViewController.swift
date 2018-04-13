@@ -37,6 +37,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var mainWord: UIView!
     @IBOutlet var wordButtons: [UIView]!
     @IBOutlet weak var searchButton: UIView!
+    @IBAction func getImages(_ sender: Any) {
+        SearchImagesAPI.searchImages(self.currentWord.value, callback: imagesCallback)
+    }
     
     
     func initializeSentence() {
@@ -137,12 +140,16 @@ class HomeViewController: UIViewController {
 //                })
 //            }
 //        }
-        
-        
     }
     
-    func imagesCallback(returnedImage: UIImage?) {
+    func imagesCallback(returnedImage: UIImage?, word: String) {
         print("done searching img is: \(returnedImage)")
+        if let image = returnedImage {
+            if let data = UIImagePNGRepresentation(image) {
+                let filename = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("images/\(word).png")
+                try? data.write(to: filename)
+            }
+        }
     }
     
     func select(newWord: Word) {

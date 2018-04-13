@@ -37,6 +37,16 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
     var isSearching = false
     let imagePicker = UIImagePickerController()
     var currentNode: Node? = nil
+    
+    func imagesCallback(returnedImage: UIImage?, word: String) {
+        print("done searching img is: \(returnedImage)")
+        if let image = returnedImage {
+            if let data = UIImagePNGRepresentation(image) {
+                let filename = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("images/\(word).png")
+                try? data.write(to: filename)
+            }
+        }
+    }
 
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var backButton: UIButton!
@@ -109,6 +119,22 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
 
         self.nodes = vocabulary.getNodes(parentName: "", search: self.isSearching)
         self.pathTraveled.append("")
+        
+//        for folder in (vocabulary.getChildren())! {
+//            let loadedWords = VocabDatabase.shared.getWords(withPrefix: folder.name.lowercased()).sorted{$0.value < $1.value}
+//
+//            for word in loadedWords {
+//                SearchImagesAPI.searchImages(word.value, callback: imagesCallback)
+////                if vocabulary.findWord(word: word.value, parent: self.pathTraveled[self.pathTraveled.count - 1]) == "" {
+////                    vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: word.imageName), parentName: folder.name)
+////                }
+//            }
+//        }
+        
+//        let words = self.vocabulary.getAllWords()
+//        for word in words {
+//            SearchImagesAPI.searchImages(word, callback: imagesCallback)
+//        }
     }
 
     // MARK: - Helper Functions
@@ -291,7 +317,8 @@ extension VocabViewController {
 //                let documentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 //                let filename = documentDirURL.appendingPathComponent((self.currentNode?.name)!).appendingPathExtension("png")
 
-                guard let user = Auth.auth().currentUser, let currentNode = self.currentNode else {
+//                guard let user = Auth.auth().currentUser, let currentNode = self.currentNode else {
+                guard let currentNode = self.currentNode else {
                     return
                 }
 //                let imageRef = Storage.storage().reference(withPath: "images/" + (user?.uid)! + "/" + (self.currentNode?.name)! + ".png")
@@ -300,30 +327,30 @@ extension VocabViewController {
 //                // Create a root reference
 //                let storageRef = Storage.storage().reference()
                 
-                // Create a reference to the image location
-//                let wordImagesRef = storageRef.child((user?.uid)! + "/images/" + (self.currentNode?e.name)! + ".png")
-                // Create a reference to the image location
-                var path = "images/"
-                path.append(user.uid)
-                path.append("/")
-                path.append(currentNode.getType())
-                path.append("/")
-                path.append(currentNode.name)
-                path.append(".png")
-//                path.append(uid).append("/").append(type).append("/").append(name).append(".png")
-                let wordImagesRef = Storage.storage().reference(withPath: path)
-                
-                // Upload the file to the correct location
-                let _ = wordImagesRef.putData(data, metadata: nil) { (metadata, error) in
-                    guard let metadata = metadata else {
-                        // Uh-oh, an error occurred!
-                        print("Uh-oh, an error occurred! \(String(describing: error))")
-                        return
-                    }
-                    // Metadata contains file metadata such as size, content-type, and download URL.
-                    let downloadURL = metadata.downloadURL
-                    self.collectionView?.reloadData()
-                }
+//                // Create a reference to the image location
+////                let wordImagesRef = storageRef.child((user?.uid)! + "/images/" + (self.currentNode?e.name)! + ".png")
+//                // Create a reference to the image location
+//                var path = "images/"
+//                path.append(user.uid)
+//                path.append("/")
+//                path.append(currentNode.getType())
+//                path.append("/")
+//                path.append(currentNode.name)
+//                path.append(".png")
+////                path.append(uid).append("/").append(type).append("/").append(name).append(".png")
+//                let wordImagesRef = Storage.storage().reference(withPath: path)
+//
+//                // Upload the file to the correct location
+//                let _ = wordImagesRef.putData(data, metadata: nil) { (metadata, error) in
+//                    guard let metadata = metadata else {
+//                        // Uh-oh, an error occurred!
+//                        print("Uh-oh, an error occurred! \(String(describing: error))")
+//                        return
+//                    }
+//                    // Metadata contains file metadata such as size, content-type, and download URL.
+//                    let downloadURL = metadata.downloadURL
+//                    self.collectionView?.reloadData()
+//                }
                 
                 let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
                 let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
@@ -336,6 +363,7 @@ extension VocabViewController {
                             catch let error as NSError {return}
                         }
                     }
+                    self.collectionView?.reloadData()
                 }
 //                }
 

@@ -1,12 +1,12 @@
 {
-    "images" : [
-      {
-        "idiom" : "universal",
-        "filename" : "flapped_img.png"
-      }
-    ],
-    "info" : {
-      "version" : 1,
-      "author" : "xcode"
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "flapped.png"
     }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   }
+}

@@ -1,12 +1,12 @@
 {
-    "images" : [
-      {
-        "idiom" : "universal",
-        "filename" : "positive_img.png"
-      }
-    ],
-    "info" : {
-      "version" : 1,
-      "author" : "xcode"
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "positive.png"
     }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   }
+}

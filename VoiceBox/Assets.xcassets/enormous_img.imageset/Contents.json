@@ -1,12 +1,12 @@
 {
-    "images" : [
-      {
-        "idiom" : "universal",
-        "filename" : "enormous_img.png"
-      }
-    ],
-    "info" : {
-      "version" : 1,
-      "author" : "xcode"
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "enormous.png"
     }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   }
+}

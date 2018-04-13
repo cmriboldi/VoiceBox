@@ -1,12 +1,12 @@
 {
-    "images" : [
-      {
-        "idiom" : "universal",
-        "filename" : "smashed_img.png"
-      }
-    ],
-    "info" : {
-      "version" : 1,
-      "author" : "xcode"
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "smashed.png"
     }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   }
+}

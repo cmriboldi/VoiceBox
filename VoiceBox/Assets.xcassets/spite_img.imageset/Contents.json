@@ -1,12 +1,12 @@
 {
-    "images" : [
-      {
-        "idiom" : "universal",
-        "filename" : "spite_img.png"
-      }
-    ],
-    "info" : {
-      "version" : 1,
-      "author" : "xcode"
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "spite.png"
     }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
   }
+}

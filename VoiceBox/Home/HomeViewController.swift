@@ -13,7 +13,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Constants
     private struct Constants {
@@ -31,15 +31,16 @@ class HomeViewController: UIViewController {
     var topLikelyNextWords = [Word]()
     var allLikelyNextWords = [Word]()
     var transitionThumbnail: UIImageView?
+    let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var sentenceCollectionView: UICollectionView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var mainWord: UIView!
     @IBOutlet var wordButtons: [UIView]!
     @IBOutlet weak var searchButton: UIView!
-    @IBAction func getImages(_ sender: Any) {
-        SearchImagesAPI.searchImages(self.currentWord.value, callback: imagesCallback)
-    }
+//    @IBAction func getImages(_ sender: Any) {
+//        SearchImagesAPI.searchImages(self.currentWord.value, callback: imagesCallback)
+//    }
     
     
     func initializeSentence() {
@@ -52,6 +53,8 @@ class HomeViewController: UIViewController {
     // MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
         
         if let navController = self.navigationController {
             navController.isNavigationBarHidden = true
@@ -243,7 +246,21 @@ class HomeViewController: UIViewController {
             self.populateWordButtons()
         }
     }
-
+    
+    @objc func handleMainLongPress(_ sender: UILongPressGestureRecognizer!) {
+        if sender.state != .ended {return}
+        
+        if let indexPath = mainWord.subviews.last {
+            // Get the long-pressed cell.
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .photoLibrary
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else {print("Could not find index path.")}
+    }
+    
     func populateWordButtons(closure: (() -> Void)? = nil) {
         mainWord.subviews.forEach({ $0.removeFromSuperview() })
 //        if self.currentWord.value != "" {
@@ -251,6 +268,7 @@ class HomeViewController: UIViewController {
         mainWordView.setTitle(self.getWordText(word: currentWord))
         mainWord.addSubview(mainWordView)
 //        }
+        mainWordView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleMainLongPress(_:))))
         
         for i in 0..<Constants.numberOfNextWords {
             let wordButton = self.wordButtons[i]
@@ -452,5 +470,33 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 91, height: 91)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension HomeViewController {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            if let data = UIImagePNGRepresentation(pickedImage) {
+                let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+                let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+                let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+                if paths.count > 0 {
+                    if let dirPath = paths.first {
+                        if let writePath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(self.currentWord.value + "_img.png") {
+                            do {try data.write(to: writePath, options: .atomic)}
+                            catch let error as NSError {return}
+                        }
+                    }
+                    self.populateWordButtons()
+//                    self.sentence
+                }
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -225,14 +225,6 @@
                                             <constraint firstAttribute="width" constant="150" id="dCM-2n-ta5"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cds-35-gnR">
-                                        <rect key="frame" x="8" y="95" width="133" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Get Images"/>
-                                        <connections>
-                                            <action selector="getImages:" destination="BYZ-38-t0r" eventType="touchUpInside" id="daL-sF-gCd"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

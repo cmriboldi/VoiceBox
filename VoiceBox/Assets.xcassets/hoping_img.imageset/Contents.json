@@ -1,0 +1,12 @@
+{
+    "images" : [
+      {
+        "idiom" : "universal",
+        "filename" : "hoping.png"
+      }
+    ],
+    "info" : {
+      "version" : 1,
+      "author" : "xcode"
+    }
+  }

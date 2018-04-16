@@ -1,0 +1,12 @@
+{
+    "images" : [
+      {
+        "idiom" : "universal",
+        "filename" : "fattened.png"
+      }
+    ],
+    "info" : {
+      "version" : 1,
+      "author" : "xcode"
+    }
+  }

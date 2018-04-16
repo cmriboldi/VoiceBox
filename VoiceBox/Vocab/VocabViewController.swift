@@ -120,17 +120,17 @@ final class VocabViewController: UICollectionViewController, UIImagePickerContro
         self.nodes = vocabulary.getNodes(parentName: "", search: self.isSearching)
         self.pathTraveled.append("")
         
-        for folder in (vocabulary.getChildren())! {
-            if folder.name < "W" {continue}
-            let loadedWords = VocabDatabase.shared.getWords(withPrefix: folder.name.lowercased()).sorted{$0.value < $1.value}
-
-            for word in loadedWords {
-                SearchImagesAPI.searchImages(word.value, callback: imagesCallback)
-//                if vocabulary.findWord(word: word.value, parent: self.pathTraveled[self.pathTraveled.count - 1]) == "" {
-//                    vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: word.imageName), parentName: folder.name)
-//                }
-            }
-        }
+//        for folder in (vocabulary.getChildren())! {
+////            if folder.name < "W" {continue}
+//            let loadedWords = VocabDatabase.shared.getWords(withPrefix: folder.name.lowercased()).sorted{$0.value < $1.value}
+//
+//            for word in loadedWords {
+//                SearchImagesAPI.searchImages(word.value, callback: imagesCallback)
+////                if vocabulary.findWord(word: word.value, parent: self.pathTraveled[self.pathTraveled.count - 1]) == "" {
+////                    vocabulary.addChild(child: VocabularyWord(name: word.value, imageName: word.imageName), parentName: folder.name)
+////                }
+//            }
+//        }
         
 //        let words = self.vocabulary.getAllWords()
 //        for word in words {

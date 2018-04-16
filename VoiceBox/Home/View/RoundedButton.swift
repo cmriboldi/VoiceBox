@@ -32,12 +32,12 @@ import IBAnimatable
         super.init(coder: aDecoder)
     }
     
-    func setup(frame: CGRect, image: UIImage?, needsBorder: Bool, cornerRadius: CGFloat = 0.15) {
+    func setup(frame: CGRect, image: UIImage?, needsBorder: Bool, cornerRadius: CGFloat = 0.15, color: UIColor = UIColor.white) {
         self.frame = CGRect.init(x: 0.0, y: 0.0, width: frame.width, height: frame.height)
         let margins = self.layoutMarginsGuide
         // configure border layout.
         self.cornerRadius = cornerRadius * bounds.size.width
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = color
         self.borderWidth = 2
         self.clipsToBounds = true
         if needsBorder {self.borderColor = UIColor.black}
@@ -50,14 +50,14 @@ import IBAnimatable
             // configure image layout
             wordImage.image = image
             wordImage.contentMode = .scaleAspectFit
-            wordImage.backgroundColor = UIColor.white
+            wordImage.backgroundColor = color
             wordImage.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
             wordImage.topAnchor.constraint(equalTo: margins.topAnchor)
             wordImage.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
             wordImage.bottomAnchor.constraint(equalTo: wordLabel.topAnchor)
             
             // configure label layout
-            wordLabel.backgroundColor = UIColor.white
+            wordLabel.backgroundColor = color
             wordLabel.textAlignment = .center
             wordLabel.font = UIFont.systemFont(ofSize: 30.0, weight: .bold)
             wordLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
@@ -86,7 +86,7 @@ import IBAnimatable
             wordLabel = UILabel(frame: CGRect.init(x: 0.0, y: cenetedYPosition, width: frame.width-Constants.labelWidthOffset, height: Constants.labelHeight))
             
             // configure label layout
-            wordLabel.backgroundColor = UIColor.white
+            wordLabel.backgroundColor = color
             wordLabel.textAlignment = .center
             wordLabel.font = UIFont.systemFont(ofSize: 30.0, weight: .bold)
             wordLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor)

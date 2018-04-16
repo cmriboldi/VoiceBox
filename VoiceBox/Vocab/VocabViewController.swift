@@ -237,7 +237,7 @@ extension VocabViewController {
         
         if let frame = cell.wordView?.frame {
             if let node = node as? Folder {
-                cell.wordView?.setup(frame: frame, image: node.image, needsBorder: true, cornerRadius: 0.50)
+                cell.wordView?.setup(frame: frame, image: node.image, needsBorder: true, cornerRadius: 0.50, color: UIColor.yellow)
             }
             else {
                 cell.wordView?.setup(frame: frame, image: node.image, needsBorder: true)

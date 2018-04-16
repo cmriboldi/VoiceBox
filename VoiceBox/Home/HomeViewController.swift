@@ -111,7 +111,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         select(newWord: newWord)
         
-        SearchImagesAPI.searchImages(newWord.value, callback: imagesCallback)
+//        SearchImagesAPI.searchImages(newWord.value, callback: imagesCallback)
         
 //        let pressedCenterCornerX = Double(button.center.x) - Double(button.bounds.width / 2)
 //        let pressedCenterCornerY = Double(button.center.y) - Double(button.bounds.height / 2)
